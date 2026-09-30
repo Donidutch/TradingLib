@@ -1,0 +1,139 @@
+<!doctype html>
+<html lang="en" data-prototype-version="v5">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>TRADINGLIB — research console</title>
+
+<!-- Captured before anything can rewrite location.hash, so a deep link
+     (#tl/lab/backtests, #stock/NVDA, …) survives boot. router.js reads it. -->
+<script>window.__launchHash = location.hash;</script>
+
+<!-- REFERENCE style blocks, verbatim and in original order (SPEC D1a). -->
+<link rel="stylesheet" href="/css/01-tokens.css">
+<link rel="stylesheet" href="/css/02-ac-scoped.css">
+<link rel="stylesheet" href="/css/03-market-data-v2.css">
+<link rel="stylesheet" href="/css/04-source-catalog-v3.css">
+<link rel="stylesheet" href="/css/05-agent-pipeline-v4.css">
+<link rel="stylesheet" href="/css/06-agent-control-v5.css">
+<link rel="stylesheet" href="/css/07-ac-in-tl.css">
+<link rel="stylesheet" href="/css/08-strategy-lab-v6.css">
+<!-- The eleven stylesheets REFERENCE appends from JavaScript (window.TL.style),
+     concatenated verbatim in reference order. Same D1a reuse, later source. -->
+<link rel="stylesheet" href="/css/09-runtime-injected.css">
+
+<!-- Self-hosted vendor charting libraries (SPEC D2). -->
+<link rel="stylesheet" href="/vendor/uPlot.min.css">
+</head>
+<body>
+
+<!-- ================================ SHELL ================================ -->
+<div class="topbar">
+  <button class="search" id="globalSearch" type="button" aria-label="Search the research app">
+    ⌕ <span>Search the entire research app…</span><span class="kbd">⌘K</span>
+  </button>
+  <div class="top-right">
+    <!-- components/pick.js prepends the PICK / count / Export bar here. -->
+    <span>UNIVERSE
+      <select id="universeSelect" aria-label="Universe">
+        <option value="">loading…</option>
+      </select>
+    </span>
+    <span id="engineHealth" class="dim">● ENGINE …</span>
+    <span id="clock">--:--:-- ET</span>
+  </div>
+</div>
+
+<!-- Every figure below comes from /api/status and the `status` WS channel.
+     Placeholders are em-dashes, never invented numbers. -->
+<div class="datastrip" id="datastrip">
+  <span id="dsDataLive" class="dim">● DATA …</span>
+  <span id="dsGateway">GATEWAY —</span>
+  <span id="dsSources">— SOURCES CONNECTED</span>
+  <span id="dsLastIngest">LAST INGEST —</span>
+  <span id="dsDelayed">— DELAYED SERIES</span>
+  <span id="dsTrials" style="margin-left:auto">TRIALS LOGGED <b class="hi">—</b></span>
+  <span id="dsSpend">SPEND —</span>
+</div>
+
+<div class="layout">
+  <!-- Rail buttons address workspaces: data-key is the page-registration key,
+       data-src picks the DOM tree ("ac" when omitted, "tl" for the lab). -->
+  <nav class="rail" id="rail" aria-label="Workspaces">
+    <div class="sep">RESEARCH</div>
+    <button class="navitem active" type="button" data-key="overview" aria-current="page">⌂ <span class="lbl">Overview</span></button>
+    <button class="navitem" type="button" data-key="stock">⌕ <span class="lbl">Stock Research</span></button>
+    <button class="navitem" type="button" data-src="tl" data-key="lab">⚗ <span class="lbl">Strategy Lab</span></button>
+    <button class="navitem" type="button" data-key="agents">A <span class="lbl">Agent Center</span></button>
+    <button class="navitem" type="button" data-key="data">D <span class="lbl">Market &amp; Data</span></button>
+    <div class="sep">PLATFORM</div>
+    <button class="navitem" type="button" data-key="docs">? <span class="lbl">Documentation</span></button>
+    <button class="navitem" type="button" data-key="settings">⚙ <span class="lbl">Settings</span></button>
+  </nav>
+
+  <main class="main" id="main" tabindex="-1">
+    <!-- Agent-center tree. Its stylesheet is scoped to #ac-root, so every
+         workspace that uses those classes must live in here. -->
+    <div id="ac-root">
+      <section class="view active" id="view-overview"></section>
+      <section class="view" id="view-stock"></section>
+      <section class="view" id="view-agents"></section>
+      <section class="view" id="view-data"></section>
+      <section class="view" id="view-docs"></section>
+      <section class="view" id="view-settings"></section>
+    </div>
+
+    <!-- TL tree, outside #ac-root so the scoped agent-center stylesheet cannot
+         reach it. Strategy Lab's stylesheet is scoped to #page-lab. -->
+    <div id="tl-root" hidden>
+      <section class="page" id="page-lab"></section>
+    </div>
+  </main>
+</div>
+
+<!-- Overlay tree. .palette and .toast are styled only beneath `.ac` (or
+     #ac-root), and #ac-root is hidden whenever a TL page is showing — so the
+     overlays get their own always-visible `.ac` host. The inline overrides
+     cancel `.ac`'s full-bleed background/min-height; the token definitions on
+     `.ac` (--text, --panel2, --shadow, …) are what the overlay rules need. -->
+<div id="overlay-root" class="ac" style="min-height:0;background:none">
+  <div class="palette" id="palette" role="dialog" aria-modal="true" aria-label="Command palette">
+    <div class="palette-box">
+      <input class="palette-input" id="paletteInput" type="text" autocomplete="off"
+             spellcheck="false" placeholder="Search or jump to…" aria-label="Command palette search">
+      <div class="palette-actions" id="paletteActions"></div>
+    </div>
+  </div>
+  <div class="toast" id="toast" role="status" aria-live="polite"></div>
+</div>
+
+<!-- Vendor charting libraries (self-hosted, SPEC D2). -->
+<script src="/vendor/lightweight-charts.standalone.production.js"></script>
+<script src="/vendor/uPlot.iife.min.js"></script>
+
+<!-- Shared render helpers. Plain scripts in dependency order, no build step. -->
+<script src="/js/components/dom.js"></script>
+<script src="/js/components/toast.js"></script>
+<script src="/js/components/charts.js"></script>
+<script src="/js/components/pick.js"></script>
+
+<!-- Services. -->
+<script src="/js/api.js"></script>
+<script src="/js/stream.js"></script>
+<script src="/js/router.js"></script>
+<script src="/js/palette.js"></script>
+
+<!-- Workspace modules. Each one calls AlgoPages.register(key, {mount, unmount});
+     see the header comment in js/router.js for the contract. -->
+<script src="/js/pages/overview.js"></script>
+<script src="/js/pages/stock.js"></script>
+<script src="/js/pages/lab.js"></script>
+<script src="/js/pages/agents.js"></script>
+<script src="/js/pages/data.js"></script>
+<script src="/js/pages/docs.js"></script>
+<script src="/js/pages/settings.js"></script>
+
+<!-- Boot wiring: clock, datastrip, universe selector, engine health, router. -->
+<script src="/js/app.js"></script>
+</body>
+</html>

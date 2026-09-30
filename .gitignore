@@ -1,0 +1,10 @@
+.venv/
+__pycache__/
+*.py[cod]
+# Anchored: the runtime data directory at the repo root only. A bare "data/"
+# also matched tradinglib/data/, which is source code, and left the whole package
+# untracked.
+/data/
+tradinglib.toml
+.pytest_cache/
+*.egg-info/

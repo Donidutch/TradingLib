@@ -1,0 +1,37 @@
+# TradingLib optional configuration. Copy to tradinglib.toml and fill in what you have.
+# Environment variables override every value here.
+# Absent keys mean "not configured" - TradingLib reports that honestly instead of
+# substituting data from elsewhere.
+
+[keys]
+# anthropic = "sk-ant-..."     # optional: claude-agent-sdk can also use Claude Code CLI auth
+# openai    = "sk-..."
+# fred      = "..."            # optional: FRED CSV endpoints work without a key
+
+[keys.alpaca]
+# key_id     = "..."
+# secret_key = "..."
+paper = true
+feed  = "iex"
+
+[budgets]
+per_run_usd = 1.0
+daily_usd   = 10.0
+monthly_usd = 100.0
+
+[data]
+dir = "data"
+
+[server]
+host = "127.0.0.1"
+port = 8200
+log_level = "info"
+
+[defaults]
+universe  = "us-quality-50"
+benchmark = "SPY"
+timezone  = "America/New_York"
+
+[edgar]
+# SEC requires a contactable identity on every request.
+user_agent = "TradingLib Research (you@example.com)"

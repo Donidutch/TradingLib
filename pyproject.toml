@@ -1,0 +1,50 @@
+[build-system]
+requires = ["setuptools>=77", "wheel"]
+build-backend = "setuptools.build_meta"
+
+[project]
+name = "tradinglib"
+version = "0.1.0"
+description = "Trading research library with Claude agent pipelines, a FastAPI service and a research console. Paper trading by default; a human approves every candidate."
+readme = "README.md"
+requires-python = ">=3.14"
+license = "MIT"
+license-files = ["LICENSE"]
+authors = [{ name = "Nicklas Sambleben" }]
+
+dependencies = [
+    "fastapi>=0.141",
+    "uvicorn[standard]>=0.52",
+    "sqlalchemy>=2.0",
+    "duckdb>=1.5",
+    "pyarrow>=25.0",
+    "pandas>=3.0",
+    "numpy>=2.5",
+    "scipy>=1.18",
+    "yfinance>=1.7",
+    "alpaca-py>=0.44",
+    "pytrends>=4.9",
+    "httpx>=0.28",
+    "apscheduler>=3.11",
+    "claude-agent-sdk>=0.2",
+    "openai>=3.5",
+    "ib_async>=2.1",
+    "vaderSentiment>=3.3",
+    "websockets>=17.0",
+]
+
+[project.optional-dependencies]
+test = ["pytest>=9.0", "pytest-asyncio>=1.4"]
+
+[tool.setuptools.packages.find]
+where = ["."]
+include = ["tradinglib*"]
+
+[tool.pytest.ini_options]
+testpaths = ["tests"]
+asyncio_mode = "auto"
+asyncio_default_fixture_loop_scope = "function"
+filterwarnings = ["ignore::DeprecationWarning"]
+markers = [
+    "network: hits live vendor APIs; skipped unless TRADINGLIB_NETWORK_TESTS=1",
+]

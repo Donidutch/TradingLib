@@ -1,0 +1,269 @@
+/* TradingLib — reference CSS that TL_RESEARCH injects from JavaScript at runtime.
+ *
+ * The reference file carries eight <style> blocks (ui/css/01..08) AND eleven more
+ * stylesheets handed to its `window.TL.style(css)` helper, which appends them to
+ * <head> as the scripts that need them load. Those eleven are reference CSS just
+ * as much as the tags are, so under SPEC D1a they are reused verbatim here, in
+ * the reference's own order, one comment per block naming its source line.
+ *
+ * Nothing below is edited: this file is a concatenation, not a rewrite.
+ */
+
+/* ===== TL_RESEARCH — agent-center.html line 6176 ===== */
+    /* v4's stylesheet covers the strip, config, inspector and runs table. Only
+       the parts that did not exist in v4 need rules. */
+    #v5Workspace .v5x-strip-actions{
+      display:flex; gap:6px; padding:10px 11px; border-top:1px solid var(--line2);
+    }
+    #v5Workspace .v5x-strip-actions .btn{ font-size:11px }
+    #v5Workspace .v5x-catalog{
+      display:grid; gap:5px; padding:0 11px 11px;
+    }
+    #v5Workspace .v5x-catalog button{
+      display:grid; grid-template-columns:1fr auto; align-items:center; gap:2px 10px;
+      padding:8px 10px; border:1px solid var(--line2); border-radius:4px;
+      background:var(--bg); color:var(--txt); text-align:left; cursor:pointer;
+    }
+    #v5Workspace .v5x-catalog button:hover{ border-color:var(--blu) }
+    #v5Workspace .v5x-catalog b{ font-size:12px }
+    #v5Workspace .v5x-catalog small{ grid-column:1; color:var(--dim); font-size:10px }
+    #v5Workspace .v5x-catalog strong{ grid-row:1/3; color:var(--blu); font-size:11px }
+    /* Stage operations sit in the config header: the strip's cards are single
+       <button> elements, so controls cannot be nested inside them. */
+    #v5Workspace .v5x-config-title{ display:flex; align-items:center; gap:10px }
+    #v5Workspace .v5x-stage-ops{ display:flex; gap:4px; margin-left:auto }
+    #v5Workspace .v5x-stage-ops button{
+      border:1px solid var(--line2); border-radius:4px; background:var(--bg);
+      color:var(--mid); font:inherit; font-size:10px; padding:2px 7px; cursor:pointer;
+    }
+    #v5Workspace .v5x-stage-ops button:hover:not(:disabled){ color:var(--txt); border-color:var(--blu) }
+    #v5Workspace .v5x-stage-ops button:disabled{ opacity:.35; cursor:not-allowed }
+    #v5Workspace .v5x-link{
+      appearance:none; background:none; border:0; padding:0; font:inherit;
+      color:var(--blu); text-decoration:underline; cursor:pointer;
+    }
+    #v5Workspace .pipeline-run-table th{ text-align:left; white-space:nowrap }
+    #v5Workspace .v5x-cmp-hint{ margin-left:12px; color:var(--dim); font-size:10px }
+    #v5Workspace .kv{ display:flex; justify-content:space-between; gap:14px; padding:3px 0 }
+  
+
+/* ===== TL_RESEARCH — agent-center.html line 6345 ===== */
+    /* Flat nav: no group labels, no vertical rules. */
+    #controlRoomV5 .v5-nav-group > span:empty{ display:none }
+    #controlRoomV5 .v5-nav{ overflow-x:auto }
+    #controlRoomV5 .v5-nav button{ position:relative }
+    /* Attention count, in place of the group labels. */
+    #controlRoomV5 .v5-count{
+      display:inline-block; min-width:15px; margin-left:7px; padding:0 4px;
+      border-radius:8px; background:var(--amb); color:#1a1204;
+      font:600 10px/15px ui-monospace,monospace; text-align:center; vertical-align:top;
+    }
+    /* Section headings inside a merged tab. */
+    #controlRoomV5 .v5-merged + .v5-merged{ margin-top:18px }
+    #controlRoomV5 .v5-merged-head{
+      display:flex; align-items:center; gap:8px; margin:0 0 9px;
+      color:var(--dim); font-size:10px; letter-spacing:1.1px; text-transform:uppercase;
+    }
+    #controlRoomV5 .v5-merged-head::after{
+      content:""; flex:1; height:1px; background:var(--line);
+    }
+  
+
+/* ===== TL_RESEARCH — agent-center.html line 6733 ===== */
+    /* Two rows: Agent Center's own tabs, then the TL candidates. 14 tabs cannot
+       fit one row, and scrolling would hide half the set while deciding. */
+    #controlRoomV5 .v5-nav{ flex-wrap:wrap; overflow:visible }
+    /* One group now -- no forced second row and no separator. min-width:0 on
+       both the group and its button row is what actually lets them wrap: as
+       flex items they default to min-width:auto, which is their content width,
+       so at ~1100px the nav overflowed sideways and took the page with it
+       instead of moving a tab to a second line. */
+    #controlRoomV5 .v5-nav-group{
+      flex:1 1 100%; min-width:0; display:flex; align-items:center; gap:6px; flex-wrap:wrap;
+    }
+    #controlRoomV5 .v5-nav-group > div{
+      flex:1 1 auto; min-width:0; display:flex; flex-wrap:wrap; gap:6px;
+    }
+    /* Provenance on everything imported, so the cull is navigable. */
+    .tl-import{ position:relative; display:block }
+    .tl-import + .tl-import{ margin-top:14px }
+    .tl-import::before{
+      content:attr(data-from); position:absolute; top:-8px; right:10px; z-index:3;
+      background:var(--panel); border:1px solid var(--line2); border-radius:4px;
+      padding:1px 6px; font:9px/1.5 ui-monospace,monospace; letter-spacing:.6px;
+      color:var(--amb);
+    }
+    /* Findings table upgrades taken from TL. */
+    .tl-finding-link{
+      appearance:none; background:none; border:0; padding:0; font:inherit;
+      color:var(--blu); text-decoration:underline; text-underline-offset:2px; cursor:pointer;
+    }
+    .tl-finding-link:hover{ color:var(--hi) }
+    .tl-status{ font-size:11px }
+    .tl-grn{ color:var(--grn) } .tl-amb{ color:var(--amb) } .tl-dim{ color:var(--dim) }
+    .tl-pct{ font-variant-numeric:tabular-nums }
+  
+
+/* ===== TL_RESEARCH — agent-center.html line 6856 ===== */
+    /* The strip arrives with TL's inline flex layout; only its spacing needs to
+       suit sitting directly above the Inbox toolbar. */
+    #v5Workspace .v5x-ov-strip{ margin:0 0 12px }
+    #v5Workspace .v5x-ov-panels{ margin-top:14px }
+  
+
+/* ===== TL_RESEARCH — agent-center.html line 7177 ===== */
+    #v5Workspace .asm-inventory{ margin-bottom:12px }
+    #v5Workspace .asm-filters{ display:flex; gap:5px; padding:9px 11px; border-bottom:1px solid var(--line) }
+    #v5Workspace .asm-filters button{
+      background:transparent; border:1px solid var(--line2); border-radius:6px;
+      color:var(--mid); font:inherit; font-size:11px; padding:3px 9px; cursor:pointer;
+    }
+    #v5Workspace .asm-filters button[aria-pressed="true"]{ background:#101d33; border-color:var(--blu); color:var(--blu) }
+    #v5Workspace .asm-scroll{ overflow-x:auto }
+    #v5Workspace .asm-table{ width:100%; border-collapse:collapse; font-size:11px }
+    #v5Workspace .asm-table th{
+      text-align:left; font-weight:400; color:var(--dim); font-size:10px; letter-spacing:.6px;
+      padding:7px 10px; border-bottom:1px solid var(--line); white-space:nowrap;
+    }
+    #v5Workspace .asm-table td{ padding:7px 10px; border-bottom:1px solid var(--line); vertical-align:middle }
+    #v5Workspace .asm-table tbody tr{ cursor:pointer }
+    #v5Workspace .asm-table tbody tr:hover{ background:var(--panel2) }
+    #v5Workspace .asm-table tbody tr[aria-selected="true"]{ background:#141d32; box-shadow:inset 2px 0 0 var(--blu) }
+    #v5Workspace .asm-r{ text-align:right }
+    #v5Workspace .asm-name{ color:var(--hi) }
+    #v5Workspace .asm-sub{ color:var(--dim); font-size:10px }
+    #v5Workspace .asm-dim{ color:var(--dim) }
+    #v5Workspace .asm-grn{ color:var(--grn) } #v5Workspace .asm-red{ color:var(--red) }
+    #v5Workspace .asm-amb{ color:var(--amb) } #v5Workspace .asm-dim{ color:var(--dim) }
+    #v5Workspace .asm-tag{
+      font-size:10px; color:var(--blu); background:#101a2e; border:1px solid #27406e;
+      border-radius:3px; padding:0 5px; margin-left:6px;
+    }
+    #v5Workspace .asm-tag.none{ color:var(--dim); background:transparent; border-color:var(--line2) }
+    #v5Workspace .asm-kind{ font-size:10px; border-radius:999px; padding:1px 7px; border:1px solid; white-space:nowrap }
+    #v5Workspace .asm-kind.stage{ color:var(--blu); border-color:#27406e; background:#101a2e }
+    #v5Workspace .asm-kind.worker{ color:var(--grn); border-color:#1d5443; background:#0c1d1a }
+    #v5Workspace .asm-bar{
+      display:inline-block; width:52px; height:4px; border-radius:2px; background:var(--line2);
+      overflow:hidden; vertical-align:middle; margin-right:6px;
+    }
+    #v5Workspace .asm-bar i{ display:block; height:100%; background:var(--grn) }
+    #v5Workspace .asm-bar i.full{ background:var(--red) }
+    #v5Workspace .asm-tabs{ display:flex; gap:4px; padding:8px 10px; border-bottom:1px solid var(--line); flex-wrap:wrap }
+    #v5Workspace .asm-tabs button{
+      background:transparent; border:1px solid transparent; border-radius:5px;
+      color:var(--dim); font:inherit; font-size:11px; padding:4px 9px; cursor:pointer;
+    }
+    #v5Workspace .asm-tabs button[aria-selected="true"]{ border-color:var(--line2); background:var(--panel2); color:var(--hi) }
+    #v5Workspace .asm-pane{ padding:12px }
+    #v5Workspace .asm-box{
+      border:1px solid var(--line2); border-radius:5px; background:var(--inset);
+      padding:10px; margin-bottom:10px;
+    }
+    #v5Workspace .asm-box label{ display:block; color:var(--dim); font-size:10px; letter-spacing:.6px; margin-bottom:5px }
+    #v5Workspace .asm-kv{ display:flex; justify-content:space-between; gap:14px; padding:3px 0 }
+    #v5Workspace .asm-kv span:first-child{ color:var(--dim) }
+    #v5Workspace .asm-empty{
+      margin:12px; padding:18px; border:1px dashed var(--line2); border-radius:5px;
+      text-align:center; color:var(--dim); font-size:11px;
+    }
+    #v5Workspace .asm-link{
+      appearance:none; background:none; border:0; padding:0 0 0 6px; font:inherit;
+      color:var(--blu); text-decoration:underline; cursor:pointer;
+    }
+  
+
+/* ===== TL_RESEARCH — agent-center.html line 7639 ===== */
+    #tl-universe-tables{margin-top:12px}
+    #tl-universe-tables .panel{padding:12px;overflow:visible}
+    #tl-universe-tables .tbl{width:100%;border-collapse:collapse}
+    #tl-universe-tables input[type=range]{flex:1;accent-color:var(--blu)}
+    #tl-universe-tables .sec-head{
+      display:flex;align-items:center;gap:8px;margin:18px 0 8px;
+      color:var(--dim);font-size:10px;letter-spacing:1px;
+    }
+    #tl-universe-tables .sec-head::after{content:"";flex:1;height:1px;background:var(--line)}
+    /* The collections table above is now a selector. */
+    #collectionRows tr{cursor:pointer}
+    #collectionRows tr:hover{background:#101627}
+    #collectionRows tr[aria-selected="true"]{
+      background:#101d33;box-shadow:inset 2px 0 var(--blu);
+    }
+    #collectionRows tr:focus-visible{outline:2px solid var(--blu);outline-offset:-2px}
+  
+
+/* ===== TL_RESEARCH — agent-center.html line 8033 ===== */
+    #screen-wrap{display:grid;grid-template-columns:180px minmax(0,1fr);gap:11px;margin-top:11px}
+    #screen-wrap .rule-row{
+      display:grid;grid-template-columns:minmax(0,1fr) auto;gap:8px;
+      align-items:center;padding:6px 0;border-bottom:1px solid var(--line2);
+    }
+    #screen-wrap .rule-parts{display:flex;gap:6px;align-items:center;flex-wrap:wrap;min-width:0}
+    #screen-wrap .rule-parts .select,#screen-wrap .rule-parts .input{height:26px;padding:0 6px}
+    #screen-wrap .rule-parts .input{width:78px}
+    #screen-wrap .funnel{color:var(--dim);white-space:nowrap;font-size:11px}
+    #screen-wrap .funnel b{color:var(--txt)}
+    #screen-wrap .funnel.last b{color:var(--grn)}
+    #screen-wrap .rule-drop{
+      appearance:none;background:transparent;border:0;color:var(--dim);
+      cursor:pointer;font:inherit;padding:0 4px;
+    }
+    #screen-wrap .rule-drop:hover{color:var(--red)}
+    #screen-results{display:grid;grid-template-columns:minmax(0,1fr) 300px;gap:11px;margin-top:11px}
+    #saved-screens .rowitem{cursor:pointer}
+    #screen-query{
+      display:none;margin-top:8px;font:11px/1.6 ui-monospace,monospace;
+      background:var(--inset);border:1px solid var(--line2);border-radius:8px;padding:10px;
+    }
+    #screen-query.open{display:block}
+  
+
+/* ===== TL_RESEARCH — agent-center.html line 8332 ===== */
+    #pollBlock .poll-note{margin-top:6px;line-height:1.5}
+    #pollBlock .poll-custom{width:88px;margin-left:6px}
+    #pollBlock .frequency-options{flex-wrap:wrap}
+  
+
+/* ===== TL_RESEARCH — agent-center.html line 8504 ===== */
+    #dq-wrap{display:grid;grid-template-columns:minmax(0,1.5fr) minmax(0,1fr);gap:11px;margin-top:11px}
+    #dq-wrap .outlier{padding:10px 0;border-bottom:1px solid var(--line2)}
+    #dq-wrap .outlier:last-child{border-bottom:0}
+    #dq-wrap .outlier.done{opacity:.55}
+    #dq-wrap .outlier b{display:block;font-weight:600}
+    #dq-wrap .outlier .meta{display:block;color:var(--dim);font-size:11px;margin-top:3px}
+    #dq-wrap .outlier .acts{display:flex;gap:6px;margin-top:7px;flex-wrap:wrap}
+    #dq-wrap .outlier .acts .btn{padding:2px 8px;font-size:11px}
+    #dq-wrap .suggested{outline:1px solid var(--blu);outline-offset:1px}
+    #dq-note{
+      border:1px solid var(--amb);border-radius:8px;padding:10px 12px;margin-top:11px;
+      background:rgba(255,176,32,.06);line-height:1.55;
+    }
+    #dq-wrap .dq-undo{
+      appearance:none;background:transparent;border:0;color:var(--blu);
+      cursor:pointer;font:inherit;padding:0;text-decoration:underline;
+    }
+  
+
+/* ===== TL_RESEARCH — agent-center.html line 8693 ===== */
+    #active-subs{margin-top:11px}
+    #active-subs .dot{font-size:9px;vertical-align:middle}
+    #active-subs tr.fresh td{transition:background .6s}
+    #active-subs tr.fresh{background:rgba(46,230,168,.07)}
+  
+
+/* ===== TL_RESEARCH — agent-center.html line 8926 ===== */
+    /* Provenance marks on the parts borrowed from v4. */
+    #page-agents .ac[data-from]{ position:relative }
+    #page-agents .ac[data-from]::before{
+      content:attr(data-from); position:absolute; top:-7px; right:10px; z-index:2;
+      background:var(--panel); border:1px solid var(--line2); border-radius:4px;
+      padding:1px 6px; font-size:9px; letter-spacing:.6px; color:var(--amb);
+    }
+    /* PROGRESS column on TL's run log. */
+    #page-agents .prog{ display:inline-block; width:52px; height:5px; margin-right:6px;
+      background:var(--line2); border-radius:3px; overflow:hidden; vertical-align:middle }
+    #page-agents .prog i{ display:block; height:100%; background:var(--blu) }
+    #page-agents .prog i.done{ background:var(--grn) }
+    #page-agents .prog-pct{ font-size:10px; color:var(--mid) }
+    #page-agents .prog-pct.ok{ color:var(--grn) }
+  

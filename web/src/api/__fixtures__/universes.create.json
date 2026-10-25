@@ -1,0 +1,43 @@
+{
+  "id": "semis",
+  "name": "Semis",
+  "description": "test",
+  "builtin": false,
+  "source": "user",
+  "rule": "Manual symbols / Manual",
+  "active": false,
+  "symbol_count": 3,
+  "member_count": 3,
+  "created_at": "2026-10-25T17:47:51.097391+00:00",
+  "updated_at": "2026-10-25T17:47:51.097391+00:00",
+  "members_fetched_at": "2026-10-25T17:47:51.097391+00:00",
+  "members": [
+    {
+      "symbol": "NVDA",
+      "name": null,
+      "sector": null,
+      "weight": null,
+      "added_on": null,
+      "removed_on": null,
+      "source_symbol": null
+    },
+    {
+      "symbol": "AVGO",
+      "name": null,
+      "sector": null,
+      "weight": null,
+      "added_on": null,
+      "removed_on": null,
+      "source_symbol": null
+    },
+    {
+      "symbol": "TXN",
+      "name": null,
+      "sector": null,
+      "weight": null,
+      "added_on": null,
+      "removed_on": null,
+      "source_symbol": null
+    }
+  ]
+}

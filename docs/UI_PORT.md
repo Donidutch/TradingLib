@@ -332,13 +332,40 @@ token set rather than per-class overrides, so it covers every page of the app.
 
 ### S2 — Market & Data I: collections and screener (F.1, F.2: 31 rows)
 
-- [ ] Universes and watchlists: list, create, edit, delete, set active,
+- [x] Universes and watchlists: list, create, edit, delete, set active,
   members with point-in-time membership, snapshots and change log, refresh,
   coverage.
-- [ ] Screener: rule builder with live funnel counts from
+- [x] Screener: rule builder with live funnel counts from
   `POST /api/screens/preview`, save, run, alerts, and "Backtest this screen"
   creating a real lab backtest.
-- [ ] Routes `/data/collections` and `/data/screener`; tests; compare.
+- [x] Routes `/data/collections` and `/data/screener`; tests; compare.
+
+Done 2026-10-25. `tools/compare_consoles.py data`: 2 of 2 pages match (118
+figures, including the screener's live per-rule funnel counts); the full run
+over every ported page: 49 of 49 areas, 1,060 figures. Write checks cover every
+collection and screener write on the throwaway server. Notes: Delete now asks
+first (agreed in the plan); the copied select primitive takes a
+`wrapperClassName` so selects can sit inline; the membership announcement for
+screen readers is ported too, which the comparison caught.
+
+Map (`data.js` lines 386–2044 → `web/src/pages/data/`; COVERAGE.md F.1, F.2).
+Market & Data's frame is built here too; S3 adds its last three tabs, which
+until then open in the current console.
+
+| Area | Source | Shows and does | Empty / error |
+| --- | --- | --- | --- |
+| Frame | — | head "MARKET & DATA · Collections, screening, ingestion, and data quality", "+ New watchlist" and "+ New universe", five tabs as `/data/<tab>` | — |
+| Collections table | `GET /api/universes?include_members=true`, `GET /api/watchlists` | one row per universe and watchlist: name, type, construction (built-in, published constituents, description or manual), symbols, refresh, status (Active, Ready, Not fetched, Default); rows focusable, Enter selects; badge "n collections"; the "How collections work" card | "No universes or watchlists yet — …"; error in the table and the badge "failed" |
+| Point-in-time membership | `GET /api/universes/{id}/members?as_of=YYYY-06-30` (as-of slider 2016 → today), `GET /api/watchlists/{id}` | title "name · membership @ date", count, basis chip (snapshot, membership dates, current), up to 200 rows: ticker, name, added → removed, ACTIVE or REMOVED date; the survivorship note | "No members stored yet — use Refresh members"; "No members at this as-of date."; error row |
+| Actions | `POST /api/universes/active`, `POST …/refresh`, `POST …/snapshot`, `PUT`, `DELETE` | Set active (not on the active one), Refresh members (built-ins), Freeze snapshot, Edit, Delete (not built-ins; confirmed first, the agreed change); each with a toast | the server's reason in a toast |
+| Change log | `GET /api/universes/{id}/changelog?limit=6` | per snapshot: date, symbol count, net change, source; baseline note; + IN / − OUT with the rule that did it; Δ CORP and Δ RULE rows; rule footer "Rule def vN · rule" | "No snapshot recorded yet. …"; watchlists: "Watchlists carry no snapshot history." |
+| Coverage | `POST /api/screens/preview` with no rules at the as-of date, `GET /api/quality/datasets` | requested, evaluated, priced, fundamentals, options IV as n/m, toned complete or not; source and truncation note | "measuring…"; error; watchlists: "Coverage is computed for universes." |
+| Collection dialog | `POST /api/universes`, `POST /api/watchlists`, `PUT` either | type (fixed when editing), name, description, construction, refresh, symbols or rules, make default; ignored-field warning from the server | name required; the server's reason in a toast |
+| Screener: saved screens, base universe | `GET /api/screens`, `GET /api/universes` | saved list (active rules · universe), + NEW SCREEN, base universe select with its member note | "No saved screens yet. Running a screen saves it." |
+| Screener: criteria | `GET /api/screens/metrics`, `POST /api/screens/preview` per rule prefix | rule rows: field, operator (> < top pctl is …), value with unit ($bn for market cap, %, ×), scope for percentile rules, source; per-rule funnel "before → after" from real previews (debounced, newest wins); add and remove rule (at least one); rank by; "View as query" | funnel "preview failed" and a toast |
+| Screener: results | `POST /api/screens` or `PUT` (save), `POST /api/screens/{id}/run` | Run screen saves then runs; top 12 by the rank metric: #, symbol, composite (green ≥ 90), ROIC, momentum percentile; result profile: sector mix, median market cap, turnover vs last run, overlap with the live book; the run's own stage counts replace the previews; run warnings as toasts | "No names pass this screen — loosen a rule." |
+| Screener: actions | `POST /api/screens/{id}/queue-backtest`, `POST /api/universes`, `PUT /api/screens/{id}` tags, `POST /api/screens/alerts/check` | Backtest this screen (benchmark from Settings) then opens the backtest in the Strategy Lab (current console until S5); Save as universe (needs a run); Pin + alert | the server's reason in a toast |
+| Membership alerts | `GET /api/screens/alerts?limit=20`, `POST /api/screens/alerts/{id}/acknowledge`, `notifications` frames with `event: screen_alert` | watched count, monitor not running warning, alerts with age and count change, Acknowledge | "Pin a screen to watch its membership. …"; "No membership change since the baseline …" |
 
 ### S3 — Market & Data II: sources, ingestion, quality (F.3–F.5: 63 rows)
 

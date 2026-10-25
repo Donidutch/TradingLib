@@ -49,6 +49,7 @@ function PaletteDialog({ onClose }: { onClose: () => void }) {
     if (target.kind === "legacy") openLegacy(target.href);
     else if (target.to === "/stock/$symbol") void navigate({ to: target.to, params: { symbol: target.symbol } });
     else if (target.to === "/docs/$article") void navigate({ to: target.to, params: { article: target.article } });
+    else if (target.to === "/data/$tab") void navigate({ to: target.to, params: { tab: target.tab } });
     else if (target.to === "/") void navigate({ to: "/", search: target.symbol ? { symbol: target.symbol } : {} });
     else void navigate({ to: target.to });
   };

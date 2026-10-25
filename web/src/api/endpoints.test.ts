@@ -17,6 +17,13 @@ const fixture = (name: string): Record<string, unknown> =>
 const BROKEN: Record<string, [string, unknown]> = {
   status: ["engine_health", null],
   health: ["version", 1],
+  "universes.listWithMembers": ["universes", [{ id: "x" }]],
+  "universes.changelog": ["entries", [{ as_of: "2026-10-25" }]],
+  "screens.metrics": ["metrics", [{ key: "roic" }]],
+  "screens.list": ["screens", [{ id: "x" }]],
+  "screens.alerts": ["alerts", null],
+  "screens.preview": ["base_count", "50"],
+  "quality.datasets": ["datasets", [{ key: "x" }]],
   settings: ["keys", [{ provider: "fred" }]],
   search: ["results", {}],
   "universes.list": ["universes", null],

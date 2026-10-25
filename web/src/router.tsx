@@ -1,5 +1,5 @@
 import { createRootRoute, createRoute, createRouter } from "@tanstack/react-router";
-import { LazyDocs, LazyOverview, LazySettings, LazyStock } from "./pages/lazy";
+import { LazyData, LazyDocs, LazyOverview, LazySettings, LazyStock } from "./pages/lazy";
 import { DEFAULT_SYMBOL } from "./pages/stock/rules";
 import { Shell } from "./shell/Shell";
 
@@ -51,7 +51,24 @@ const docsRoute = createRoute({
   },
 });
 
+const dataIndexRoute = createRoute({
+  getParentRoute: () => rootRoute,
+  path: "/data",
+  component: () => <LazyData tab="collections" />,
+});
+
+const dataRoute = createRoute({
+  getParentRoute: () => rootRoute,
+  path: "/data/$tab",
+  component: function Data() {
+    const tab = dataRoute.useParams().tab;
+    return <LazyData tab={tab === "screener" ? "screener" : "collections"} />;
+  },
+});
+
 export const routeTree = rootRoute.addChildren([
+  dataIndexRoute,
+  dataRoute,
   overviewRoute,
   stockIndexRoute,
   stockRoute,

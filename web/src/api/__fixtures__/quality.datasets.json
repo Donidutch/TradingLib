@@ -1,0 +1,32 @@
+{
+  "datasets": [
+    {
+      "key": "bars:AAPL:1d",
+      "kind": "bars",
+      "label": "AAPL 1d",
+      "namespace": null,
+      "name": null,
+      "symbol": "AAPL",
+      "interval": "1d"
+    },
+    {
+      "key": "bars:ADBE:1d",
+      "kind": "bars",
+      "label": "ADBE 1d",
+      "namespace": null,
+      "name": null,
+      "symbol": "ADBE",
+      "interval": "1d"
+    },
+    {
+      "key": "bars:ADP:1d",
+      "kind": "bars",
+      "label": "ADP 1d",
+      "namespace": null,
+      "name": null,
+      "symbol": "ADP",
+      "interval": "1d"
+    }
+  ],
+  "count": 59
+}

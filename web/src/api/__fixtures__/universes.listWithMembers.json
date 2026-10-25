@@ -1,0 +1,135 @@
+{
+  "universes": [
+    {
+      "id": "nasdaq100",
+      "name": "Nasdaq-100",
+      "description": "Nasdaq-100 index constituents (Wikipedia constituent table).",
+      "builtin": true,
+      "source": "wikipedia:constituents",
+      "rule": "Index constituents as published at https://en.wikipedia.org/wiki/List_of_NASDAQ-100_companies",
+      "active": false,
+      "symbol_count": 101,
+      "member_count": 101,
+      "created_at": "2026-10-25T14:40:50.012274+00:00",
+      "updated_at": "2026-10-25T14:40:50.746226+00:00",
+      "members_fetched_at": "2026-10-25T14:40:50.743997+00:00",
+      "members": [
+        {
+          "symbol": "ADBE",
+          "name": "Adobe Inc.",
+          "sector": "Technology",
+          "weight": null,
+          "added_on": null,
+          "removed_on": null,
+          "source_symbol": "ADBE"
+        },
+        {
+          "symbol": "AMD",
+          "name": "Advanced Micro Devices",
+          "sector": "Technology",
+          "weight": null,
+          "added_on": null,
+          "removed_on": null,
+          "source_symbol": "AMD"
+        },
+        {
+          "symbol": "ABNB",
+          "name": "Airbnb",
+          "sector": "Consumer Discretionary",
+          "weight": null,
+          "added_on": null,
+          "removed_on": null,
+          "source_symbol": "ABNB"
+        }
+      ]
+    },
+    {
+      "id": "sp500",
+      "name": "S&P 500",
+      "description": "S&P 500 index constituents (Wikipedia constituent table).",
+      "builtin": true,
+      "source": "wikipedia:constituents",
+      "rule": "Index constituents as published at https://en.wikipedia.org/wiki/List_of_S%26P_500_companies",
+      "active": false,
+      "symbol_count": 503,
+      "member_count": 503,
+      "created_at": "2026-10-25T14:40:50.012274+00:00",
+      "updated_at": "2026-10-25T14:40:50.706548+00:00",
+      "members_fetched_at": "2026-10-25T14:40:50.694903+00:00",
+      "members": [
+        {
+          "symbol": "MMM",
+          "name": "3M",
+          "sector": "Industrials",
+          "weight": null,
+          "added_on": "1957-03-04",
+          "removed_on": null,
+          "source_symbol": "MMM"
+        },
+        {
+          "symbol": "AOS",
+          "name": "A. O. Smith",
+          "sector": "Industrials",
+          "weight": null,
+          "added_on": "2017-07-26",
+          "removed_on": null,
+          "source_symbol": "AOS"
+        },
+        {
+          "symbol": "ABT",
+          "name": "Abbott Laboratories",
+          "sector": "Health Care",
+          "weight": null,
+          "added_on": "1957-03-04",
+          "removed_on": null,
+          "source_symbol": "ABT"
+        }
+      ]
+    },
+    {
+      "id": "us-quality-50",
+      "name": "US Quality 50",
+      "description": "50 US large-cap quality compounders, curated 2026-06-30.",
+      "builtin": true,
+      "source": "builtin-static",
+      "rule": "US Quality 50 - 50 US-listed large caps selected at 2026-06-30 on a quality-compounder profile: an S&P 500 constituent with a long record of positive free cash flow, high returns on invested capital, conservative balance-sheet leverage and ample trading liquidity. Sector exposure is capped at 8 names per GICS sector; utilities, energy and real estate are excluded by construction because their capital intensity and structural leverage do not fit the profile. The list is equal-weighted (no vendor weights are stored) and is a fixed editorial definition: it is NOT recomputed from vendor fundamentals at runtime.",
+      "active": true,
+      "symbol_count": 50,
+      "member_count": 50,
+      "created_at": "2026-10-25T14:40:50.012274+00:00",
+      "updated_at": "2026-10-25T14:40:50.012274+00:00",
+      "members_fetched_at": "2026-10-25T14:40:50.012274+00:00",
+      "members": [
+        {
+          "symbol": "MSFT",
+          "name": "Microsoft Corporation",
+          "sector": "Information Technology",
+          "weight": null,
+          "added_on": "2026-06-30",
+          "removed_on": null,
+          "source_symbol": null
+        },
+        {
+          "symbol": "AAPL",
+          "name": "Apple Inc.",
+          "sector": "Information Technology",
+          "weight": null,
+          "added_on": "2026-06-30",
+          "removed_on": null,
+          "source_symbol": null
+        },
+        {
+          "symbol": "NVDA",
+          "name": "NVIDIA Corporation",
+          "sector": "Information Technology",
+          "weight": null,
+          "added_on": "2026-06-30",
+          "removed_on": null,
+          "source_symbol": null
+        }
+      ]
+    }
+  ],
+  "count": 3,
+  "active": "us-quality-50"
+}

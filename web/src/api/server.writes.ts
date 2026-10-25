@@ -60,6 +60,41 @@ describe("watchlists and scope", () => {
   }, 60_000);
 });
 
+describe("collections", () => {
+  it("creates, edits, snapshots and deletes a universe and a watchlist", async () => {
+    const universe = await api.universes.create({ name: "Writes semis", symbols: "NVDA, AVGO, TXN", description: "check" });
+    expect(universe.member_count).toBe(3);
+    expect((await api.universes.update(universe.id, { name: "Writes semis 2", symbols: "NVDA, AVGO" })).name).toBe("Writes semis 2");
+    expect((await api.universes.snapshot(universe.id)).symbol_count).toBe(2);
+    expect((await api.universes.changelog(universe.id)).entries.length).toBeGreaterThan(0);
+    expect((await api.universes.members(universe.id, { as_of: "2019-06-30" })).basis).toBeTruthy();
+    expect((await api.universes.refresh("us-quality-50")).member_count).toBeGreaterThan(0);
+    expect((await api.universes.remove(universe.id)).deleted).toBe(universe.id);
+
+    const watchlist = await api.watchlists.create({ name: "Writes watch", symbols: "AAPL, MSFT" });
+    expect((await api.watchlists.update(watchlist.id, { name: "Writes watch 2", symbols: "AAPL" })).symbols).toEqual(["AAPL"]);
+    expect((await api.watchlists.get(watchlist.id)).name).toBe("Writes watch 2");
+    expect((await api.watchlists.remove(watchlist.id)).deleted).toBe(watchlist.id);
+  }, 120_000);
+});
+
+describe("screener", () => {
+  it("saves, runs, queues a backtest, pins and checks alerts", async () => {
+    const rules = [{ field: "mkt_cap", operator: ">", value: 2e9 }];
+    expect((await api.screens.preview({ universe_id: "us-quality-50", rules })).base_count).toBeGreaterThan(0);
+    const screen = await api.screens.create({ name: "Writes screen", universe_id: "us-quality-50", rules, rank_by: "composite" });
+    const updated = await api.screens.update(screen.id, { rules: [...rules, { field: "roic", operator: "top_pctl", value: 30, scope: "sector" }] });
+    expect(updated.rules).toHaveLength(2);
+    const run = await api.screens.run(screen.id);
+    expect(run.pass_count).toBeGreaterThan(0);
+    const queued = await api.screens.queueBacktest(screen.id, { run_id: run.id, benchmark: "SPY" });
+    expect(queued.backtest_id).toBeTruthy();
+    expect((await api.screens.update(screen.id, { tags: ["pinned", "alert"] })).tags).toEqual(["pinned", "alert"]);
+    await api.screens.checkAlerts();
+    expect((await api.screens.alerts()).monitor?.watched).toContain(screen.id);
+  }, 240_000);
+});
+
 describe("settings", () => {
   it("saves one field at a time and answers with the stored whole", async () => {
     const before = await api.settings.get();

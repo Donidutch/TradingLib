@@ -1,0 +1,11 @@
+{
+  "alerts": [],
+  "count": 0,
+  "monitor": {
+    "running": true,
+    "interval_seconds": 900,
+    "last_cycle_at": null,
+    "last_error": null,
+    "watched": []
+  }
+}

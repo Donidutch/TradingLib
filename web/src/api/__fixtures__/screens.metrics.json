@@ -1,0 +1,367 @@
+{
+  "metrics": [
+    {
+      "key": "symbol",
+      "label": "Symbol",
+      "unit": "cat",
+      "source": "universe",
+      "description": "Ticker.",
+      "categorical": true,
+      "higher_is_better": null
+    },
+    {
+      "key": "name",
+      "label": "Name",
+      "unit": "cat",
+      "source": "provider",
+      "description": "Company name.",
+      "categorical": true,
+      "higher_is_better": null
+    },
+    {
+      "key": "sector",
+      "label": "Sector",
+      "unit": "cat",
+      "source": "provider",
+      "description": "Vendor sector.",
+      "categorical": true,
+      "higher_is_better": null
+    },
+    {
+      "key": "industry",
+      "label": "Industry",
+      "unit": "cat",
+      "source": "provider",
+      "description": "Vendor industry.",
+      "categorical": true,
+      "higher_is_better": null
+    },
+    {
+      "key": "country",
+      "label": "Country",
+      "unit": "cat",
+      "source": "provider",
+      "description": "Country of domicile.",
+      "categorical": true,
+      "higher_is_better": null
+    },
+    {
+      "key": "region",
+      "label": "Region",
+      "unit": "cat",
+      "source": "derived",
+      "description": "Region derived from the country of domicile.",
+      "categorical": true,
+      "higher_is_better": null
+    },
+    {
+      "key": "exchange",
+      "label": "Exchange",
+      "unit": "cat",
+      "source": "provider",
+      "description": "Listing venue.",
+      "categorical": true,
+      "higher_is_better": null
+    },
+    {
+      "key": "price",
+      "label": "Price",
+      "unit": "usd",
+      "source": "prices",
+      "description": "Last stored close.",
+      "categorical": false,
+      "higher_is_better": null
+    },
+    {
+      "key": "mkt_cap",
+      "label": "Market cap",
+      "unit": "usd",
+      "source": "fundamentals",
+      "description": "Vendor market capitalisation, or shares outstanding x last price.",
+      "categorical": false,
+      "higher_is_better": true
+    },
+    {
+      "key": "adv_usd",
+      "label": "ADV (60d, $)",
+      "unit": "usd",
+      "source": "prices",
+      "description": "Mean close x volume over the last 63 sessions - the liquidity screen.",
+      "categorical": false,
+      "higher_is_better": true
+    },
+    {
+      "key": "adv_shares",
+      "label": "ADV (60d, shares)",
+      "unit": "num",
+      "source": "prices",
+      "description": "Mean daily share volume over the last 63 sessions.",
+      "categorical": false,
+      "higher_is_better": true
+    },
+    {
+      "key": "rev_growth",
+      "label": "Revenue growth",
+      "unit": "pct",
+      "source": "fundamentals",
+      "description": "Trailing-twelve-month revenue against the prior twelve months.",
+      "categorical": false,
+      "higher_is_better": true
+    },
+    {
+      "key": "gross_margin",
+      "label": "Gross margin",
+      "unit": "pct",
+      "source": "fundamentals",
+      "description": "Trailing gross profit over trailing revenue.",
+      "categorical": false,
+      "higher_is_better": true
+    },
+    {
+      "key": "ebitda_margin",
+      "label": "EBITDA margin",
+      "unit": "pct",
+      "source": "fundamentals",
+      "description": "Trailing EBITDA over trailing revenue.",
+      "categorical": false,
+      "higher_is_better": true
+    },
+    {
+      "key": "fcf_margin",
+      "label": "FCF margin",
+      "unit": "pct",
+      "source": "fundamentals",
+      "description": "Trailing free cash flow over trailing revenue.",
+      "categorical": false,
+      "higher_is_better": true
+    },
+    {
+      "key": "net_margin",
+      "label": "Net margin",
+      "unit": "pct",
+      "source": "fundamentals",
+      "description": "Trailing net income over trailing revenue.",
+      "categorical": false,
+      "higher_is_better": true
+    },
+    {
+      "key": "roic",
+      "label": "ROIC",
+      "unit": "pct",
+      "source": "fundamentals",
+      "description": "Trailing operating income over invested capital (no tax adjustment).",
+      "categorical": false,
+      "higher_is_better": true
+    },
+    {
+      "key": "roe",
+      "label": "ROE",
+      "unit": "pct",
+      "source": "fundamentals",
+      "description": "Trailing net income over shareholders' equity.",
+      "categorical": false,
+      "higher_is_better": true
+    },
+    {
+      "key": "net_debt_ebitda",
+      "label": "Net debt / EBITDA",
+      "unit": "x",
+      "source": "fundamentals",
+      "description": "(Total debt - cash) over trailing EBITDA; leverage screen.",
+      "categorical": false,
+      "higher_is_better": false
+    },
+    {
+      "key": "ev_sales",
+      "label": "EV / Sales",
+      "unit": "x",
+      "source": "fundamentals",
+      "description": "Enterprise value over trailing revenue.",
+      "categorical": false,
+      "higher_is_better": false
+    },
+    {
+      "key": "ev_ebitda",
+      "label": "EV / EBITDA",
+      "unit": "x",
+      "source": "fundamentals",
+      "description": "Enterprise value over trailing EBITDA.",
+      "categorical": false,
+      "higher_is_better": false
+    },
+    {
+      "key": "pe",
+      "label": "P / E",
+      "unit": "x",
+      "source": "fundamentals",
+      "description": "Market cap over trailing net income.",
+      "categorical": false,
+      "higher_is_better": false
+    },
+    {
+      "key": "pb",
+      "label": "P / B",
+      "unit": "x",
+      "source": "fundamentals",
+      "description": "Market cap over shareholders' equity.",
+      "categorical": false,
+      "higher_is_better": false
+    },
+    {
+      "key": "fcf_yield",
+      "label": "FCF yield",
+      "unit": "pct",
+      "source": "fundamentals",
+      "description": "Trailing free cash flow over market cap.",
+      "categorical": false,
+      "higher_is_better": true
+    },
+    {
+      "key": "mom_1m",
+      "label": "1M momentum",
+      "unit": "pct",
+      "source": "prices",
+      "description": "Return over 21 sessions.",
+      "categorical": false,
+      "higher_is_better": true
+    },
+    {
+      "key": "mom_3m",
+      "label": "3M momentum",
+      "unit": "pct",
+      "source": "prices",
+      "description": "Return over 63 sessions.",
+      "categorical": false,
+      "higher_is_better": true
+    },
+    {
+      "key": "mom_6m",
+      "label": "6M momentum",
+      "unit": "pct",
+      "source": "prices",
+      "description": "Return over 126 sessions.",
+      "categorical": false,
+      "higher_is_better": true
+    },
+    {
+      "key": "mom_12m",
+      "label": "12M momentum",
+      "unit": "pct",
+      "source": "prices",
+      "description": "Return over 252 sessions.",
+      "categorical": false,
+      "higher_is_better": true
+    },
+    {
+      "key": "mom_12_1",
+      "label": "12-1 momentum",
+      "unit": "pct",
+      "source": "prices",
+      "description": "Return from 252 to 21 sessions ago: 12 months skipping the last one.",
+      "categorical": false,
+      "higher_is_better": true
+    },
+    {
+      "key": "vol_3m",
+      "label": "3M volatility",
+      "unit": "pct",
+      "source": "prices",
+      "description": "Annualised standard deviation of daily returns over 63 sessions.",
+      "categorical": false,
+      "higher_is_better": false
+    },
+    {
+      "key": "quality",
+      "label": "Quality score",
+      "unit": "num",
+      "source": "derived",
+      "description": "0-100 composite: the mean cross-sectional percentile of gross margin, FCF margin, return on capital and (inverted) net-debt/EBITDA over the universe being screened. At least two components must be available.",
+      "categorical": false,
+      "higher_is_better": true
+    },
+    {
+      "key": "composite",
+      "label": "Composite score",
+      "unit": "num",
+      "source": "derived",
+      "description": "0-100 composite: the mean cross-sectional percentile of return on capital, 12-1 momentum and the quality score.",
+      "categorical": false,
+      "higher_is_better": true
+    },
+    {
+      "key": "roic_pctl",
+      "label": "ROIC percentile",
+      "unit": "num",
+      "source": "derived",
+      "description": "ROIC percentile in [0, 1].",
+      "categorical": false,
+      "higher_is_better": null
+    },
+    {
+      "key": "mom_12_1_pctl",
+      "label": "12-1 momentum percentile",
+      "unit": "num",
+      "source": "derived",
+      "description": "Momentum percentile.",
+      "categorical": false,
+      "higher_is_better": null
+    },
+    {
+      "key": "quality_pctl",
+      "label": "Quality percentile",
+      "unit": "num",
+      "source": "derived",
+      "description": "Quality percentile.",
+      "categorical": false,
+      "higher_is_better": null
+    }
+  ],
+  "count": 35,
+  "operators": [
+    ">",
+    ">=",
+    "<",
+    "<=",
+    "==",
+    "!=",
+    "between",
+    "in",
+    "not_in",
+    "top_pctl",
+    "bottom_pctl"
+  ],
+  "scopes": [
+    "all",
+    "sector"
+  ],
+  "result_columns": [
+    "symbol",
+    "name",
+    "sector",
+    "industry",
+    "country",
+    "region",
+    "exchange",
+    "price",
+    "mkt_cap",
+    "adv_usd",
+    "rev_growth",
+    "gross_margin",
+    "ebitda_margin",
+    "fcf_margin",
+    "roic",
+    "roe",
+    "net_debt_ebitda",
+    "ev_sales",
+    "ev_ebitda",
+    "pe",
+    "mom_1m",
+    "mom_3m",
+    "mom_6m",
+    "mom_12_1",
+    "mom_12_1_pctl",
+    "vol_3m",
+    "quality",
+    "composite"
+  ]
+}

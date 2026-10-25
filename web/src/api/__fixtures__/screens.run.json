@@ -1,0 +1,224 @@
+{
+  "id": "scr-a23503244c",
+  "screen_id": "screen-t",
+  "universe_id": "us-quality-50",
+  "ran_at": "2026-10-25T17:48:03.228341+00:00",
+  "as_of": null,
+  "rank_by": "composite",
+  "base_count": 50,
+  "pass_count": 18,
+  "active_rule_count": 2,
+  "duration_ms": 11982.10804900009,
+  "stages": [
+    {
+      "label": "Market cap > $2.0B",
+      "rule_index": 0,
+      "field": "mkt_cap",
+      "operator": ">",
+      "input_count": 50,
+      "output_count": 50,
+      "dropped": 0,
+      "pass_rate": 1.0
+    },
+    {
+      "label": "ROIC top 30% within sector",
+      "rule_index": 1,
+      "field": "roic",
+      "operator": "top_pctl",
+      "input_count": 50,
+      "output_count": 18,
+      "dropped": 32,
+      "pass_rate": 0.36
+    }
+  ],
+  "stats": {
+    "count": 18,
+    "base_count": 50,
+    "pass_rate": 0.36,
+    "sector_mix": [
+      {
+        "sector": "Financial Services",
+        "count": 3,
+        "share": 0.16666666666666666
+      },
+      {
+        "sector": "Healthcare",
+        "count": 3,
+        "share": 0.16666666666666666
+      },
+      {
+        "sector": "Technology",
+        "count": 3,
+        "share": 0.16666666666666666
+      }
+    ],
+    "median_market_cap": 118602006528.0,
+    "market_cap_coverage": 18,
+    "turnover": null,
+    "live_book_overlap": {
+      "source": "watchlist:watch-a",
+      "kind": "watchlist",
+      "symbols": [
+        "AAPL"
+      ],
+      "count": 1,
+      "share": 0.05555555555555555,
+      "book_size": 1,
+      "reason": "no trading account holds a position yet, so the default watchlist stands in for the book"
+    }
+  },
+  "coverage": {
+    "rows": 50,
+    "as_of": null,
+    "built_at": "2026-10-25T17:48:03.218765+00:00",
+    "coverage": {
+      "requested": 50,
+      "evaluated": 50,
+      "priced": 50,
+      "with_fundamentals": 50,
+      "truncated": false,
+      "max_symbols": 250,
+      "deep_fundamentals": true,
+      "price_source": "parquet store (back-filled from the market provider)"
+    },
+    "missing": {}
+  },
+  "warnings": [],
+  "symbols": [
+    "NVDA",
+    "AAPL",
+    "V"
+  ],
+  "survivors": [
+    {
+      "symbol": "NVDA",
+      "name": "NVIDIA Corporation",
+      "sector": "Technology",
+      "industry": "Semiconductors",
+      "country": "United States",
+      "region": "North America",
+      "exchange": "NMS",
+      "price": 210.9600067138672,
+      "mkt_cap": 5094050889728.0,
+      "adv_usd": 25608293049.051414,
+      "rev_growth": 65.47353579009479,
+      "gross_margin": 74.67463667900016,
+      "ebitda_margin": 77.20063768900448,
+      "fcf_margin": 41.920460509161,
+      "roic": 75.31122546216886,
+      "roe": 84.23252279635258,
+      "net_debt_ebitda": -0.10311508632115403,
+      "ev_sales": 16.734163857450763,
+      "ev_ebitda": 21.676199003514412,
+      "pe": 26.410604004209894,
+      "mom_1m": -6.0646517971949425,
+      "mom_3m": 7.353321770373666,
+      "mom_6m": 1.291593789899359,
+      "mom_12_1": 24.5728884799866,
+      "mom_12_1_pctl": 0.8,
+      "vol_3m": 36.17880660796152,
+      "quality": 88.83673469387755,
+      "composite": 91.33333333333334
+    },
+    {
+      "symbol": "AAPL",
+      "name": "Apple Inc.",
+      "sector": "Technology",
+      "industry": "Consumer Electronics",
+      "country": "United States",
+      "region": "North America",
+      "exchange": "NMS",
+      "price": 347.7300109863281,
+      "mkt_cap": 5074761285632.0,
+      "adv_usd": 14288536624.073187,
+      "rev_growth": 6.425511782832749,
+      "gross_margin": 48.65291555900202,
+      "ebitda_margin": 35.97916126668995,
+      "fcf_margin": 29.279405684809873,
+      "roic": 80.71290080473669,
+      "roe": 119.91257440476191,
+      "net_debt_ebitda": 0.130656886502063,
+      "ev_sales": 10.917855987455631,
+      "ev_ebitda": 30.344943025571716,
+      "pe": 39.36059323378578,
+      "mom_1m": 3.5157171607860693,
+      "mom_3m": 3.211542312964455,
+      "mom_6m": 28.285255706593503,
+      "mom_12_1": 29.9748491242654,
+      "mom_12_1_pctl": 0.82,
+      "vol_3m": 24.164001045081577,
+      "quality": 71.55102040816325,
+      "composite": 89.99999999999999
+    },
+    {
+      "symbol": "V",
+      "name": "Visa Inc.",
+      "sector": "Financial Services",
+      "industry": "Credit Services",
+      "country": "United States",
+      "region": "North America",
+      "exchange": "NYQ",
+      "price": 407.9200134277344,
+      "mkt_cap": 765810769920.0,
+      "adv_usd": 2428762944.405837,
+      "rev_growth": 11.339976618604908,
+      "gross_margin": 80.18117245099802,
+      "ebitda_margin": 65.35245459449739,
+      "fcf_margin": 47.23296169753641,
+      "roic": 49.87696934486176,
+      "roe": 64.22195690488374,
+      "net_debt_ebitda": 0.3462199903694022,
+      "ev_sales": 17.440135989929868,
+      "ev_ebitda": 26.686275363555065,
+      "pe": 33.897431388101985,
+      "mom_1m": 10.85385109216983,
+      "mom_3m": 12.520347226787788,
+      "mom_6m": 31.833752092769796,
+      "mom_12_1": 6.549694983261989,
+      "mom_12_1_pctl": 0.62,
+      "vol_3m": 18.52066591232213,
+      "quality": 81.74489795918367,
+      "composite": 78.66666666666666
+    }
+  ],
+  "screen": {
+    "id": "screen-t",
+    "name": "Screen t",
+    "universe_id": "us-quality-50",
+    "rules": [
+      {
+        "field": "mkt_cap",
+        "operator": ">",
+        "value": 2000000000,
+        "value2": null,
+        "scope": "all",
+        "label": null,
+        "description": "Market cap > $2.0B",
+        "enabled": true,
+        "source": null,
+        "unit": "usd"
+      },
+      {
+        "field": "roic",
+        "operator": "top_pctl",
+        "value": 30,
+        "value2": null,
+        "scope": "sector",
+        "label": null,
+        "description": "ROIC top 30% within sector",
+        "enabled": true,
+        "source": null,
+        "unit": "pct"
+      }
+    ],
+    "expression": null,
+    "description": "Created from the Market & Data screener.",
+    "rank_by": "composite",
+    "owner": null,
+    "tags": [],
+    "created_at": "2026-10-25T17:47:51.217386",
+    "updated_at": "2026-10-25T17:47:51.242341",
+    "query": "screen(universe=\"us-quality-50\")\n  .filter(mkt_cap > 2000000000)\n  .filter(pctl(roic, by=\"sector\") > 0.70)\n  .rank_by(\"composite\")",
+    "active_rule_count": 2
+  }
+}

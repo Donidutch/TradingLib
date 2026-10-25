@@ -109,7 +109,7 @@ export function useMembers(id: string | undefined) {
   const api = useApi();
   return useQuery({
     queryKey: keys.members(id ?? ""),
-    queryFn: ({ signal }) => api.universes.members(id ?? "", signal),
+    queryFn: ({ signal }) => api.universes.members(id ?? "", {}, signal),
     enabled: Boolean(id),
   });
 }
@@ -141,8 +141,8 @@ export function useCreateWatchlist() {
     run: api.watchlists.create,
     apply: (client, created) => storeWatchlist(client, created),
     invalidate: () => [keys.watchlists],
-    done: (created, body) => `${body.symbols?.join(", ") ?? created.name} added to ${created.name}`,
-    failed: (body) => `Could not add ${body.symbols?.join(", ") ?? body.name}`,
+    done: (created) => `${created.symbols.join(", ") || created.name} added to ${created.name}`,
+    failed: (body) => `Could not add ${[body.symbols ?? body.name].flat().join(", ")}`,
   });
 }
 

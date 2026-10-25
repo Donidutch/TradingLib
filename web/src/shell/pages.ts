@@ -6,7 +6,7 @@ export interface Workspace {
   label: string;
   glyph: string;
   /** Path in this app, for workspaces already ported. */
-  path?: "/" | "/stock" | "/docs" | "/settings";
+  path?: "/" | "/stock" | "/data" | "/docs" | "/settings";
   /** Hash in the vanilla console, for the rest. */
   legacyHash?: string;
   section: "RESEARCH" | "PLATFORM";
@@ -17,7 +17,7 @@ export const WORKSPACES: readonly Workspace[] = [
   { key: "stock", label: "Stock Research", glyph: "⌕", path: "/stock", section: "RESEARCH" },
   { key: "lab", label: "Strategy Lab", glyph: "⚗", legacyHash: "#tl/lab", section: "RESEARCH" },
   { key: "agents", label: "Agent Center", glyph: "A", legacyHash: "#agents", section: "RESEARCH" },
-  { key: "data", label: "Market & Data", glyph: "D", legacyHash: "#data", section: "RESEARCH" },
+  { key: "data", label: "Market & Data", glyph: "D", path: "/data", section: "RESEARCH" },
   { key: "docs", label: "Documentation", glyph: "?", path: "/docs", section: "PLATFORM" },
   { key: "settings", label: "Settings", glyph: "⚙", path: "/settings", section: "PLATFORM" },
 ];
@@ -27,7 +27,8 @@ export type Target =
   | { kind: "app"; to: "/"; symbol?: string }
   | { kind: "app"; to: "/stock" }
   | { kind: "app"; to: "/stock/$symbol"; symbol: string }
-  | { kind: "app"; to: "/docs" | "/settings" }
+  | { kind: "app"; to: "/docs" | "/settings" | "/data" }
+  | { kind: "app"; to: "/data/$tab"; tab: "collections" | "screener" }
   | { kind: "app"; to: "/docs/$article"; article: string }
   | { kind: "legacy"; href: string };
 
@@ -48,6 +49,9 @@ export function targetForHash(hash: string): Target {
     if (key === "stock" && !sub) return { kind: "app", to: "/stock" };
     if (key === "stock" && sub) return { kind: "app", to: "/stock/$symbol", symbol: decodeURIComponent(sub) };
     if (key === "settings") return { kind: "app", to: "/settings" };
+    // Market & Data's last three tabs are ported in S3.
+    if (key === "data" && !sub) return { kind: "app", to: "/data" };
+    if (key === "data" && (sub === "collections" || sub === "screener")) return { kind: "app", to: "/data/$tab", tab: sub };
     if (key === "docs") return sub ? { kind: "app", to: "/docs/$article", article: decodeURIComponent(sub) } : { kind: "app", to: "/docs" };
   }
   return { kind: "legacy", href: `/#${clean}` };

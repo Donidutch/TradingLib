@@ -28,6 +28,8 @@ export const Notification = z.looseObject({
   level: z.string().optional(),
   severity: z.string().optional(),
   action: z.string().optional(),
+  /** Screen alerts, screen runs and universe refreshes say what happened here. */
+  event: z.string().optional(),
 });
 
 export type TapeQuote = z.infer<typeof TapeQuote>;

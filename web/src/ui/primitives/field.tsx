@@ -55,12 +55,15 @@ Textarea.displayName = "Textarea";
 
 export interface SelectProps
   extends Omit<SelectHTMLAttributes<HTMLSelectElement>, "size">,
-    VariantProps<typeof fieldBase> {}
+    VariantProps<typeof fieldBase> {
+  /** Sizes the select's box; it fills its container by default. */
+  wrapperClassName?: string;
+}
 
 /** Native select with a custom chevron and consistent field styling. */
 export const Select = forwardRef<HTMLSelectElement, SelectProps>(
-  ({ className, size, invalid, children, ...props }, ref) => (
-    <div className="relative inline-flex w-full items-center">
+  ({ className, size, invalid, wrapperClassName, children, ...props }, ref) => (
+    <div className={cn("relative inline-flex w-full items-center", wrapperClassName)}>
       <select
         ref={ref}
         className={cn(fieldBase({ size, invalid }), "appearance-none pr-7 cursor-pointer", className)}

@@ -128,7 +128,19 @@ def cases(symbols: list[str]) -> dict[str, list[Case]]:
         )
         for article in ("hypotheses", "backtests", "validation", "shortcuts", "autonomy")
     ]
-    return {"overview": [overview], "stock": stock, "settings": [settings], "docs": docs}
+    data = [
+        Case(
+            name=f"data/{tab}",
+            old_url=f"/#data/{tab}",
+            new_url=f"/app/data/{tab}",
+            old_root="#view-data .tab-panel.active",
+            new_root="main [role=tabpanel]",
+            # Coverage and the screener's per-rule previews take a while on a cold cache.
+            wait=30,
+        )
+        for tab in ("collections", "screener")
+    ]
+    return {"overview": [overview], "stock": stock, "settings": [settings], "docs": docs, "data": data}
 
 
 #: Runs inside the harness page; compares one case and returns the result.

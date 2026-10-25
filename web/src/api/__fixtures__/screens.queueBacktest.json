@@ -1,0 +1,112 @@
+{
+  "id": "sbt-f585fb2d35",
+  "screen_id": "screen-t",
+  "screen_run_id": "scr-a23503244c",
+  "universe_id": "us-quality-50",
+  "name": "screen: Screen t",
+  "status": "queued",
+  "backtest_id": "bt-b9e12a4d0aff",
+  "detail": "queued and started over 18 symbols; progress streams on the lab channel",
+  "request": {
+    "name": "screen: Screen t",
+    "symbols": [
+      "NVDA",
+      "AAPL",
+      "V"
+    ],
+    "symbol_count": 18,
+    "universe_id": "us-quality-50",
+    "screen_id": "screen-t",
+    "screen_run_id": "scr-a23503244c",
+    "start": null,
+    "end": null,
+    "benchmark": "SPY",
+    "rebalance": "monthly",
+    "initial_capital": 1000000.0,
+    "origin": "screener",
+    "params": {},
+    "requested_at": "2026-10-25T17:48:03.265697+00:00"
+  },
+  "response": {
+    "id": "bt-b9e12a4d0aff",
+    "name": "screen: Screen t",
+    "status": "queued",
+    "source": "screener",
+    "hypothesis_id": null,
+    "experiment_id": null,
+    "universe_id": "us-quality-50",
+    "screen_id": "screen-t",
+    "config": {
+      "name": "screen: Screen t",
+      "universe_id": "us-quality-50",
+      "symbols": [
+        "NVDA",
+        "AAPL",
+        "V"
+      ],
+      "signal": {
+        "kind": "static",
+        "expression": null,
+        "filter_expression": null,
+        "symbols": [
+          "NVDA",
+          "AAPL",
+          "V"
+        ],
+        "lookback": 252,
+        "skip": 21,
+        "fast": 50,
+        "slow": 200,
+        "top_n": null,
+        "weighting": "equal",
+        "min_signal": null
+      },
+      "start": "2023-10-26",
+      "end": null,
+      "benchmark": "SPY",
+      "rebalance": "monthly",
+      "initial_capital": 1000000.0,
+      "gross_exposure": 1.0,
+      "max_positions": null,
+      "long_only": true,
+      "costs": {
+        "commission_bps": 1.0,
+        "slippage_bps": 5.0,
+        "borrow_bps_annual": 0.0
+      },
+      "oos_start": null,
+      "oos_fraction": 0.3,
+      "risk_free_rate": 0.0,
+      "periods_per_year": null,
+      "trim_warmup": true,
+      "interval": "1d",
+      "params": {
+        "origin": "screener",
+        "screen_run_id": "scr-a23503244c",
+        "requested_at": "2026-10-25T17:48:03.265697+00:00"
+      }
+    },
+    "signal": "static basket of 18 symbols \u00b7 equal weighted",
+    "benchmark": "SPY",
+    "created_at": "2026-10-25T17:48:03.265799+00:00",
+    "started_at": null,
+    "finished_at": null,
+    "duration_ms": null,
+    "symbols": [
+      "NVDA",
+      "AAPL",
+      "V"
+    ],
+    "symbol_count": 18,
+    "stats": null,
+    "in_sample": null,
+    "out_of_sample": null,
+    "warnings": [],
+    "error": null,
+    "periods_per_year": null,
+    "artifact_bundle": null,
+    "detail": "queued and started over 18 symbols; progress streams on the lab channel"
+  },
+  "created_at": "2026-10-25T17:48:03.269419+00:00",
+  "updated_at": "2026-10-25T17:48:03.269419+00:00"
+}

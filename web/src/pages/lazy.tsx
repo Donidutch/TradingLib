@@ -5,6 +5,7 @@ import { lazy, Suspense } from "react";
 const OverviewPage = lazy(() => import("./overview/OverviewPage").then((m) => ({ default: m.OverviewPage })));
 const StockPage = lazy(() => import("./stock/StockPage").then((m) => ({ default: m.StockPage })));
 const SettingsPage = lazy(() => import("./settings/SettingsPage").then((m) => ({ default: m.SettingsPage })));
+const DataPage = lazy(() => import("./data/DataPage").then((m) => ({ default: m.DataPage })));
 const DocsPage = lazy(() => import("./docs/DocsPage").then((m) => ({ default: m.DocsPage })));
 
 const loading = <p className="py-6 text-text-muted">Loading…</p>;
@@ -38,6 +39,14 @@ export function LazyDocs({ article }: { article: string | undefined }) {
   return (
     <Suspense fallback={loading}>
       <DocsPage article={article} />
+    </Suspense>
+  );
+}
+
+export function LazyData({ tab }: { tab: "collections" | "screener" }) {
+  return (
+    <Suspense fallback={loading}>
+      <DataPage tab={tab} />
     </Suspense>
   );
 }

@@ -1,0 +1,23 @@
+{
+  "universe_id": "us-quality-50",
+  "as_of": null,
+  "base_count": 50,
+  "count": 50,
+  "query": "screen(universe=\"us-quality-50\")\n  .rank_by(\"composite\")",
+  "coverage": {
+    "coverage": {
+      "requested": 50,
+      "evaluated": 50,
+      "priced": 50,
+      "with_fundamentals": 50,
+      "price_source": "parquet store (back-filled from the market provider)",
+      "truncated": false,
+      "max_symbols": 250,
+      "deep_fundamentals": true
+    },
+    "rows": 50,
+    "as_of": null,
+    "built_at": "2026-10-25T17:47:38.476041+00:00",
+    "missing": {}
+  }
+}

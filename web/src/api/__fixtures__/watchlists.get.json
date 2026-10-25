@@ -1,0 +1,12 @@
+{
+  "id": "watch-a",
+  "name": "Watch B",
+  "symbols": [
+    "AAPL"
+  ],
+  "symbol_count": 1,
+  "is_default": true,
+  "active": false,
+  "created_at": "2026-10-25T17:47:51.180483+00:00",
+  "updated_at": "2026-10-25T17:47:51.206055+00:00"
+}

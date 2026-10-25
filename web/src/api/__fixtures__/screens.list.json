@@ -1,0 +1,48 @@
+{
+  "screens": [
+    {
+      "id": "screen-t",
+      "name": "Screen t",
+      "universe_id": "us-quality-50",
+      "rules": [
+        {
+          "field": "mkt_cap",
+          "operator": ">",
+          "value": 2000000000,
+          "value2": null,
+          "scope": "all",
+          "label": null,
+          "description": "Market cap > $2.0B",
+          "enabled": true,
+          "source": null,
+          "unit": "usd"
+        },
+        {
+          "field": "roic",
+          "operator": "top_pctl",
+          "value": 30,
+          "value2": null,
+          "scope": "sector",
+          "label": null,
+          "description": "ROIC top 30% within sector",
+          "enabled": true,
+          "source": null,
+          "unit": "pct"
+        }
+      ],
+      "expression": null,
+      "description": "Created from the Market & Data screener.",
+      "rank_by": "composite",
+      "owner": null,
+      "tags": [
+        "pinned",
+        "alert"
+      ],
+      "created_at": "2026-10-25T17:47:51.217386",
+      "updated_at": "2026-10-25T17:48:03.282914",
+      "query": "screen(universe=\"us-quality-50\")\n  .filter(mkt_cap > 2000000000)\n  .filter(pctl(roic, by=\"sector\") > 0.70)\n  .rank_by(\"composite\")",
+      "active_rule_count": 2
+    }
+  ],
+  "count": 1
+}

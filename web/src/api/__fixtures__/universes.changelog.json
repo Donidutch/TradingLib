@@ -1,0 +1,32 @@
+{
+  "universe": "semis",
+  "entries": [
+    {
+      "as_of": "2026-10-25",
+      "previous_as_of": null,
+      "added": [],
+      "dropped": [],
+      "rule": "Manual symbols / Manual",
+      "rule_changed": false,
+      "previous_rule": null,
+      "source": "manual",
+      "note": null,
+      "symbol_count": 2,
+      "net": 0,
+      "baseline": true,
+      "corporate_actions": [],
+      "added_by_rule": [],
+      "dropped_by_rule": []
+    }
+  ],
+  "count": 1,
+  "rule_revisions": [
+    {
+      "version": 1,
+      "rule": "Manual symbols / Manual",
+      "since": "2026-10-25",
+      "until": "2026-10-25"
+    }
+  ],
+  "rule_version": 1
+}

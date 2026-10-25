@@ -108,4 +108,5 @@ approved and applied.
 - [x] P1 data layer (2026-10-25).
 - [x] P2 shell (2026-10-25).
 - [x] P3 Overview (2026-10-25).
-- [ ] P4 Stock Research · P5 verification.
+- [x] P4 Stock Research (2026-10-25).
+- [ ] P5 verification.

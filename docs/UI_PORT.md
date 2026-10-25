@@ -1,6 +1,6 @@
 # React port of the console — plan
 
-Status: P0–P3 done 2026-10-25. First step: the shell, Overview and Stock Research.
+Status: P0–P4 done 2026-10-25. First step: the shell, Overview and Stock Research.
 
 ## Why
 
@@ -142,9 +142,33 @@ centre symbol.
 
 ### P4 — Stock Research
 
-- [ ] Symbol form loads any ticker; all seven tabs; lightweight-charts price
+- [x] Symbol form loads any ticker; all seven tabs; lightweight-charts price
   chart with live updates; revenue/EBITDA bars; freshness.
-- [ ] Tests per tab: data, empty and error states.
+- [x] Tests per tab: data, empty and error states.
+- [x] Checked against the old page on a running server (AAPL): the head and
+  every figure on all seven tabs matched; an unknown ticker shows the server's
+  reason in both.
+
+Map (`ui/js/pages/stock.js` → `web/src/pages/stock/`). The symbol is in the
+path, `/app/stock/NVDA` (the old `#stock/NVDA`); `/app/stock` opens GRAB, the
+old default. Payloads are shared between tabs, and a tab loads the first time
+it is shown.
+
+| Area | Source | Shows | Empty / error |
+| --- | --- | --- | --- |
+| Head | `/company/{symbol}`, `tape.{SYMBOL}` channel | ticker form (any ticker), company name, meta line, price (red when down; live quote replaces it), MARKET CAP, NEXT EARNINGS "n DAYS" (date and basis in title), DATA FRESHNESS CURRENT / STALE with each component's age in the title | unknown ticker: "SYM could not be loaded" with the server's reason, every head figure "—", and a toast |
+| Overview · Price & events | `/price?range=` (1D 5D 1M 3M 6M 1Y 5Y MAX, default 1Y), live quotes | line chart; on daily ranges the live point moves the newest bar, on 1D / 5D it appends | red note: request error, or "no bars for SYM over RANGE — vendor error" |
+| Overview · Fundamental snapshot | `/company` metrics | revenue, YoY growth (signed), gross margin, FCF margin (signed), EV / sales, net cash, each with its basis | "—" with the reason; the company error in red |
+| Overview · Research thesis | `/api/lab/hypotheses?q=` and `/thesis` (both optional) | badge "n sources"; the lead hypothesis and up to 3 rows (status, owner, age), or "No hypothesis recorded for SYM" with why; CATALYSTS and KEY RISKS labels, each with its measurement in the title | "nothing above the thresholds" / "not loaded"; error in red |
+| Overview · Revenue & adjusted EBITDA | `/company` `revenue_ebitda` | one revenue and one EBITDA bar per year, scaled to the largest, negative in red, values in titles; badge first–last year | "The vendor published no annual revenue or EBITDA for SYM." |
+| Overview · News & sentiment | `/news?limit=25` | badge = aggregate label (toned), title with the recency-weighted compound; first 4 items | "The vendor returned no news for SYM."; error |
+| Overview · Alternative signals | `/altdata` | Google Trends, app rank composite (↑ / ↓), news sentiment (signed); badge = Trends timeframe | "—" with the signal's basis and reason; error |
+| Financials | `/financials` | annual table in millions (revenue, gross profit, adj. EBITDA, free cash flow; EBITDA and FCF toned), currency badge; margin progression chart (gross and EBITDA margin lines) | "The vendor published no annual statements for SYM."; "Not enough reported margins to draw a progression."; error |
+| Earnings & Estimates | `/estimates` | history newest first: quarter, EPS est. / actual, surprise and price reaction (toned, reaction date in title); consensus FY revenue, FY EPS (analysts in title), 30-day revision, dispersion | "The vendor published no earnings history for SYM."; error |
+| Valuation & Peers | `/valuation` | EV / sales, EV / EBITDA, FCF yield, reverse-DCF growth; peer table (company with name in title, the subject highlighted, growth toned, EV / sales, FCF margin) and the peer basis | "No peers could be resolved from the configured universes."; error |
+| News & Sentiment | `/news?limit=25` | badge "SYM · label"; "n items scored by vaderSentiment", counts by label and the recency-weighted compound; every item (label, publisher, age; link and compound in title) | "The vendor returned no news for SYM."; error |
+| Alternative Data | `/altdata` | cards: Google Trends, app rank composite, web traffic YoY (signed), job postings 90d (a level, unsigned and untoned); signal detail: Trends keyword (geo in title), Trends 90-day change, news sentiment, job board, Trends fetched age | "—" with basis and reason per signal; error |
+| Research | `/filings`, `/news`, `/memory`, `/api/lab/hypotheses?q=`, `/api/agents/findings?symbol=` | research memory (current thesis, open questions, sources: filings, news, knowledge entries, form counts); linked agent findings (first 6: title, status); SEC filings table (first 12: filed, form, document link, period) | memory unavailable; "No agent has recorded a finding for SYM yet."; findings not served; EDGAR's error or "EDGAR returned no filings for SYM." |
 
 ### P5 — Verification
 

@@ -235,6 +235,11 @@ const Signal = z.looseObject({
   keyword: z.string().optional(),
   geo: z.string().optional(),
   timeframe: z.string().optional(),
+  label: z.string().nullable().optional(),
+  change_90d_pct: nnum.optional(),
+  board: z.string().optional(),
+  slug: z.string().optional(),
+  open_roles: z.number().optional(),
   points: z.array(z.looseObject({ time: z.string(), value: z.number() })).optional(),
 });
 

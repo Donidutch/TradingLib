@@ -110,13 +110,12 @@ describe("navigation", () => {
     await userEvent.click(within(rail).getByRole("link", { name: /Stock Research/ }));
     await waitFor(() => expect(app.router.state.location.pathname).toBe("/stock"));
     expect(within(rail).getByRole("link", { name: /Stock Research/ })).toHaveAttribute("aria-current", "page");
-    expect(await screen.findByRole("heading", { name: "STOCK RESEARCH" })).toBeInTheDocument();
+    expect(await screen.findByLabelText("Research ticker")).toHaveValue("GRAB");
   });
 
   it("opens a deep link to a ticker", async () => {
     await renderApp("/app/stock/nvda");
-    expect(await screen.findByRole("heading", { name: "STOCK RESEARCH · NVDA" })).toBeInTheDocument();
-    expect(screen.getByRole("link", { name: "current console" })).toHaveAttribute("href", "/#stock/NVDA");
+    expect(await screen.findByLabelText("Research ticker")).toHaveValue("NVDA");
   });
 });
 
@@ -223,13 +222,13 @@ describe("universe selector", () => {
 describe("PICK mode", () => {
   it("marks panels, keeps them across reloads and exports them", async () => {
     const user = userEvent.setup();
-    // A page with no panels of its own, so the injected one is p0.
+    // Prepended, so it is the first panel on the page: p0.
     await renderApp("/app/stock");
     const main = screen.getByRole("main");
     const panel = document.createElement("section");
     panel.setAttribute("data-panel", "");
     panel.innerHTML = "<h3>Quotes</h3><button>inside</button>";
-    act(() => main.append(panel));
+    act(() => main.prepend(panel));
 
     await user.click(screen.getByRole("button", { name: "PICK" }));
     expect(document.body).toHaveClass("pickmode");

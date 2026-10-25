@@ -1,5 +1,6 @@
 import { createRootRoute, createRoute, createRouter } from "@tanstack/react-router";
-import { NotPorted } from "./pages/NotPorted";
+import { DEFAULT_SYMBOL } from "./pages/stock/rules";
+import { StockPage } from "./pages/stock/StockPage";
 import { OverviewPage } from "./pages/overview/OverviewPage";
 import { Shell } from "./shell/Shell";
 
@@ -19,21 +20,15 @@ const overviewRoute = createRoute({
 const stockIndexRoute = createRoute({
   getParentRoute: () => rootRoute,
   path: "/stock",
-  component: () => <NotPorted title="Stock Research" slice="P4" href="/#stock" />,
+  component: () => <StockPage key={DEFAULT_SYMBOL} symbol={DEFAULT_SYMBOL} />,
 });
 
 const stockRoute = createRoute({
   getParentRoute: () => rootRoute,
   path: "/stock/$symbol",
-  component: function StockPage() {
-    const { symbol } = stockRoute.useParams();
-    return (
-      <NotPorted
-        title={`Stock Research · ${symbol.toUpperCase()}`}
-        slice="P4"
-        href={`/#stock/${encodeURIComponent(symbol.toUpperCase())}`}
-      />
-    );
+  component: function Stock() {
+    const symbol = stockRoute.useParams().symbol.trim().toUpperCase();
+    return <StockPage key={symbol} symbol={symbol} />;
   },
 });
 

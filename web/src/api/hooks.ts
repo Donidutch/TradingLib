@@ -209,8 +209,9 @@ export const useEstimates = (symbol: string) =>
   useResearchQuery("estimates", symbol, (a, s, signal) => a.research.estimates(s, signal));
 export const useValuation = (symbol: string) =>
   useResearchQuery("valuation", symbol, (a, s, signal) => a.research.valuation(s, signal));
+/** The 25 newest items, shared by the Overview tab brief and the News tab. */
 export const useNews = (symbol: string) =>
-  useResearchQuery("news", symbol, (a, s, signal) => a.research.news(s, {}, signal));
+  useResearchQuery("news", symbol, (a, s, signal) => a.research.news(s, { limit: 25 }, signal));
 /** null for an unknown ticker, like the old page's optional() call. */
 export const useThesis = (symbol: string) =>
   useResearchQuery("thesis", symbol, (a, s, signal) => a.client.optional(a.research.thesis(s, signal)));

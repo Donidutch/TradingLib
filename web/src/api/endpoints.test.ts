@@ -16,6 +16,8 @@ const fixture = (name: string): Record<string, unknown> =>
 /** A field each page reads, with a value of the wrong type. */
 const BROKEN: Record<string, [string, unknown]> = {
   status: ["engine_health", null],
+  health: ["version", 1],
+  settings: ["keys", [{ provider: "fred" }]],
   search: ["results", {}],
   "universes.list": ["universes", null],
   "universes.active": ["scope", "us-quality-50"],

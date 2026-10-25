@@ -4,6 +4,8 @@ import { lazy, Suspense } from "react";
 
 const OverviewPage = lazy(() => import("./overview/OverviewPage").then((m) => ({ default: m.OverviewPage })));
 const StockPage = lazy(() => import("./stock/StockPage").then((m) => ({ default: m.StockPage })));
+const SettingsPage = lazy(() => import("./settings/SettingsPage").then((m) => ({ default: m.SettingsPage })));
+const DocsPage = lazy(() => import("./docs/DocsPage").then((m) => ({ default: m.DocsPage })));
 
 const loading = <p className="py-6 text-text-muted">Loading…</p>;
 
@@ -20,6 +22,22 @@ export function LazyStock({ symbol }: { symbol: string }) {
   return (
     <Suspense fallback={loading}>
       <StockPage key={symbol} symbol={symbol} />
+    </Suspense>
+  );
+}
+
+export function LazySettings() {
+  return (
+    <Suspense fallback={loading}>
+      <SettingsPage />
+    </Suspense>
+  );
+}
+
+export function LazyDocs({ article }: { article: string | undefined }) {
+  return (
+    <Suspense fallback={loading}>
+      <DocsPage article={article} />
     </Suspense>
   );
 }

@@ -20,6 +20,7 @@ import {
   Thesis,
   Valuation,
 } from "./schemas/research";
+import { Health, Settings, type SettingsPatch } from "./schemas/settings";
 import { Search, Status } from "./schemas/status";
 import { Watchlist, WatchlistList } from "./schemas/watchlists";
 
@@ -31,6 +32,13 @@ export function makeApi(c: ApiClient) {
   return {
     client: c,
     status: (signal?: AbortSignal) => c.get("/api/status", Status, null, signal),
+    health: (signal?: AbortSignal) => c.get("/api/health", Health, null, signal),
+
+    settings: {
+      get: (signal?: AbortSignal) => c.get("/api/settings", Settings, null, signal),
+      /** Only the fields given change; the answer is the stored whole. */
+      save: (patch: SettingsPatch) => c.request("PUT", "/api/settings", Settings, { body: patch }),
+    },
     search: (q: string, signal?: AbortSignal) => c.get("/api/search", Search, { q }, signal),
 
     universes: {
@@ -106,6 +114,8 @@ export function readEndpoints(api: Api, symbol: string, universe: string) {
   const r = api.research;
   return {
     status: () => api.status(),
+    health: () => api.health(),
+    settings: () => api.settings.get(),
     search: () => api.search(symbol.slice(0, 2)),
     "universes.list": () => api.universes.list(),
     "universes.active": () => api.universes.active(),

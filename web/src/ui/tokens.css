@@ -48,6 +48,7 @@
   /* Type */
   --ds-font-mono: ui-monospace, "SF Mono", "Cascadia Code", Menlo, Consolas, monospace;
   --ds-font-size: 12px;
+  --ds-line-height: 1.5;
 
   /* Shape and density (the design system's compact preset) */
   --ds-ctrl-h-sm: 24px;
@@ -59,4 +60,45 @@
   --ds-card-pad-x: 13px;
   --ds-card-pad-y: 11px;
   --ds-panel-pad: 12px;
+  --ds-rail-w: 172px;
+  --ds-main-pad: 14px 16px 40px;
+}
+
+/* Light theme (Settings → Appearance). The old console's light palette from
+   ui/js/pages/settings.js, as tokens, so it reaches every page of the app. */
+:root[data-theme="light"] {
+  color-scheme: light;
+  --ds-bg: #f4f6fb;
+  --ds-surface: #ffffff;
+  --ds-surface-2: #eef1f8;
+  --ds-surface-3: #e9edf6; /* datastrip */
+  --ds-inset: #e7ebf4;
+  --ds-elevated: #e4e9f5; /* rail hover */
+  --ds-active: #dde5f8; /* rail active item */
+  --ds-selection: #c9d9ff;
+  --ds-border-subtle: #d3dae8;
+  --ds-border: #bfc9dc;
+  --ds-border-strong: color-mix(in srgb, var(--ds-border) 70%, var(--ds-text-strong));
+  --ds-text: #26314a;
+  --ds-text-strong: #0d1424;
+  --ds-text-muted: #4c5871;
+  --ds-text-subtle: #78849c;
+  --ds-text-inverse: #ffffff;
+  --ds-accent: #2f5fd0;
+  --ds-accent-contrast: #ffffff;
+  --ds-button: #2456c8;
+  --ds-up: #0f9d68;
+  --ds-down: #c8324a;
+  --ds-warn: #a5700a;
+}
+
+/* Comfortable density (Settings → Appearance); compact is the default. */
+:root[data-density="comfortable"] {
+  --ds-font-size: 13px;
+  --ds-line-height: 1.65;
+  --ds-panel-pad: 16px;
+  --ds-card-pad-x: 15px;
+  --ds-card-pad-y: 14px;
+  --ds-rail-w: 196px;
+  --ds-main-pad: 20px 22px 56px;
 }

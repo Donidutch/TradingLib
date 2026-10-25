@@ -8,12 +8,14 @@ import { dataIndicator, engineIndicator } from "./health";
 import { Palette } from "./Palette";
 import { Rail } from "./Rail";
 import { Topbar } from "./Topbar";
+import { useApplySettings } from "./useApplySettings";
 import { useShellLive } from "./useShellLive";
 import "./pick.css";
 
 export function Shell() {
   const { client } = useApi();
   const { status, stream, apiOnline } = useShellLive();
+  useApplySettings();
   const [paletteOpen, setPaletteOpen] = useState(false);
   const [main, setMain] = useState<HTMLElement | null>(null);
 
@@ -36,7 +38,7 @@ export function Shell() {
       <Datastrip status={status} data={dataIndicator(health)} />
       <div className="flex flex-1">
         <Rail />
-        <main ref={setMain} tabIndex={-1} className="min-w-0 flex-1 px-4 pb-10 pt-3.5">
+        <main ref={setMain} tabIndex={-1} className="min-w-0 flex-1 p-[var(--ds-main-pad)]">
           <Outlet />
         </main>
       </div>

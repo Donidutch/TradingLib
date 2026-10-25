@@ -44,7 +44,7 @@ export function Rail() {
   return (
     <nav
       aria-label="Workspaces"
-      className="flex w-[172px] shrink-0 flex-col gap-0.5 border-r border-border-subtle bg-surface px-2 py-3"
+      className="flex w-[var(--ds-rail-w)] shrink-0 flex-col gap-0.5 border-r border-border-subtle bg-surface px-2 py-3"
     >
       {SECTIONS.map((section) => (
         <div key={section} className="flex flex-col gap-0.5">

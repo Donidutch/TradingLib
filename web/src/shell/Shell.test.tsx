@@ -30,7 +30,7 @@ describe("datastrip and topbar", () => {
     const select = await screen.findByRole("combobox", { name: "Universe" });
     await waitFor(() => expect(select).toHaveValue("watchlist:primary-research"));
     expect(within(select).getByRole("option", { name: "Watchlist: Primary research (2)" })).toBeInTheDocument();
-    expect(screen.getByLabelText("New York time")).toHaveTextContent(/^\d\d:\d\d:\d\d ET$/);
+    expect(screen.getByLabelText("Clock")).toHaveTextContent(/^\d\d:\d\d:\d\d ET$/);
   });
 
   it("follows the status channel", async () => {
@@ -105,7 +105,8 @@ describe("navigation", () => {
     const rail = screen.getByRole("navigation", { name: "Workspaces" });
     expect(within(rail).getByRole("link", { name: /Overview/ })).toHaveAttribute("aria-current", "page");
     expect(within(rail).getByRole("link", { name: /Strategy Lab/ })).toHaveAttribute("href", "/#tl/lab");
-    expect(within(rail).getByRole("link", { name: /Settings/ })).toHaveAttribute("href", "/#settings");
+    expect(within(rail).getByRole("link", { name: /Agent Center/ })).toHaveAttribute("href", "/#agents");
+    expect(within(rail).getByRole("link", { name: /Settings/ })).toHaveAttribute("href", "/app/settings");
 
     await userEvent.click(within(rail).getByRole("link", { name: /Stock Research/ }));
     await waitFor(() => expect(app.router.state.location.pathname).toBe("/stock"));
@@ -148,9 +149,9 @@ describe("command palette", () => {
     await renderApp();
     await user.keyboard("{Control>}k{/Control}");
     const dialog = screen.getByRole("dialog", { name: "Command palette" });
-    await user.type(within(dialog).getByRole("textbox"), "settings");
-    await user.click(within(dialog).getByRole("option", { name: /Open Settings/ }));
-    expect(openLegacy).toHaveBeenCalledWith("/#settings");
+    await user.type(within(dialog).getByRole("textbox"), "agent");
+    await user.click(within(dialog).getByRole("option", { name: /Open Agent Center/ }));
+    expect(openLegacy).toHaveBeenCalledWith("/#agents");
   });
 
   it("opens the backtests tab, and says so, when there is no active backtest", async () => {

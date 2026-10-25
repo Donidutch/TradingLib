@@ -4,10 +4,14 @@ import { useQuery, type QueryClient } from "@tanstack/react-query";
 import { useAction } from "./actions";
 import { useApi } from "./context";
 import type { Api } from "./endpoints";
+import type { SettingsPatch } from "./schemas/settings";
 import type { Watchlist, WatchlistList } from "./schemas/watchlists";
+import { useToast } from "../shell/toast-context";
 
 export const keys = {
   status: ["status"] as const,
+  health: ["health"] as const,
+  settings: ["settings"] as const,
   search: (q: string) => ["search", q] as const,
   universes: ["universes"] as const,
   activeScope: ["universes", "active"] as const,
@@ -32,6 +36,37 @@ export function useStatus(refetchInterval?: number) {
     queryKey: keys.status,
     queryFn: ({ signal }) => api.status(signal),
     refetchInterval,
+  });
+}
+
+export function useHealth() {
+  const api = useApi();
+  return useQuery({ queryKey: keys.health, queryFn: ({ signal }) => api.health(signal), staleTime: Infinity });
+}
+
+/** Stored preferences; also what the app applies at load (theme, density, clock). */
+export function useSettings() {
+  const api = useApi();
+  return useQuery({ queryKey: keys.settings, queryFn: ({ signal }) => api.settings.get(signal), staleTime: Infinity });
+}
+
+/** Save part of the settings; the page and the app follow the server's answer. */
+export function useSaveSettings() {
+  const api = useApi();
+  const toast = useToast();
+  return useAction({
+    run: ({ patch }: { patch: SettingsPatch; description: string }) => api.settings.save(patch),
+    apply: (client, saved, { patch }) => {
+      client.setQueryData(keys.settings, saved);
+      // The default universe is the active one: the selector and status follow.
+      if (patch.default_universe) {
+        void client.invalidateQueries({ queryKey: keys.universes });
+        void client.invalidateQueries({ queryKey: keys.status });
+      }
+      if (saved.restart_detail) toast.warn(saved.restart_detail, 6000);
+    },
+    done: (_saved, { description }) => description,
+    failed: () => "Could not save",
   });
 }
 

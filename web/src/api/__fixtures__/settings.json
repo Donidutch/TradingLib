@@ -1,0 +1,122 @@
+{
+  "theme": "dark",
+  "density": "compact",
+  "timezone": "America/New_York",
+  "benchmark": "SPY",
+  "default_universe": "us-quality-50",
+  "active_universe": "us-quality-50",
+  "sources": {
+    "theme": "default",
+    "density": "default",
+    "timezone": "default",
+    "benchmark": "default",
+    "default_universe": "default"
+  },
+  "updated_at": null,
+  "options": {
+    "themes": [
+      "dark",
+      "light"
+    ],
+    "densities": [
+      "compact",
+      "comfortable"
+    ],
+    "timezones": [
+      "America/New_York",
+      "Europe/Copenhagen",
+      "UTC"
+    ],
+    "benchmarks": [
+      {
+        "symbol": "SPY",
+        "label": "S&P 500 (SPY)"
+      },
+      {
+        "symbol": "QQQ",
+        "label": "Nasdaq-100 (QQQ)"
+      },
+      {
+        "symbol": "IWM",
+        "label": "Russell 2000 (IWM)"
+      }
+    ],
+    "universes": [
+      {
+        "id": "nasdaq100",
+        "name": "Nasdaq-100",
+        "builtin": true
+      },
+      {
+        "id": "sp500",
+        "name": "S&P 500",
+        "builtin": true
+      },
+      {
+        "id": "us-quality-50",
+        "name": "US Quality 50",
+        "builtin": true
+      }
+    ]
+  },
+  "keys": [
+    {
+      "provider": "anthropic",
+      "label": "Anthropic API key",
+      "env": "ANTHROPIC_API_KEY",
+      "configured": false,
+      "source": null,
+      "updated_at": null
+    },
+    {
+      "provider": "openai",
+      "label": "OpenAI API key",
+      "env": "OPENAI_API_KEY",
+      "configured": false,
+      "source": null,
+      "updated_at": null
+    },
+    {
+      "provider": "alpaca_api_key",
+      "label": "Alpaca key id",
+      "env": "ALPACA_API_KEY",
+      "configured": false,
+      "source": null,
+      "updated_at": null
+    }
+  ],
+  "providers": [
+    {
+      "provider": "anthropic",
+      "configured": false,
+      "note": "claude-agent-sdk may also use local Claude Code CLI auth; verified at runtime by tradinglib.agents.providers.",
+      "keys": [
+        "anthropic"
+      ]
+    },
+    {
+      "provider": "openai",
+      "configured": false,
+      "keys": [
+        "openai"
+      ]
+    },
+    {
+      "provider": "alpaca",
+      "configured": false,
+      "keys": [
+        "alpaca_api_key",
+        "alpaca_secret_key"
+      ],
+      "paper": true,
+      "feed": "iex"
+    }
+  ],
+  "budgets": {
+    "per_run_usd": 12,
+    "daily_usd": 50,
+    "monthly_usd": 250
+  },
+  "config_path": null,
+  "secret_storage": "Credentials are stored in clear text in the application database (/path/to/TradingLib/data/app.db) and exported into this process's environment. They are never returned by the API."
+}

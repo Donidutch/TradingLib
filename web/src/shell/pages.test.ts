@@ -10,7 +10,10 @@ describe("targetForHash", () => {
     ["stock/BRK.B", { kind: "app", to: "/stock/$symbol", symbol: "BRK.B" }],
     ["#tl/lab/backtests?id=BT-3", { kind: "legacy", href: "/#tl/lab/backtests?id=BT-3" }],
     ["#data/screener", { kind: "legacy", href: "/#data/screener" }],
-    ["#settings", { kind: "legacy", href: "/#settings" }],
+    ["#settings", { kind: "app", to: "/settings" }],
+    ["#docs", { kind: "app", to: "/docs" }],
+    ["#docs/shortcuts", { kind: "app", to: "/docs/$article", article: "shortcuts" }],
+    ["#agents/inbox", { kind: "legacy", href: "/#agents/inbox" }],
   ])("%s", (hash, target) => {
     expect(targetForHash(hash)).toEqual(target);
   });

@@ -74,7 +74,7 @@
   body {
     background: var(--ds-bg);
     color: var(--ds-text);
-    font: var(--ds-font-size) / 1.5 var(--ds-font-mono);
+    font: var(--ds-font-size) / var(--ds-line-height) var(--ds-font-mono);
   }
 
   ::selection {

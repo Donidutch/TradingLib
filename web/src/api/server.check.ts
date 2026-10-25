@@ -4,7 +4,8 @@
  * Not part of `npm test` or CI: it needs the API up (uv run python -m
  * tradinglib.api) and live vendors. TRADINGLIB_URL picks the server
  * (default http://127.0.0.1:8200); SAVE_FIXTURES=1 also writes the first
- * symbol's responses, trimmed, to __fixtures__/ for the unit tests.
+ * symbol's responses, trimmed, to __fixtures__/ for the unit tests, and
+ * SAVE_ONLY=a,b limits that to the named endpoints.
  */
 import { mkdirSync, writeFileSync } from "node:fs";
 import { join } from "node:path";
@@ -14,6 +15,7 @@ import { makeApi, readEndpoints } from "./endpoints";
 const base = process.env.TRADINGLIB_URL ?? "http://127.0.0.1:8200";
 const symbols = (process.env.SYMBOLS ?? "AAPL,MSFT,NVDA,SPY").split(",");
 const save = process.env.SAVE_FIXTURES === "1";
+const saveOnly = process.env.SAVE_ONLY ? new Set(process.env.SAVE_ONLY.split(",")) : null;
 const fixtures = join(import.meta.dirname, "__fixtures__");
 
 /** Keep fixtures small: at most three items per array. */
@@ -35,7 +37,7 @@ describe.each(symbols)("%s against " + base, (symbol) => {
   it.each(calls)("%s matches its schema", async (name, call) => {
     try {
       const body = await call();
-      if (save && symbol === symbols[0]) {
+      if (save && symbol === symbols[0] && (!saveOnly || saveOnly.has(name))) {
         mkdirSync(fixtures, { recursive: true });
         writeFileSync(join(fixtures, `${name}.json`), `${JSON.stringify(trim(body), null, 2)}\n`);
       }

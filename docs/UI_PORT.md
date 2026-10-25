@@ -299,16 +299,36 @@ app (theme, density, timezone).
 
 ### S1 — Settings and Docs
 
-- [ ] Settings: Appearance (theme, density, timezone) and Research defaults
+- [x] Settings: Appearance (theme, density, timezone) and Research defaults
   (benchmark, default universe), each written to `PUT /api/settings` and read
   back; the API-keys card, write-only end to end (status and source shown,
   never a key).
-- [ ] Applied app-wide at load, not only on the page: `data-theme` and
+- [x] Applied app-wide at load, not only on the page: `data-theme` and
   `data-density` on `<html>` backed by light and density token sets, and the
   topbar clock in the chosen timezone.
-- [ ] Docs: methodology and product guide, the five entries opening their
+- [x] Docs: methodology and product guide, the five entries opening their
   articles, version from `/api/health`, shortcuts from the shell.
-- [ ] Tests; compare; rail entries for both move into the app.
+- [x] Tests; compare; rail entries for both move into the app.
+
+Done 2026-10-25. Compared with `tools/compare_consoles.py settings docs`: 6 of 6
+areas match. Write checks cover saving one field at a time and a key that is
+stored, never returned, and cleared, on the throwaway server only.
+
+Map (`settings.js`, `docs.js` → `web/src/pages/settings/`, `web/src/pages/docs/`;
+COVERAGE.md G and H):
+
+| Area | Source | Shows and does | Empty / error |
+| --- | --- | --- | --- |
+| Appearance | `GET /api/settings` | theme button ("Switch to light theme"), density select, timezone select, the UTC note; each change is `PUT /api/settings` with only that field, then the page shows the server's answer and a toast | load error in place of the page; save error as a toast and the page reloads |
+| Research defaults | same | primary benchmark (the stored one added when it is not in the options), default universe; changing the universe also moves the topbar selector and refreshes status | as above |
+| API keys | same | per key: label, "configured · source · saved date" or "not configured · reads ENV", a password field, Save (refuses an empty field with a warning), Clear (only for stored keys); badge "n / m configured"; the storage note. The response never carries a key | as above |
+| Provider status | same | each provider configured or not, with its note; LLM budgets per run, daily, monthly and the config path | as above |
+| Applied app-wide | `GET /api/settings` at load | `data-theme`, `data-density` on `<html>`; topbar clock in the chosen zone with label ET, UTC or the city; a `restart_detail` in a save answer is shown as a warning | stays on the defaults and logs the reason |
+| Docs | static, plus `GET /api/health` | two panels (Methodology, Product guide) listing five articles; selecting one opens it below and puts it in the URL (`/app/docs/<id>`); footer with the build version | version stays "TradingLib" when health fails |
+
+Deliberate difference: the Keyboard shortcuts article lists this app's routes
+(`/app/stock/NVDA`, …) instead of the old hash routes, and the light theme is a
+token set rather than per-class overrides, so it covers every page of the app.
 
 ### S2 — Market & Data I: collections and screener (F.1, F.2: 31 rows)
 

@@ -27,6 +27,8 @@ const ROUTES: Record<string, string> = {
   "/api/watchlists": "watchlists.list",
   "/api/search": "search",
   "/api/lab/backtests": "lab.backtests",
+  "/api/settings": "settings",
+  "/api/health": "health",
 };
 
 /**

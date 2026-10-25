@@ -124,3 +124,26 @@ export function metricText(
 }
 
 export const toneText = { up: "text-up", down: "text-down" } as const;
+
+const ZONE_FORMATS = new Map<string, Intl.DateTimeFormat>();
+
+/** "15:04:05" in any IANA zone; null when the zone is not one the browser knows. */
+export function clockIn(zone: string, date: Date = new Date()): string | null {
+  let format = ZONE_FORMATS.get(zone);
+  if (!format) {
+    try {
+      format = new Intl.DateTimeFormat("en-GB", { timeZone: zone, hour12: false, hour: "2-digit", minute: "2-digit", second: "2-digit" });
+    } catch {
+      return null;
+    }
+    ZONE_FORMATS.set(zone, format);
+  }
+  return format.format(date);
+}
+
+/** The clock's label for a zone: ET for New York, UTC, else the city. */
+export function zoneLabel(zone: string): string {
+  if (zone === "America/New_York") return "ET";
+  if (zone === "UTC") return "UTC";
+  return (zone.split("/").at(-1) || zone).replace(/_/g, " ");
+}

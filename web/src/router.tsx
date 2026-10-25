@@ -1,5 +1,5 @@
 import { createRootRoute, createRoute, createRouter } from "@tanstack/react-router";
-import { LazyOverview, LazyStock } from "./pages/lazy";
+import { LazyDocs, LazyOverview, LazySettings, LazyStock } from "./pages/lazy";
 import { DEFAULT_SYMBOL } from "./pages/stock/rules";
 import { Shell } from "./shell/Shell";
 
@@ -31,7 +31,34 @@ const stockRoute = createRoute({
   },
 });
 
-export const routeTree = rootRoute.addChildren([overviewRoute, stockIndexRoute, stockRoute]);
+const settingsRoute = createRoute({
+  getParentRoute: () => rootRoute,
+  path: "/settings",
+  component: LazySettings,
+});
+
+const docsIndexRoute = createRoute({
+  getParentRoute: () => rootRoute,
+  path: "/docs",
+  component: () => <LazyDocs article={undefined} />,
+});
+
+const docsRoute = createRoute({
+  getParentRoute: () => rootRoute,
+  path: "/docs/$article",
+  component: function Docs() {
+    return <LazyDocs article={docsRoute.useParams().article} />;
+  },
+});
+
+export const routeTree = rootRoute.addChildren([
+  overviewRoute,
+  stockIndexRoute,
+  stockRoute,
+  settingsRoute,
+  docsIndexRoute,
+  docsRoute,
+]);
 
 export function makeRouter(history?: Parameters<typeof createRouter>[0]["history"]) {
   return createRouter({ routeTree, basepath: "/app", history });

@@ -111,7 +111,24 @@ def cases(symbols: list[str]) -> dict[str, list[Case]]:
         )
         for symbol in symbols
     ]
-    return {"overview": [overview], "stock": stock}
+    settings = Case(
+        name="settings",
+        old_url="/#settings",
+        new_url="/app/settings",
+        old_root="#view-settings",
+        new_root="main",
+    )
+    docs = [
+        Case(
+            name=f"docs/{article}",
+            old_url=f"/#docs/{article}",
+            new_url=f"/app/docs/{article}",
+            old_root="#view-docs",
+            new_root="main",
+        )
+        for article in ("hypotheses", "backtests", "validation", "shortcuts", "autonomy")
+    ]
+    return {"overview": [overview], "stock": stock, "settings": [settings], "docs": docs}
 
 
 #: Runs inside the harness page; compares one case and returns the result.

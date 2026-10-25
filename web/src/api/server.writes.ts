@@ -60,6 +60,27 @@ describe("watchlists and scope", () => {
   }, 60_000);
 });
 
+describe("settings", () => {
+  it("saves one field at a time and answers with the stored whole", async () => {
+    const before = await api.settings.get();
+    const light = await api.settings.save({ theme: "light" });
+    expect(light.theme).toBe("light");
+    expect(light.density).toBe(before.density);
+    expect((await api.settings.save({ density: "comfortable", timezone: "UTC" })).timezone).toBe("UTC");
+    expect((await api.settings.save({ theme: "dark", density: "compact", timezone: before.timezone })).theme).toBe("dark");
+  }, 60_000);
+
+  it("stores a key without ever returning it, and clears it", async () => {
+    const secret = "writes-check-not-a-real-key";
+    const saved = await api.settings.save({ keys: { fred: secret } });
+    expect(JSON.stringify(saved)).not.toContain(secret);
+    expect(saved.keys.find((k) => k.provider === "fred")).toMatchObject({ configured: true, source: "stored" });
+    expect(JSON.stringify(await api.settings.get())).not.toContain(secret);
+    const cleared = await api.settings.save({ keys: { fred: "" } });
+    expect(cleared.keys.find((k) => k.provider === "fred")?.source).not.toBe("stored");
+  }, 60_000);
+});
+
 describe("live frames", () => {
   it("quality: a check run publishes frames the app accepts", async () => {
     // The response body is the S3 slice's to type; here only its frames matter.

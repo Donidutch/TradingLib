@@ -1,0 +1,43 @@
+{
+  "symbol": "AAPL",
+  "error": null,
+  "catalysts": [
+    {
+      "label": "Results in 8d",
+      "basis": "next scheduled earnings 2026-11-02, consensus EPS 1.98 (yfinance calendar)",
+      "kind": "catalyst",
+      "metric": "next_earnings"
+    },
+    {
+      "label": "Revenue compounding",
+      "basis": "trailing revenue +19.4% year over year with a 36.0% EBITDA margin",
+      "kind": "catalyst",
+      "metric": "revenue_yoy"
+    },
+    {
+      "label": "Free cash generative",
+      "basis": "trailing free cash flow margin 29.3%",
+      "kind": "catalyst",
+      "metric": "fcf_margin"
+    }
+  ],
+  "risks": [
+    {
+      "label": "Valuation",
+      "basis": "enterprise value is 10.9x trailing revenue",
+      "kind": "risk",
+      "metric": "ev_to_sales"
+    }
+  ],
+  "rules": {
+    "earnings_days": 90,
+    "revision_pct": 0.01,
+    "revenue_growth": 0.15,
+    "net_cash_share": 0.1,
+    "sentiment": 0.15,
+    "dispersion": 0.15,
+    "ev_to_sales": 10,
+    "net_debt_to_ebitda": 3
+  },
+  "basis": "measured from this company's own filings, consensus and news - not written prose"
+}

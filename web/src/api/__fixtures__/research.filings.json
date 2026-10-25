@@ -1,0 +1,56 @@
+{
+  "symbol": "AAPL",
+  "error": null,
+  "source": "edgar",
+  "items": [
+    {
+      "symbol": "AAPL",
+      "cik": "0000320193",
+      "form": "4",
+      "filed_at": "2026-10-22",
+      "accession": "0001140361-26-040540",
+      "url": "https://www.sec.gov/Archives/edgar/data/320193/000114036126040540/xslF345X06/form4.xml",
+      "title": "FORM 4",
+      "period_of_report": "2026-10-20"
+    },
+    {
+      "symbol": "AAPL",
+      "cik": "0000320193",
+      "form": "4",
+      "filed_at": "2026-10-19",
+      "accession": "0001140361-26-040127",
+      "url": "https://www.sec.gov/Archives/edgar/data/320193/000114036126040127/xslF345X06/form4.xml",
+      "title": "FORM 4",
+      "period_of_report": "2026-10-15"
+    },
+    {
+      "symbol": "AAPL",
+      "cik": "0000320193",
+      "form": "4",
+      "filed_at": "2026-10-19",
+      "accession": "0001140361-26-040126",
+      "url": "https://www.sec.gov/Archives/edgar/data/320193/000114036126040126/xslF345X06/form4.xml",
+      "title": "FORM 4",
+      "period_of_report": "2026-10-15"
+    }
+  ],
+  "count": 40,
+  "form_counts": {
+    "3": 1,
+    "4": 28,
+    "144": 7,
+    "10-Q": 1,
+    "8-K": 1,
+    "8-K/A": 1,
+    "SD": 1
+  },
+  "freshness": {
+    "component": "filings",
+    "source": "edgar",
+    "fetched_at": "2026-10-25T15:16:15.508557+00:00",
+    "age_seconds": 470.379918,
+    "stale": false,
+    "max_age_seconds": 86400,
+    "detail": null
+  }
+}

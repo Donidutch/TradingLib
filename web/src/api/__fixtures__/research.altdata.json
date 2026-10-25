@@ -1,0 +1,108 @@
+{
+  "symbol": "AAPL",
+  "signals": {
+    "google_trends": {
+      "source": "trends",
+      "unit": "index 0-100 (Google-relative)",
+      "value": 70,
+      "reason": null,
+      "points": [
+        {
+          "time": "2025-10-19T00:00:00+00:00",
+          "value": 67
+        },
+        {
+          "time": "2025-10-26T00:00:00+00:00",
+          "value": 65
+        },
+        {
+          "time": "2025-11-02T00:00:00+00:00",
+          "value": 67
+        }
+      ],
+      "keyword": "Apple",
+      "geo": "US",
+      "timeframe": "today 12-m",
+      "change_90d_pct": 0
+    },
+    "news_sentiment": {
+      "source": "yfinance",
+      "unit": "VADER compound, recency weighted",
+      "value": null,
+      "reason": null,
+      "label": null,
+      "sample": 0
+    },
+    "app_rank_composite": {
+      "source": "trends",
+      "unit": "percentile points, 90-day change",
+      "value": 16.666666666666657,
+      "reason": null,
+      "basis": "percentile rank of the newest Google Trends interest for 'Apple' (US) within its today 5-y distribution, and the change in that rank over 90 days - a search-interest rank, not an app-store position",
+      "as_of": "2026-10-18T00:00:00+00:00",
+      "rank": 79.88505747126436,
+      "rank_90d_ago": 63.2183908045977,
+      "keyword": "Apple",
+      "geo": "US",
+      "observations": 261
+    },
+    "web_traffic_yoy": {
+      "source": "trends",
+      "unit": "ratio",
+      "value": 0.06723716381418088,
+      "reason": null,
+      "basis": "mean Google Trends interest for 'Apple' (US) over the last 12 weekly observations against the same 12 a year earlier - a search-interest proxy for site traffic, not measured sessions",
+      "as_of": "2026-10-18T00:00:00+00:00",
+      "keyword": "Apple",
+      "geo": "US",
+      "current_mean": 72.75,
+      "prior_mean": 68.16666666666667,
+      "weeks": 12
+    },
+    "job_postings_90d": {
+      "source": "jobs",
+      "unit": "% of listed roles opened in the last 90 days",
+      "value": null,
+      "reason": "no public Greenhouse, Ashby or Lever job board is published for Apple Inc.",
+      "basis": "share of a company's currently listed roles that were first published in the last 90 days, read from its public Greenhouse, Ashby or Lever job board"
+    }
+  },
+  "freshness": {
+    "trends": {
+      "component": "trends",
+      "source": "trends",
+      "fetched_at": "2026-10-25T15:16:12.537318+00:00",
+      "age_seconds": 473.348669,
+      "stale": false,
+      "max_age_seconds": 259200,
+      "detail": null
+    },
+    "trends_long": {
+      "component": "trends",
+      "source": "trends",
+      "fetched_at": "2026-10-25T15:16:13.132668+00:00",
+      "age_seconds": 472.753324,
+      "stale": false,
+      "max_age_seconds": 259200,
+      "detail": null
+    },
+    "news": {
+      "component": "news",
+      "source": "yfinance",
+      "fetched_at": "2026-10-25T15:16:11.769792+00:00",
+      "age_seconds": 474.115883,
+      "stale": false,
+      "max_age_seconds": 10800,
+      "detail": null
+    },
+    "jobs": {
+      "component": "jobs",
+      "source": "jobs",
+      "fetched_at": "2026-10-25T15:16:15.191835+00:00",
+      "age_seconds": 470.694161,
+      "stale": false,
+      "max_age_seconds": 172800,
+      "detail": null
+    }
+  }
+}

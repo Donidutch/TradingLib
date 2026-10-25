@@ -1,0 +1,64 @@
+{
+  "data_live": false,
+  "gateway_ms": 1069.2851139974664,
+  "sources_connected": 4,
+  "sources_total": 7,
+  "last_ingest": "2026-10-25T14:40:52.012016+00:00",
+  "delayed_series": 1,
+  "fundamentals_coverage": {
+    "universe_id": "primary-research",
+    "universe_name": "Primary research",
+    "covered": 2,
+    "total": 2,
+    "pct": 100,
+    "missing": [],
+    "missing_total": 0,
+    "measured_at": "2026-10-25T15:23:49.540869+00:00",
+    "duration_s": 0.43
+  },
+  "trials_logged": 0,
+  "spend": {
+    "used": 0,
+    "budget": 50
+  },
+  "engine_health": "degraded",
+  "engine_detail": "1 delayed series on Alpaca Market Stream",
+  "degraded_subsystems": [
+    "ingest_scheduler"
+  ],
+  "subsystems": {
+    "database": "up",
+    "event_bus": "up",
+    "websocket": "up",
+    "source_catalog": "up",
+    "ingest_scheduler": "not_started",
+    "ingest_gateway": "up",
+    "universe_registry": "up",
+    "quality_engine": "up",
+    "agent_runner": "up",
+    "alpaca_stream": "not_configured"
+  },
+  "universe": {
+    "id": "primary-research",
+    "name": "Primary research",
+    "kind": "watchlist",
+    "symbols": 2,
+    "members_fetched_at": null
+  },
+  "quality": {
+    "overall_quality_pct": null,
+    "open_incidents": 0,
+    "failed_checks": 0,
+    "last_run": null
+  },
+  "market_stream": {
+    "status": "not_configured",
+    "configured": false,
+    "running": false,
+    "detail": "ALPACA_API_KEY / ALPACA_SECRET_KEY are not configured"
+  },
+  "ws_connections": 0,
+  "version": "0.1.0",
+  "server_time_utc": "2026-10-25T15:24:05.399371+00:00",
+  "uptime_seconds": 57.664
+}

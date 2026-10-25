@@ -1,0 +1,36 @@
+{
+  "query": "AAPL",
+  "count": 6,
+  "results": [
+    {
+      "symbol": "AAPL",
+      "name": "Apple Inc.",
+      "exchange": "NASDAQ",
+      "type": "EQUITY",
+      "sector": "Technology",
+      "industry": "Consumer Electronics",
+      "source": "yfinance",
+      "score": 109662000
+    },
+    {
+      "symbol": "AAPU",
+      "name": "Direxion Daily AAPL Bull 2X Shares",
+      "exchange": "NASDAQ",
+      "type": "ETF",
+      "sector": null,
+      "industry": null,
+      "source": "yfinance",
+      "score": 20420
+    },
+    {
+      "symbol": "AAPW",
+      "name": "Roundhill AAPL WeeklyPay ETF",
+      "exchange": "BATS Trading",
+      "type": "ETF",
+      "sector": null,
+      "industry": null,
+      "source": "yfinance",
+      "score": 20149
+    }
+  ]
+}

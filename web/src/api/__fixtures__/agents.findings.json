@@ -1,0 +1,45 @@
+{
+  "findings": [
+    {
+      "id": "FND-577C4D",
+      "title": "AAPL services growth",
+      "summary": "Services revenue up",
+      "confidence": "low",
+      "confidence_pct": 0.7,
+      "status": "new",
+      "symbols": [
+        "AAPL"
+      ],
+      "symbol_label": "AAPL",
+      "tags": [
+        "growth"
+      ],
+      "run_id": null,
+      "agent_id": null,
+      "hypothesis_id": null,
+      "evidence_count": 0,
+      "acknowledged": false,
+      "created_at": "2026-10-25T15:23:17.782296+00:00",
+      "updated_at": "2026-10-25T15:23:17.782296+00:00",
+      "stage_id": null,
+      "evidence": [],
+      "acknowledged_by": null
+    }
+  ],
+  "count": 1,
+  "counts": {
+    "new": 1,
+    "triaged": 0,
+    "promoted": 0,
+    "dismissed": 0,
+    "total": 1,
+    "unacknowledged": 1
+  },
+  "tags": [
+    "growth"
+  ],
+  "symbols": [
+    "AAPL"
+  ],
+  "query": null
+}

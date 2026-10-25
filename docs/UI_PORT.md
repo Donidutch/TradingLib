@@ -1,6 +1,6 @@
 # React port of the console — plan
 
-Status: P0 done 2026-10-25. First step: the shell, Overview and Stock Research.
+Status: P0 and P1 done 2026-10-25. First step: the shell, Overview and Stock Research.
 
 ## Why
 
@@ -50,8 +50,9 @@ SPEC §2 locks the UI as a vanilla-JS SPA reusing the REFERENCE CSS verbatim
 | Overview | `pages/overview.js`, 1,410 lines | Market strip, live ticker tape, watchlist with filter and live prices, panels, agent inbox merge |
 | Stock Research | `pages/stock.js`, 1,259 lines | Any ticker loads; tabs Overview, Financials, Earnings & Estimates, Valuation & Peers, News & Sentiment, Alternative Data, Research; live price chart; real derived metrics; data freshness |
 
-API used: `research` (company, price, news, estimates, altdata, valuation,
-thesis, memory, financials, filings, resolve), `watchlists` (list, create),
+API used: `status` and `search` (shell), `research` (company, price, ranges,
+news, estimates, altdata, valuation, thesis, memory, financials, filings,
+freshness, resolve), `watchlists` (list, create, add and remove symbol),
 `universes` (list, active, setActive, members, breadth), `macro`, `agents`
 (inbox, findings), `lab` (hypotheses, backtests). WebSocket channels: `tape`,
 `status`, `notifications`.
@@ -77,16 +78,18 @@ Each slice ends green on its own checks and is committed alone.
 
 ### P1 — Data layer
 
-- [ ] Typed client keeping `api.js`'s rules: `ApiError` with status, URL and
+- [x] Typed client keeping `api.js`'s rules: `ApiError` with status, URL and
   payload; `optional()` resolves null only on 404/501; reachability state for
   the ENGINE indicator.
-- [ ] Zod schema and type per endpoint in scope; Query hooks per resource.
-- [ ] WebSocket hook: subscribe/unsubscribe/listen, reconnect, visible degraded
+- [x] Zod schema and type per endpoint in scope; Query hooks per resource.
+- [x] WebSocket hook: subscribe/unsubscribe/listen, reconnect, visible degraded
   state.
-- [ ] Tests mock `fetch` and the socket only; one test per endpoint rejects a
+- [x] Tests mock `fetch` and the socket only; one test per endpoint rejects a
   malformed response.
-- [ ] `npm run check:api`: validates every schema against a running local
-  server (not run in CI).
+- [x] `npm run check:api`: validates every schema against a running local
+  server (not run in CI). `TRADINGLIB_URL` picks the server, `SYMBOLS` the
+  tickers (default AAPL, MSFT, NVDA, SPY), and `SAVE_FIXTURES=1` rewrites the
+  unit-test fixtures in `web/src/api/__fixtures__` from the first ticker.
 
 ### P2 — Shell
 

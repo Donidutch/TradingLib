@@ -105,5 +105,5 @@ the shell, Overview and Stock Research (slices P0–P5). SPEC amendment D1b
 approved and applied.
 
 - [x] P0 scaffold and serving (2026-10-25).
-- [ ] P1 data layer · P2 shell · P3 Overview · P4 Stock Research ·
-      P5 verification.
+- [x] P1 data layer (2026-10-25).
+- [ ] P2 shell · P3 Overview · P4 Stock Research · P5 verification.

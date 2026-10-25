@@ -1,0 +1,18 @@
+{
+  "window": 200,
+  "interval": "1d",
+  "requested": 50,
+  "covered": 3,
+  "above": 3,
+  "below": 0,
+  "percent": null,
+  "as_of": "2026-10-23T04:00:00+00:00",
+  "uncovered": [
+    "ADBE",
+    "ADP",
+    "AVGO"
+  ],
+  "reason": "only 3 of 50 constituents have 200 stored daily closes; at least 20 are needed for a breadth reading",
+  "universe_id": "us-quality-50",
+  "universe": "US Quality 50"
+}

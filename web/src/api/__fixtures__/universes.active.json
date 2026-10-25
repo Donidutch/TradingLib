@@ -1,0 +1,19 @@
+{
+  "active": "primary-research",
+  "scope": {
+    "kind": "watchlist",
+    "id": "primary-research",
+    "name": "Primary research",
+    "ref": "watchlist:primary-research",
+    "symbols": [
+      "AAPL",
+      "NVDA"
+    ],
+    "symbol_count": 2
+  },
+  "universe": null,
+  "symbols": [
+    "AAPL",
+    "NVDA"
+  ]
+}

@@ -9,7 +9,8 @@
     "preview": "vite preview",
     "lint": "eslint .",
     "typecheck": "tsc -b",
-    "test": "vitest run"
+    "test": "vitest run",
+    "check:api": "CHECK_API=1 vitest run"
   },
   "dependencies": {
     "@tanstack/react-query": "^5.104.5",

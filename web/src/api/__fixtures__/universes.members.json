@@ -1,0 +1,38 @@
+{
+  "universe": "us-quality-50",
+  "name": "US Quality 50",
+  "as_of": null,
+  "basis": "current",
+  "members": [
+    {
+      "symbol": "MSFT",
+      "name": "Microsoft Corporation",
+      "sector": "Information Technology",
+      "weight": null,
+      "added_on": "2026-06-30",
+      "removed_on": null,
+      "source_symbol": null
+    },
+    {
+      "symbol": "AAPL",
+      "name": "Apple Inc.",
+      "sector": "Information Technology",
+      "weight": null,
+      "added_on": "2026-06-30",
+      "removed_on": null,
+      "source_symbol": null
+    },
+    {
+      "symbol": "NVDA",
+      "name": "NVIDIA Corporation",
+      "sector": "Information Technology",
+      "weight": null,
+      "added_on": "2026-06-30",
+      "removed_on": null,
+      "source_symbol": null
+    }
+  ],
+  "count": 50,
+  "members_fetched_at": "2026-10-25T14:40:50.012274+00:00",
+  "snapshot_as_of": null
+}

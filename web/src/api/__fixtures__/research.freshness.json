@@ -1,0 +1,70 @@
+{
+  "symbol": "AAPL",
+  "components": {
+    "quote": {
+      "component": "quote",
+      "source": "yfinance",
+      "fetched_at": "2026-10-25T15:23:50.931105+00:00",
+      "age_seconds": 14.962749,
+      "stale": false,
+      "max_age_seconds": 120,
+      "detail": null
+    },
+    "fundamentals": {
+      "component": "fundamentals",
+      "source": "yfinance",
+      "fetched_at": "2026-10-25T14:41:11.756158+00:00",
+      "age_seconds": 2574.137708,
+      "stale": false,
+      "max_age_seconds": 86400,
+      "detail": null
+    },
+    "statements": {
+      "component": "statements",
+      "source": "yfinance",
+      "fetched_at": "2026-10-25T15:16:07.053976+00:00",
+      "age_seconds": 478.839897,
+      "stale": false,
+      "max_age_seconds": 604800,
+      "detail": null
+    },
+    "estimates": {
+      "component": "estimates",
+      "source": "yfinance",
+      "fetched_at": "2026-10-25T15:16:07.062026+00:00",
+      "age_seconds": 478.831852,
+      "stale": false,
+      "max_age_seconds": 86400,
+      "detail": null
+    },
+    "news": {
+      "component": "news",
+      "source": "yfinance",
+      "fetched_at": "2026-10-25T15:16:11.769792+00:00",
+      "age_seconds": 474.124091,
+      "stale": false,
+      "max_age_seconds": 10800,
+      "detail": null
+    },
+    "filings": {
+      "component": "filings",
+      "source": "edgar",
+      "fetched_at": "2026-10-25T15:16:15.508557+00:00",
+      "age_seconds": 470.38533,
+      "stale": false,
+      "max_age_seconds": 86400,
+      "detail": null
+    },
+    "price": {
+      "component": "price",
+      "source": "store",
+      "fetched_at": "2026-10-23T04:00:00+00:00",
+      "age_seconds": 213845.905694,
+      "stale": false,
+      "max_age_seconds": 345600,
+      "detail": "newest stored daily bar"
+    }
+  },
+  "stale_components": [],
+  "status": "current"
+}

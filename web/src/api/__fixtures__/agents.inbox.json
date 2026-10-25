@@ -1,0 +1,52 @@
+{
+  "items": [
+    {
+      "id": "FND-577C4D",
+      "type": "Agent",
+      "title": "AAPL services growth",
+      "reason": "Services revenue up",
+      "urgency": "Normal",
+      "status": "new",
+      "symbol": "AAPL",
+      "source": null,
+      "owner": null,
+      "action": "Review finding",
+      "route": "findings",
+      "context": {
+        "findingId": "FND-577C4D",
+        "runId": null
+      },
+      "created_at": "2026-10-25T15:23:17.782296+00:00",
+      "age_seconds": 47.825922,
+      "confidence_pct": 0.7,
+      "kind": "finding",
+      "evidence_count": 0,
+      "agent_id": null,
+      "stage_id": null
+    }
+  ],
+  "count": 1,
+  "total": 1,
+  "types": [
+    "Approval",
+    "Validation",
+    "Experiment"
+  ],
+  "counts": {
+    "Approval": 0,
+    "Validation": 0,
+    "Experiment": 0,
+    "Data": 0,
+    "Agent": 1,
+    "Finding": 1
+  },
+  "sources_available": {
+    "Approval": true,
+    "Validation": true,
+    "Experiment": true,
+    "Data": true,
+    "Agent": true
+  },
+  "pending_approvals": 0,
+  "unacknowledged_findings": 1
+}

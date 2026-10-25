@@ -1,0 +1,270 @@
+{
+  "symbol": "AAPL",
+  "error": null,
+  "source": "yfinance",
+  "history": [
+    {
+      "date": "2026-07-30T20:00:00+00:00",
+      "report_quarter": "2026 Q3",
+      "fiscal_period": "2026-06-30",
+      "calendar_quarter": "2026 Q2",
+      "eps_estimate": 1.89,
+      "eps_reported": 2.02,
+      "surprise_pct": 6.74,
+      "reaction_pct": -7.353864245054432
+    },
+    {
+      "date": "2026-04-30T20:00:00+00:00",
+      "report_quarter": "2026 Q2",
+      "fiscal_period": "2026-03-31",
+      "calendar_quarter": "2026 Q1",
+      "eps_estimate": 1.94,
+      "eps_reported": 2.01,
+      "surprise_pct": 3.46,
+      "reaction_pct": 3.2393618379240596
+    },
+    {
+      "date": "2026-01-29T21:00:00+00:00",
+      "report_quarter": "2026 Q1",
+      "fiscal_period": "2025-12-31",
+      "calendar_quarter": "2025 Q4",
+      "eps_estimate": 2.67,
+      "eps_reported": 2.84,
+      "surprise_pct": 6.25,
+      "reaction_pct": 0.46461677741320706
+    }
+  ],
+  "next_earnings": {
+    "date": "2026-11-02T20:00:00+00:00",
+    "days_away": 8,
+    "eps_estimate": 1.98,
+    "source": "yfinance",
+    "basis": "vendor earnings calendar"
+  },
+  "consensus": {
+    "fy_revenue": 477779306990,
+    "fy_revenue_growth": 0.1481,
+    "fy_next_revenue": 527282593570,
+    "fy_eps": 8.82757,
+    "fy_next_eps": 9.5547,
+    "analysts": 39,
+    "eps_high": 8.93,
+    "eps_low": 8.28,
+    "dispersion": 0.07363294768548993,
+    "revision_30d": 0.0009206923334221414,
+    "basis": "vendor consensus for the current fiscal year; dispersion is (high - low) / |mean| EPS, revision is the 30-day change in the mean EPS estimate"
+  },
+  "earnings_estimate": [
+    {
+      "period": "0q",
+      "avg": 1.97965,
+      "low": 1.93,
+      "high": 2.06,
+      "yearAgoEps": 1.85,
+      "numberOfAnalysts": 27,
+      "growth": 0.0701,
+      "currency": "USD"
+    },
+    {
+      "period": "+1q",
+      "avg": 2.89536,
+      "low": 2.56,
+      "high": 3.42,
+      "yearAgoEps": 2.84,
+      "numberOfAnalysts": 21,
+      "growth": 0.0195,
+      "currency": "USD"
+    },
+    {
+      "period": "0y",
+      "avg": 8.82757,
+      "low": 8.28,
+      "high": 8.93,
+      "yearAgoEps": 7.46,
+      "numberOfAnalysts": 39,
+      "growth": 0.1833,
+      "currency": "USD"
+    }
+  ],
+  "revenue_estimate": [
+    {
+      "period": "0q",
+      "avg": 113381085200,
+      "low": 112525022000,
+      "high": 116186700000,
+      "numberOfAnalysts": 25,
+      "yearAgoRevenue": 102466000000,
+      "growth": 0.1065,
+      "currency": "USD"
+    },
+    {
+      "period": "+1q",
+      "avg": 153541338720,
+      "low": 131500061129,
+      "high": 170414000000,
+      "numberOfAnalysts": 17,
+      "yearAgoRevenue": 143756000000,
+      "growth": 0.0681,
+      "currency": "USD"
+    },
+    {
+      "period": "0y",
+      "avg": 477779306990,
+      "low": 476002000000,
+      "high": 484000000000,
+      "numberOfAnalysts": 38,
+      "yearAgoRevenue": 416161000000,
+      "growth": 0.1481,
+      "currency": "USD"
+    }
+  ],
+  "eps_trend": [
+    {
+      "period": "0q",
+      "current": 1.97965,
+      "7daysAgo": 1.97842,
+      "30daysAgo": 1.97754,
+      "60daysAgo": 1.97656,
+      "90daysAgo": 2.00997,
+      "currency": "USD"
+    },
+    {
+      "period": "+1q",
+      "current": 2.89536,
+      "7daysAgo": 2.90188,
+      "30daysAgo": 2.90471,
+      "60daysAgo": 2.90859,
+      "90daysAgo": 2.96757,
+      "currency": "USD"
+    },
+    {
+      "period": "0y",
+      "current": 8.82757,
+      "7daysAgo": 8.82006,
+      "30daysAgo": 8.81945,
+      "60daysAgo": 8.81249,
+      "90daysAgo": 8.76003,
+      "currency": "USD"
+    }
+  ],
+  "eps_revisions": [
+    {
+      "period": "0q",
+      "upLast7days": 0,
+      "upLast30days": 1,
+      "downLast30days": 1,
+      "downLast7Days": 1,
+      "currency": "USD"
+    },
+    {
+      "period": "+1q",
+      "upLast7days": 1,
+      "upLast30days": 2,
+      "downLast30days": 1,
+      "downLast7Days": 0,
+      "currency": "USD"
+    },
+    {
+      "period": "0y",
+      "upLast7days": 0,
+      "upLast30days": 2,
+      "downLast30days": 2,
+      "downLast7Days": 1,
+      "currency": "USD"
+    }
+  ],
+  "growth_estimates": [
+    {
+      "period": "0q",
+      "stockTrend": 0.0721,
+      "indexTrend": 0.2631
+    },
+    {
+      "period": "+1q",
+      "stockTrend": 0.010299999,
+      "indexTrend": 0.2741
+    },
+    {
+      "period": "0y",
+      "stockTrend": 0.1848,
+      "indexTrend": 0.33080003
+    }
+  ],
+  "recommendations": [
+    {
+      "row": "0",
+      "period": "0m",
+      "strongBuy": 6,
+      "buy": 18,
+      "hold": 14,
+      "sell": 3,
+      "strongSell": 3
+    },
+    {
+      "row": "1",
+      "period": "-1m",
+      "strongBuy": 6,
+      "buy": 19,
+      "hold": 13,
+      "sell": 3,
+      "strongSell": 3
+    },
+    {
+      "row": "2",
+      "period": "-2m",
+      "strongBuy": 6,
+      "buy": 19,
+      "hold": 14,
+      "sell": 3,
+      "strongSell": 2
+    }
+  ],
+  "upgrades_downgrades": [
+    {
+      "date": "2026-10-20T18:00:28+00:00",
+      "Firm": "MoffettNathanson",
+      "ToGrade": "Neutral",
+      "FromGrade": "Neutral",
+      "Action": "main",
+      "priceTargetAction": "Lowers",
+      "currentPriceTarget": 283,
+      "priorPriceTarget": 304
+    },
+    {
+      "date": "2026-10-20T09:46:57+00:00",
+      "Firm": "Loop Capital",
+      "ToGrade": "Hold",
+      "FromGrade": "Buy",
+      "Action": "down",
+      "priceTargetAction": "Lowers",
+      "currentPriceTarget": 330,
+      "priorPriceTarget": 370
+    },
+    {
+      "date": "2026-10-12T18:47:46+00:00",
+      "Firm": "JP Morgan",
+      "ToGrade": "Overweight",
+      "FromGrade": "Overweight",
+      "Action": "main",
+      "priceTargetAction": "Raises",
+      "currentPriceTarget": 360,
+      "priorPriceTarget": 340
+    }
+  ],
+  "price_targets": {
+    "current": 347.725,
+    "high": 405,
+    "low": 240,
+    "mean": 329.24768,
+    "median": 335
+  },
+  "freshness": {
+    "component": "estimates",
+    "source": "yfinance",
+    "fetched_at": "2026-10-25T15:16:07.062026+00:00",
+    "age_seconds": 478.798763,
+    "stale": false,
+    "max_age_seconds": 86400,
+    "detail": null
+  }
+}

@@ -19,6 +19,8 @@ export default defineConfig({
   test: {
     environment: "jsdom",
     globals: true,
-    setupFiles: ["./src/test-setup.ts"],
+    setupFiles: ["./src/test/setup.ts"],
+    // `npm run check:api` runs only the *.check.ts files, against a live server.
+    include: process.env.CHECK_API ? ["src/**/*.check.ts"] : ["src/**/*.test.{ts,tsx}"],
   },
 });

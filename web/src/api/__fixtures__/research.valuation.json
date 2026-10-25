@@ -1,0 +1,179 @@
+{
+  "symbol": "AAPL",
+  "error": null,
+  "multiples": {
+    "ev_to_sales": {
+      "key": "ev_to_sales",
+      "label": "EV / Sales",
+      "value": 10.917855987455631,
+      "unit": "x",
+      "basis": "Enterprise value / Revenue (TTM)",
+      "reason": null,
+      "inputs": {
+        "enterprise_value": 5096706285632,
+        "revenue_ttm": 466823000000
+      }
+    },
+    "ev_to_ebitda": {
+      "key": "ev_to_ebitda",
+      "label": "EV / EBITDA",
+      "value": 30.344943025571716,
+      "unit": "x",
+      "basis": "Enterprise value / EBITDA (TTM)",
+      "reason": null,
+      "inputs": {
+        "enterprise_value": 5096706285632,
+        "ebitda_ttm": 167959000000
+      }
+    },
+    "price_to_earnings": {
+      "key": "price_to_earnings",
+      "label": "P / E",
+      "value": 39.36059323378578,
+      "unit": "x",
+      "basis": "Market cap / Net income (TTM)",
+      "reason": null,
+      "inputs": {
+        "market_cap": 5074761285632,
+        "net_income_ttm": 128930000000
+      }
+    },
+    "forward_pe": {
+      "key": "forward_pe",
+      "label": "Forward P / E",
+      "value": 36.365494,
+      "unit": "x",
+      "basis": "yfinance consensus forward P/E (price / forward EPS estimate)",
+      "reason": null,
+      "inputs": {
+        "trailing_pe": 39.87672
+      }
+    },
+    "price_to_book": {
+      "key": "price_to_book",
+      "label": "P / B",
+      "value": 47.19830064761905,
+      "unit": "x",
+      "basis": "Market cap / Shareholders' equity",
+      "reason": null,
+      "inputs": {
+        "market_cap": 5074761285632,
+        "equity": 107520000000
+      }
+    },
+    "fcf_yield": {
+      "key": "fcf_yield",
+      "label": "FCF yield",
+      "value": 0.02693387773469975,
+      "unit": "ratio",
+      "basis": "Free cash flow (TTM) / Market cap",
+      "reason": null,
+      "inputs": {
+        "fcf_ttm": 136683000000,
+        "market_cap": 5074761285632
+      }
+    },
+    "reverse_dcf_growth": {
+      "key": "reverse_dcf_growth",
+      "label": "Reverse-DCF implied growth",
+      "value": 0.16182506197270607,
+      "unit": "ratio",
+      "basis": "10-year two-stage DCF on trailing FCF, 10% discount rate, 2.5% terminal growth, solved for the growth rate",
+      "reason": null,
+      "inputs": {}
+    },
+    "market_cap": {
+      "key": "market_cap",
+      "label": "Market cap",
+      "value": 5074761285632,
+      "unit": "usd",
+      "basis": "vendor market capitalisation",
+      "reason": null,
+      "inputs": {}
+    },
+    "enterprise_value": {
+      "key": "enterprise_value",
+      "label": "Enterprise value",
+      "value": 5096706285632,
+      "unit": "usd",
+      "basis": "market cap + total debt - cash & investments",
+      "reason": null,
+      "inputs": {
+        "market_cap": 5074761285632,
+        "total_debt": 84344000000,
+        "cash_and_investments": 62399000000
+      }
+    },
+    "net_cash": {
+      "key": "net_cash",
+      "label": "Net cash",
+      "value": -21945000000,
+      "unit": "usd",
+      "basis": "cash & investments less total debt, balance sheet 2026-06-30",
+      "reason": null,
+      "inputs": {
+        "cash_and_investments": 62399000000,
+        "total_debt": 84344000000
+      }
+    }
+  },
+  "peer_basis": "same-sector members of the configured universes (sector 'Technology'), ranked by industry match then market-cap proximity",
+  "peers": [
+    {
+      "symbol": "AAPL",
+      "name": "Apple Inc.",
+      "sector": "Technology",
+      "industry": "Consumer Electronics",
+      "market_cap": 5074761285632,
+      "revenue_ttm": 466823000000,
+      "revenue_yoy": 0.06425511782832749,
+      "gross_margin": 0.4865291555900202,
+      "fcf_margin": 0.2927940568480987,
+      "ev_to_sales": 10.917855987455631,
+      "ev_to_ebitda": 30.344943025571716,
+      "is_subject": true
+    },
+    {
+      "symbol": "GOOGL",
+      "name": "Alphabet Inc.",
+      "sector": "Communication Services",
+      "industry": "Internet Content & Information",
+      "market_cap": 3916147458048,
+      "revenue_ttm": 445867000000,
+      "revenue_yoy": 0.1509008108154437,
+      "gross_margin": 0.6089641081309001,
+      "fcf_margin": 0.11948181856921458,
+      "ev_to_sales": 8.492284600672399,
+      "ev_to_ebitda": 11.587870711805067
+    },
+    {
+      "symbol": "GOOG",
+      "name": "Alphabet Inc.",
+      "sector": "Communication Services",
+      "industry": "Internet Content & Information",
+      "market_cap": 3880313683968,
+      "revenue_ttm": 445867000000,
+      "revenue_yoy": 0.1509008108154437,
+      "gross_margin": 0.6089641081309001,
+      "fcf_margin": 0.11948181856921458,
+      "ev_to_sales": 8.411915849273438,
+      "ev_to_ebitda": 11.478206146346837
+    }
+  ],
+  "peer_medians": {
+    "revenue_yoy": 0.15583680372502462,
+    "gross_margin": 0.6089641081309001,
+    "fcf_margin": 0.2034378404551507,
+    "ev_to_sales": 15.074099830215207,
+    "ev_to_ebitda": 30.01060621902997
+  },
+  "freshness": {
+    "component": "statements",
+    "source": "yfinance",
+    "fetched_at": "2026-10-25T15:16:07.053976+00:00",
+    "age_seconds": 478.824594,
+    "stale": false,
+    "max_age_seconds": 604800,
+    "detail": null
+  }
+}

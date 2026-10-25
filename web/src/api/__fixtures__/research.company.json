@@ -1,0 +1,426 @@
+{
+  "symbol": "AAPL",
+  "profile": {
+    "symbol": "AAPL",
+    "name": "Apple Inc.",
+    "exchange": "NMS",
+    "sector": "Technology",
+    "industry": "Consumer Electronics",
+    "country": "United States",
+    "region": "North America",
+    "currency": "USD",
+    "quote_type": "EQUITY",
+    "website": "https://www.apple.com",
+    "employees": 150000,
+    "summary": "Apple Inc. designs, manufactures, and markets smartphones, personal computers, tablets, wearables, and accessories worldwide. The company offers iPhone, a line of smartphones; Mac, a line of personal computers; iPad, a line of multi-purpose tablets; and wearables, home, and accessories comprising AirPods, Apple Vision Pro, Apple TV, Apple Watch, Beats products, and HomePod, as well as Apple branded and third-party accessories. It also provides AppleCare support and cloud services; and operates various platforms, including the App Store that allows customers to discover and download applications and digital content, such as books, music, video, games, and podcasts, as well as advertising services include third-party licensing arrangements and its own advertising platforms. In addition, the company offers various subscription-based services, such as Apple Arcade, a game subscription service; Apple Fitness+, a personalized fitness service; Apple Music, which offers users a curated listening experience with on-demand radio stations; Apple News+, a subscription news and magazine service; Apple TV, which offers original content and live sports; Apple Card, a co-branded credit card; and Apple Pay, a cashless payment service, as well as licenses its intellectual property. The company serves consumers, and small and mid-sized businesses; and the education, enterprise, and government markets. It distributes third-party applications for its products through the App Store. The company also sells its products through its retail and online stores, and direct sales force; and third-party cellular network carriers and resellers. The company was formerly known as Apple Computer, Inc. and changed its name to Apple Inc. in January 2007. Apple Inc. was founded in 1976 and is headquartered in Cupertino, California.",
+    "meta_line": "NMS · Technology · North America"
+  },
+  "quote": {
+    "symbol": "AAPL",
+    "price": 347.7300109863281,
+    "ts": "2026-10-23T20:00:01+00:00",
+    "bid": null,
+    "ask": null,
+    "bid_size": null,
+    "ask_size": null,
+    "volume": 39496500,
+    "prev_close": 348.6,
+    "source": "yfinance",
+    "change": -0.8699890136718977,
+    "change_pct": -0.2495665558439164
+  },
+  "metrics": {
+    "revenue_ttm": {
+      "key": "revenue_ttm",
+      "label": "Revenue (TTM)",
+      "value": 466823000000,
+      "unit": "usd",
+      "basis": "sum of 4 quarters 2025-09-30..2026-06-30",
+      "reason": null,
+      "inputs": {
+        "periods_summed": 4
+      }
+    },
+    "revenue_prior_ttm": {
+      "key": "revenue_prior_ttm",
+      "label": "Revenue (prior TTM)",
+      "value": 391035000000,
+      "unit": "usd",
+      "basis": "fiscal year 2024-09-30 (fewer than 4 quarters report Revenue (prior TTM))",
+      "reason": null,
+      "inputs": {
+        "periods_summed": 1
+      }
+    },
+    "gross_profit_ttm": {
+      "key": "gross_profit_ttm",
+      "label": "Gross profit (TTM)",
+      "value": 227123000000,
+      "unit": "usd",
+      "basis": "sum of 4 quarters 2025-09-30..2026-06-30",
+      "reason": null,
+      "inputs": {
+        "periods_summed": 4
+      }
+    },
+    "ebitda_ttm": {
+      "key": "ebitda_ttm",
+      "label": "EBITDA (TTM)",
+      "value": 167959000000,
+      "unit": "usd",
+      "basis": "sum of 4 quarters 2025-09-30..2026-06-30",
+      "reason": null,
+      "inputs": {
+        "periods_summed": 4
+      }
+    },
+    "net_income_ttm": {
+      "key": "net_income_ttm",
+      "label": "Net income (TTM)",
+      "value": 128930000000,
+      "unit": "usd",
+      "basis": "sum of 4 quarters 2025-09-30..2026-06-30",
+      "reason": null,
+      "inputs": {
+        "periods_summed": 4
+      }
+    },
+    "fcf_ttm": {
+      "key": "fcf_ttm",
+      "label": "Free cash flow (TTM)",
+      "value": 136683000000,
+      "unit": "usd",
+      "basis": "sum of 4 quarters 2025-09-30..2026-06-30",
+      "reason": null,
+      "inputs": {
+        "periods_summed": 4
+      }
+    },
+    "operating_income_ttm": {
+      "key": "operating_income_ttm",
+      "label": "Operating income (TTM)",
+      "value": 154859000000,
+      "unit": "usd",
+      "basis": "sum of 4 quarters 2025-09-30..2026-06-30",
+      "reason": null,
+      "inputs": {
+        "periods_summed": 4
+      }
+    },
+    "revenue_yoy": {
+      "key": "revenue_yoy",
+      "label": "Revenue YoY",
+      "value": 0.06425511782832749,
+      "unit": "ratio",
+      "basis": "fiscal year 2025-09-30 vs 2024-09-30",
+      "reason": null,
+      "inputs": {
+        "revenue_current": 416161000000,
+        "revenue_prior": 391035000000
+      }
+    },
+    "gross_margin": {
+      "key": "gross_margin",
+      "label": "Gross margin",
+      "value": 0.4865291555900202,
+      "unit": "ratio",
+      "basis": "Gross profit (TTM) / Revenue (TTM)",
+      "reason": null,
+      "inputs": {
+        "gross_profit_ttm": 227123000000,
+        "revenue_ttm": 466823000000
+      }
+    },
+    "ebitda_margin": {
+      "key": "ebitda_margin",
+      "label": "EBITDA margin",
+      "value": 0.35979161266689946,
+      "unit": "ratio",
+      "basis": "EBITDA (TTM) / Revenue (TTM)",
+      "reason": null,
+      "inputs": {
+        "ebitda_ttm": 167959000000,
+        "revenue_ttm": 466823000000
+      }
+    },
+    "fcf_margin": {
+      "key": "fcf_margin",
+      "label": "FCF margin",
+      "value": 0.2927940568480987,
+      "unit": "ratio",
+      "basis": "Free cash flow (TTM) / Revenue (TTM)",
+      "reason": null,
+      "inputs": {
+        "fcf_ttm": 136683000000,
+        "revenue_ttm": 466823000000
+      }
+    },
+    "net_margin": {
+      "key": "net_margin",
+      "label": "Net margin",
+      "value": 0.27618604910212224,
+      "unit": "ratio",
+      "basis": "Net income (TTM) / Revenue (TTM)",
+      "reason": null,
+      "inputs": {
+        "net_income_ttm": 128930000000,
+        "revenue_ttm": 466823000000
+      }
+    },
+    "cash_and_investments": {
+      "key": "cash_and_investments",
+      "label": "Cash & short-term investments",
+      "value": 62399000000,
+      "unit": "usd",
+      "basis": "balance sheet 2026-06-30",
+      "reason": null,
+      "inputs": {}
+    },
+    "total_debt": {
+      "key": "total_debt",
+      "label": "Total debt",
+      "value": 84344000000,
+      "unit": "usd",
+      "basis": "balance sheet 2026-06-30",
+      "reason": null,
+      "inputs": {}
+    },
+    "equity": {
+      "key": "equity",
+      "label": "Shareholders' equity",
+      "value": 107520000000,
+      "unit": "usd",
+      "basis": "balance sheet 2026-06-30",
+      "reason": null,
+      "inputs": {}
+    },
+    "net_cash": {
+      "key": "net_cash",
+      "label": "Net cash",
+      "value": -21945000000,
+      "unit": "usd",
+      "basis": "cash & investments less total debt, balance sheet 2026-06-30",
+      "reason": null,
+      "inputs": {
+        "cash_and_investments": 62399000000,
+        "total_debt": 84344000000
+      }
+    },
+    "market_cap": {
+      "key": "market_cap",
+      "label": "Market cap",
+      "value": 5074761285632,
+      "unit": "usd",
+      "basis": "vendor market capitalisation",
+      "reason": null,
+      "inputs": {}
+    },
+    "enterprise_value": {
+      "key": "enterprise_value",
+      "label": "Enterprise value",
+      "value": 5096706285632,
+      "unit": "usd",
+      "basis": "market cap + total debt - cash & investments",
+      "reason": null,
+      "inputs": {
+        "market_cap": 5074761285632,
+        "total_debt": 84344000000,
+        "cash_and_investments": 62399000000
+      }
+    },
+    "ev_to_sales": {
+      "key": "ev_to_sales",
+      "label": "EV / Sales",
+      "value": 10.917855987455631,
+      "unit": "x",
+      "basis": "Enterprise value / Revenue (TTM)",
+      "reason": null,
+      "inputs": {
+        "enterprise_value": 5096706285632,
+        "revenue_ttm": 466823000000
+      }
+    },
+    "ev_to_ebitda": {
+      "key": "ev_to_ebitda",
+      "label": "EV / EBITDA",
+      "value": 30.344943025571716,
+      "unit": "x",
+      "basis": "Enterprise value / EBITDA (TTM)",
+      "reason": null,
+      "inputs": {
+        "enterprise_value": 5096706285632,
+        "ebitda_ttm": 167959000000
+      }
+    },
+    "price_to_earnings": {
+      "key": "price_to_earnings",
+      "label": "P / E",
+      "value": 39.36059323378578,
+      "unit": "x",
+      "basis": "Market cap / Net income (TTM)",
+      "reason": null,
+      "inputs": {
+        "market_cap": 5074761285632,
+        "net_income_ttm": 128930000000
+      }
+    },
+    "forward_pe": {
+      "key": "forward_pe",
+      "label": "Forward P / E",
+      "value": 36.365494,
+      "unit": "x",
+      "basis": "yfinance consensus forward P/E (price / forward EPS estimate)",
+      "reason": null,
+      "inputs": {
+        "trailing_pe": 39.87672
+      }
+    },
+    "price_to_book": {
+      "key": "price_to_book",
+      "label": "P / B",
+      "value": 47.19830064761905,
+      "unit": "x",
+      "basis": "Market cap / Shareholders' equity",
+      "reason": null,
+      "inputs": {
+        "market_cap": 5074761285632,
+        "equity": 107520000000
+      }
+    },
+    "fcf_yield": {
+      "key": "fcf_yield",
+      "label": "FCF yield",
+      "value": 0.02693387773469975,
+      "unit": "ratio",
+      "basis": "Free cash flow (TTM) / Market cap",
+      "reason": null,
+      "inputs": {
+        "fcf_ttm": 136683000000,
+        "market_cap": 5074761285632
+      }
+    },
+    "return_on_equity": {
+      "key": "return_on_equity",
+      "label": "Return on equity",
+      "value": 1.199125744047619,
+      "unit": "ratio",
+      "basis": "Net income (TTM) / Shareholders' equity",
+      "reason": null,
+      "inputs": {
+        "net_income_ttm": 128930000000,
+        "equity": 107520000000
+      }
+    },
+    "return_on_invested_capital": {
+      "key": "return_on_invested_capital",
+      "label": "Return on invested capital",
+      "value": 0.8071290080473669,
+      "unit": "ratio",
+      "basis": "trailing operating income / invested capital (balance sheet 2026-06-30); no tax adjustment is applied",
+      "reason": null,
+      "inputs": {
+        "operating_income_ttm": 154859000000,
+        "invested_capital": 191864000000
+      }
+    },
+    "net_debt_to_ebitda": {
+      "key": "net_debt_to_ebitda",
+      "label": "Net debt / EBITDA",
+      "value": 0.130656886502063,
+      "unit": "x",
+      "basis": "(total debt - cash & investments) / trailing EBITDA",
+      "reason": null,
+      "inputs": {
+        "net_debt": 21945000000,
+        "ebitda_ttm": 167959000000
+      }
+    },
+    "reverse_dcf_growth": {
+      "key": "reverse_dcf_growth",
+      "label": "Reverse-DCF implied growth",
+      "value": 0.16182506197270607,
+      "unit": "ratio",
+      "basis": "10-year two-stage DCF on trailing FCF, 10% discount rate, 2.5% terminal growth, solved for the growth rate",
+      "reason": null,
+      "inputs": {}
+    }
+  },
+  "next_earnings": {
+    "date": "2026-11-02T20:00:00+00:00",
+    "days_away": 8,
+    "eps_estimate": 1.98,
+    "source": "yfinance",
+    "basis": "vendor earnings calendar"
+  },
+  "revenue_ebitda": [
+    {
+      "period": "2022-09-30",
+      "year": 2022,
+      "revenue": 394328000000,
+      "ebitda": 130541000000,
+      "free_cash_flow": 111443000000
+    },
+    {
+      "period": "2023-09-30",
+      "year": 2023,
+      "revenue": 383285000000,
+      "ebitda": 125820000000,
+      "free_cash_flow": 99584000000
+    },
+    {
+      "period": "2024-09-30",
+      "year": 2024,
+      "revenue": 391035000000,
+      "ebitda": 134661000000,
+      "free_cash_flow": 108807000000
+    }
+  ],
+  "freshness": {
+    "profile": {
+      "component": "fundamentals",
+      "source": "yfinance",
+      "fetched_at": "2026-10-25T14:41:11.756158+00:00",
+      "age_seconds": 2573.867547,
+      "stale": false,
+      "max_age_seconds": 86400,
+      "detail": null
+    },
+    "quote": {
+      "component": "quote",
+      "source": "yfinance",
+      "fetched_at": "2026-10-25T15:23:50.931105+00:00",
+      "age_seconds": 14.692605,
+      "stale": false,
+      "max_age_seconds": 120,
+      "detail": null
+    },
+    "fundamentals": {
+      "component": "fundamentals",
+      "source": "yfinance",
+      "fetched_at": "2026-10-25T14:41:11.756158+00:00",
+      "age_seconds": 2573.867553,
+      "stale": false,
+      "max_age_seconds": 86400,
+      "detail": null
+    },
+    "statements": {
+      "component": "statements",
+      "source": "yfinance",
+      "fetched_at": "2026-10-25T15:16:07.053976+00:00",
+      "age_seconds": 478.569737,
+      "stale": false,
+      "max_age_seconds": 604800,
+      "detail": null
+    },
+    "estimates": {
+      "component": "estimates",
+      "source": "yfinance",
+      "fetched_at": "2026-10-25T15:16:07.062026+00:00",
+      "age_seconds": 478.561688,
+      "stale": false,
+      "max_age_seconds": 86400,
+      "detail": null
+    }
+  },
+  "warnings": []
+}

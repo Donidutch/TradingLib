@@ -1,0 +1,28 @@
+{
+  "symbol": "AAPL",
+  "error": null,
+  "source": "yfinance",
+  "scorer": "vaderSentiment",
+  "items": [],
+  "count": 0,
+  "aggregate": {
+    "mean_compound": null,
+    "recency_weighted": null,
+    "label": null,
+    "counts": {
+      "positive": 0,
+      "neutral": 0,
+      "negative": 0
+    },
+    "half_life_days": 3
+  },
+  "freshness": {
+    "component": "news",
+    "source": "yfinance",
+    "fetched_at": "2026-10-25T15:16:11.769792+00:00",
+    "age_seconds": 474.111417,
+    "stale": false,
+    "max_age_seconds": 10800,
+    "detail": null
+  }
+}

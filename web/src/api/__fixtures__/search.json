@@ -1,0 +1,56 @@
+{
+  "query": "AA",
+  "count": 5,
+  "results": [
+    {
+      "type": "symbol",
+      "title": "AA",
+      "subtitle": "Alcoa Corporation · NYSE",
+      "symbol": "AA",
+      "hash": "#stock/AA"
+    },
+    {
+      "type": "symbol",
+      "title": "AAPL",
+      "subtitle": "Apple Inc. · NASDAQ",
+      "symbol": "AAPL",
+      "hash": "#stock/AAPL"
+    },
+    {
+      "type": "symbol",
+      "title": "AAOI",
+      "subtitle": "Applied Optoelectronics, Inc. · NASDAQ",
+      "symbol": "AAOI",
+      "hash": "#stock/AAOI"
+    }
+  ],
+  "groups": {
+    "symbols": [
+      {
+        "type": "symbol",
+        "title": "AA",
+        "subtitle": "Alcoa Corporation · NYSE",
+        "symbol": "AA",
+        "hash": "#stock/AA"
+      },
+      {
+        "type": "symbol",
+        "title": "AAPL",
+        "subtitle": "Apple Inc. · NASDAQ",
+        "symbol": "AAPL",
+        "hash": "#stock/AAPL"
+      },
+      {
+        "type": "symbol",
+        "title": "AAOI",
+        "subtitle": "Applied Optoelectronics, Inc. · NASDAQ",
+        "symbol": "AAOI",
+        "hash": "#stock/AAOI"
+      }
+    ],
+    "collections": [],
+    "screens": [],
+    "pages": []
+  },
+  "warnings": []
+}

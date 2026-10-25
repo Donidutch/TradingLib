@@ -1,0 +1,41 @@
+{
+  "hypotheses": [
+    {
+      "id": "H-1",
+      "title": "AAPL margin expansion",
+      "statement": "AAPL gross margin keeps rising",
+      "falsifier": "Two quarters of falling gross margin",
+      "rationale": null,
+      "status": "draft",
+      "owner": null,
+      "origin": null,
+      "universe_id": null,
+      "tags": [],
+      "created_at": "2026-10-25T15:23:17.771569+00:00",
+      "updated_at": "2026-10-25T15:23:17.771569+00:00",
+      "evidence_count": 0,
+      "status_history": [
+        {
+          "from": null,
+          "to": "draft",
+          "at": "2026-10-25T15:23:17.771569+00:00",
+          "note": "created"
+        }
+      ],
+      "metrics": {},
+      "evidence": []
+    }
+  ],
+  "count": 1,
+  "summary": {
+    "total": 1,
+    "by_status": {
+      "draft": 1,
+      "active": 0,
+      "testing": 0,
+      "validated": 0,
+      "rejected": 0,
+      "archived": 0
+    }
+  }
+}

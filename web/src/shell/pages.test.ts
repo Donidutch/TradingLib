@@ -4,6 +4,7 @@ describe("targetForHash", () => {
   it.each([
     ["#overview", { kind: "app", to: "/" }],
     ["", { kind: "app", to: "/" }],
+    ["#overview/nvda", { kind: "app", to: "/", symbol: "NVDA" }],
     ["#stock", { kind: "app", to: "/stock" }],
     ["#stock/NVDA", { kind: "app", to: "/stock/$symbol", symbol: "NVDA" }],
     ["stock/BRK.B", { kind: "app", to: "/stock/$symbol", symbol: "BRK.B" }],

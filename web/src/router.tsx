@@ -1,5 +1,6 @@
 import { createRootRoute, createRoute, createRouter } from "@tanstack/react-router";
 import { NotPorted } from "./pages/NotPorted";
+import { OverviewPage } from "./pages/overview/OverviewPage";
 import { Shell } from "./shell/Shell";
 
 const rootRoute = createRootRoute({ component: Shell });
@@ -7,7 +8,12 @@ const rootRoute = createRootRoute({ component: Shell });
 const overviewRoute = createRoute({
   getParentRoute: () => rootRoute,
   path: "/",
-  component: () => <NotPorted title="Overview" slice="P3" href="/#overview" />,
+  validateSearch: (search: Record<string, unknown>): { symbol?: string } =>
+    typeof search.symbol === "string" && search.symbol.trim() ? { symbol: search.symbol.trim().toUpperCase() } : {},
+  component: function Overview() {
+    const { symbol } = overviewRoute.useSearch();
+    return <OverviewPage symbol={symbol} />;
+  },
 });
 
 const stockIndexRoute = createRoute({

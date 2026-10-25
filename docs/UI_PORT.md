@@ -1,6 +1,6 @@
 # React port of the console — plan
 
-Status: P0–P2 done 2026-10-25. First step: the shell, Overview and Stock Research.
+Status: P0–P3 done 2026-10-25. First step: the shell, Overview and Stock Research.
 
 ## Why
 
@@ -106,9 +106,39 @@ Each slice ends green on its own checks and is committed alone.
 
 ### P3 — Overview
 
-- [ ] Every panel from `overview.js`, mapped one by one in this file before
+- [x] Every panel from `overview.js`, mapped one by one in this file before
   building, with live tape and watchlist prices.
-- [ ] Tests per panel: data, empty and error states.
+- [x] Tests per panel: data, empty and error states.
+- [x] Checked against the old Overview on a running server: every strip,
+  health, quote, fundamentals and market-context figure and title matched.
+
+Panel map (`ui/js/pages/overview.js` → `web/src/pages/overview/`). Each row is
+what the old page shows and where it comes from; the port keeps all of it,
+including the "—" with a reason in the tooltip where there is no value.
+
+| # | Panel | Source | Shows | Empty / error |
+| --- | --- | --- | --- | --- |
+| 1 | Market strip | `/api/status` (+ `status` channel, from the shell's cache) | DATA LIVE / IDLE / LIVE FEED LOST / BACKEND UNREACHABLE; research gateway ms; "n of m sources connected"; last ingest age; delayed series (amber when > 0) | "—" until the first status |
+| 2 | Ticker tape | active scope symbols (first 14) + `tape` channel | label "● SCOPE NAME" (title: feed, delayed or live, symbol count, or the tape error); per symbol last price and ▲/▼ change % | "no universe members"; "● UNIVERSE UNAVAILABLE" with reason |
+| 3 | Watchlist | `/api/watchlists` (default list), names from universe members or `/api/research/resolve`, prices from the tape | badge "watched / universe size"; filter by prefix; add a ticker (creates "Primary research" when there is no list); remove ✕; row sublabel "Name · Sector" shortened, full text in title; click or Enter loads the symbol in the centre | "No watchlist yet" with how to create one; "This watchlist is empty."; "No symbol matches"; load error in red; add/remove errors as toasts |
+| 4 | System & data health | `/api/status` | research engine status (green when healthy), market prices LIVE / DELAYED with the stream detail, fundamentals coverage "covered / total" with missing symbols in the title, or MEASURING / NO UNIVERSE; delayed series; badge live / offline from the socket | "—" until the first status |
+| 5 | Quote and chart | `/company/{symbol}` (price, name), `/company/{symbol}/price?range=1y` (area chart, last bar OHLC and volume), tape quotes for the live price and the chart's last point | ticker form; price; OPEN / HIGH / LOW / VOL of the newest bar | red note under the chart: company or price error, vendor `error`, "no price history" |
+| 6 | Fundamentals | `/company/{symbol}` metrics | symbol; QUALITY SCORE "—" with why (no composite score in this payload); market cap, forward P/E, revenue growth (signed, toned), FCF margin (signed, toned), ROIC, net cash — each with its basis in the title | "—" with the metric's reason; all "—" when the company call fails |
+| 7 | Market context | SPY `price?range=2y`, `universes/sp500/breadth?window=200`, `^VIX price?range=1m`, tape quotes | regime RISK-ON / RISK-OFF (SPY vs its own 200-day average, figures in title); S&P constituents above their 200-day average (%, with excluded members in title); advance / decline ratio of tape quotes; VIX last close, toned against the previous close | "—" with the reason for each row (too few closes, no breadth reading, waiting for the first tape cycle, vendor error) |
+| 8 | Research inbox | `/api/agents/inbox` (optional) | badge "n items"; first 6 items: title, type · symbol · source · age, urgency tone, reason in title; click opens the Agent Center (current console) on the item's route and context | "Nothing needs a decision"; "Agent inbox not served yet" on 404; error in red |
+| 9 | Intel tabs, loaded on first view, reset on scope change | News: SPY `news?limit=9`; Earnings: `/estimates` for the first 6 scope symbols, two at a time; FRED: `/api/macro/series`; Trends: `/altdata` for the first 4 scope symbols, one at a time | News: lead story plus 4 rows (age, publisher, sentiment label and score), open in a new tab; Earnings: table date, company, BMO / AMC / time ET, est. EPS, est. revenue (current quarter), sorted by date; FRED: one cell per series, % for percent units, toned by change, details in title, "n of m series carry a current level" plus stale notes; Trends: one cell per symbol with interest value | each tab says what it is loading, what is empty ("The vendor returned no market news.", "No universe members to look up.", no upcoming dates) and errors per symbol |
+
+Differences from the old page, on purpose: the chart keeps lightweight-charts'
+TradingView logo, because its licence asks for attribution and the old console
+removes the logo without crediting it anywhere else; the intel panel waits for
+the active scope before it renders, so a tab chosen early is not reset when the
+scope arrives.
+
+Behaviour kept from the old page: `#overview/<SYMBOL>` becomes `/app/?symbol=SYM`;
+the tape subscription carries watchlist symbols, the centre symbol and the
+first 14 scope symbols (at most 30); changing the active scope reloads the
+tape, names and intel tabs; the first scope symbol (or SPY) is the default
+centre symbol.
 
 ### P4 — Stock Research
 

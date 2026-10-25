@@ -107,4 +107,5 @@ approved and applied.
 - [x] P0 scaffold and serving (2026-10-25).
 - [x] P1 data layer (2026-10-25).
 - [x] P2 shell (2026-10-25).
-- [ ] P3 Overview · P4 Stock Research · P5 verification.
+- [x] P3 Overview (2026-10-25).
+- [ ] P4 Stock Research · P5 verification.

@@ -232,6 +232,9 @@ const Signal = z.looseObject({
   reason: nstr,
   basis: z.string().optional(),
   as_of: z.string().optional(),
+  keyword: z.string().optional(),
+  geo: z.string().optional(),
+  timeframe: z.string().optional(),
   points: z.array(z.looseObject({ time: z.string(), value: z.number() })).optional(),
 });
 

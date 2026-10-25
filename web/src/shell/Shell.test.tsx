@@ -223,7 +223,8 @@ describe("universe selector", () => {
 describe("PICK mode", () => {
   it("marks panels, keeps them across reloads and exports them", async () => {
     const user = userEvent.setup();
-    await renderApp();
+    // A page with no panels of its own, so the injected one is p0.
+    await renderApp("/app/stock");
     const main = screen.getByRole("main");
     const panel = document.createElement("section");
     panel.setAttribute("data-panel", "");
@@ -236,14 +237,14 @@ describe("PICK mode", () => {
     await waitFor(() => expect(panel).toHaveAttribute("data-picked", "1"));
     expect(screen.getByLabelText("Panels selected")).toHaveTextContent("1");
     expect(JSON.parse(localStorage.getItem(PICK_STORE_KEY) ?? "{}")).toEqual({
-      "overview.p0": { page: "overview", sub: "", id: "overview.p0", title: "Quotes" },
+      "stock.p0": { page: "stock", sub: "", id: "stock.p0", title: "Quotes" },
     });
 
     await user.click(screen.getByRole("button", { name: "PICK" }));
     await user.click(screen.getByRole("button", { name: "Export" }));
     const exported = screen.getByLabelText("Picked panels as JSON") as HTMLTextAreaElement;
     expect(JSON.parse(exported.value)).toEqual([
-      { page: "overview", sub: "", id: "overview.p0", title: "Quotes" },
+      { page: "stock", sub: "", id: "stock.p0", title: "Quotes" },
     ]);
     await user.click(screen.getByRole("button", { name: "Clear all" }));
     expect(JSON.parse(exported.value)).toEqual([]);

@@ -16,6 +16,7 @@ export const TapeNotice = z.looseObject({
   retry_in_seconds: z.number().optional(),
   delayed: z.boolean().optional(),
   feed: z.string().optional(),
+  symbols: z.array(z.string()).optional(),
 });
 
 /** `notifications`: user-facing messages from agents, findings, pipelines. */

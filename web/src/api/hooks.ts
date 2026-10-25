@@ -77,11 +77,11 @@ export function useMembers(id: string | undefined) {
   });
 }
 
-export function useBreadth(id: string | undefined) {
+export function useBreadth(id: string | undefined, window?: number) {
   const api = useApi();
   return useQuery({
-    queryKey: keys.breadth(id ?? ""),
-    queryFn: ({ signal }) => api.universes.breadth(id ?? "", signal),
+    queryKey: [...keys.breadth(id ?? ""), window ?? null],
+    queryFn: ({ signal }) => api.universes.breadth(id ?? "", { window }, signal),
     enabled: Boolean(id),
   });
 }
@@ -210,7 +210,7 @@ export const useEstimates = (symbol: string) =>
 export const useValuation = (symbol: string) =>
   useResearchQuery("valuation", symbol, (a, s, signal) => a.research.valuation(s, signal));
 export const useNews = (symbol: string) =>
-  useResearchQuery("news", symbol, (a, s, signal) => a.research.news(s, signal));
+  useResearchQuery("news", symbol, (a, s, signal) => a.research.news(s, {}, signal));
 /** null for an unknown ticker, like the old page's optional() call. */
 export const useThesis = (symbol: string) =>
   useResearchQuery("thesis", symbol, (a, s, signal) => a.client.optional(a.research.thesis(s, signal)));

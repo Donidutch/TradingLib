@@ -24,14 +24,15 @@ export const WORKSPACES: readonly Workspace[] = [
 
 /** Where a console hash (as /api/search returns them) leads. */
 export type Target =
-  | { kind: "app"; to: "/" }
+  | { kind: "app"; to: "/"; symbol?: string }
   | { kind: "app"; to: "/stock" }
   | { kind: "app"; to: "/stock/$symbol"; symbol: string }
   | { kind: "legacy"; href: string };
 
 /**
  * Map a vanilla-console hash to this app where the page is ported:
- * "#overview" → /, "#stock/NVDA" → /stock/NVDA, anything else stays a link
+ * "#overview" → /, "#overview/NVDA" → /?symbol=NVDA, "#stock/NVDA" →
+ * /stock/NVDA, anything else stays a link
  * into the old console ("/#tl/lab/backtests?id=BT-3").
  */
 export function targetForHash(hash: string): Target {
@@ -39,7 +40,9 @@ export function targetForHash(hash: string): Target {
   const [path = "", query] = clean.split("?", 2);
   const [key, sub] = path.split("/", 2);
   if (!query) {
-    if (key === "" || key === "overview") return { kind: "app", to: "/" };
+    if (key === "" || key === "overview") {
+      return sub ? { kind: "app", to: "/", symbol: decodeURIComponent(sub).toUpperCase() } : { kind: "app", to: "/" };
+    }
     if (key === "stock" && !sub) return { kind: "app", to: "/stock" };
     if (key === "stock" && sub) return { kind: "app", to: "/stock/$symbol", symbol: decodeURIComponent(sub) };
   }

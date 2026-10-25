@@ -40,8 +40,9 @@ export function makeApi(c: ApiClient) {
       setActive: (ref: string) => c.post("/api/universes/active", ActiveScope, { universe_id: ref }),
       members: (id: string, signal?: AbortSignal) =>
         c.get(`/api/universes/${enc(id)}/members`, Members, null, signal),
-      breadth: (id: string, signal?: AbortSignal) =>
-        c.get(`/api/universes/${enc(id)}/breadth`, Breadth, null, signal),
+      /** Share of members above their own `window`-day average. */
+      breadth: (id: string, query: { window?: number } = {}, signal?: AbortSignal) =>
+        c.get(`/api/universes/${enc(id)}/breadth`, Breadth, query, signal),
     },
 
     watchlists: {
@@ -84,7 +85,8 @@ export function makeApi(c: ApiClient) {
         c.get(company(symbol, "/estimates"), Estimates, null, signal),
       valuation: (symbol: string, signal?: AbortSignal) =>
         c.get(company(symbol, "/valuation"), Valuation, null, signal),
-      news: (symbol: string, signal?: AbortSignal) => c.get(company(symbol, "/news"), News, null, signal),
+      news: (symbol: string, query: { limit?: number } = {}, signal?: AbortSignal) =>
+        c.get(company(symbol, "/news"), News, query, signal),
       thesis: (symbol: string, signal?: AbortSignal) => c.get(company(symbol, "/thesis"), Thesis, null, signal),
       altdata: (symbol: string, signal?: AbortSignal) =>
         c.get(company(symbol, "/altdata"), AltData, null, signal),

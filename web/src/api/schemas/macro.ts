@@ -20,6 +20,7 @@ export const MacroPanel = z.looseObject({
       change_1y: nnum,
       observations: z.number(),
       source: z.string(),
+      origin: z.string().optional(),
       stale: z.boolean(),
       reason: nstr,
     }),

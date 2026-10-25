@@ -29,6 +29,28 @@ const ROUTES: Record<string, string> = {
   "/api/lab/backtests": "lab.backtests",
 };
 
+/**
+ * A handler answering `path` (exact) or `path*` (prefix) with a body, a
+ * Response, or a function of the URL. Exact paths win, then the longest prefix.
+ */
+export function serve(routes: Record<string, unknown>): Handler {
+  const patterns = Object.keys(routes).sort((a, b) => {
+    const wild = Number(a.endsWith("*")) - Number(b.endsWith("*"));
+    return wild || b.length - a.length;
+  });
+  return (url) => {
+    for (const pattern of patterns) {
+      const hit = pattern.endsWith("*") ? url.pathname.startsWith(pattern.slice(0, -1)) : url.pathname === pattern;
+      if (!hit) continue;
+      const body = routes[pattern];
+      if (body instanceof Response) return body.clone();
+      if (typeof body === "function") return (body as (u: URL) => Response)(url);
+      return json(200, body);
+    }
+    return undefined;
+  };
+}
+
 export type Handler = (url: URL, init: RequestInit | undefined) => Response | Promise<Response> | undefined;
 
 /** Render and wait until the router has mounted the shell. */

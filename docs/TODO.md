@@ -96,3 +96,14 @@ and a browser pass). Sources: COVERAGE.md (371 rows: 371 Wired/N-A, 0 Partial,
       only; a `cache-control: no-cache` (or versioned asset URLs) would stop
       browsers running stale JS after edits. (Flagged in round 2 — verify the
       fix actually landed; if not, add it in `tradinglib/api/app.py` statics.)
+
+## 5. React port of the console
+
+Planned 2026-10-25 in [UI_PORT.md](UI_PORT.md): a React + TypeScript console
+built from `web/` and served at `/app`, beside the current one. First step is
+the shell, Overview and Stock Research (slices P0–P5). SPEC amendment D1b
+approved and applied.
+
+- [x] P0 scaffold and serving (2026-10-25).
+- [ ] P1 data layer · P2 shell · P3 Overview · P4 Stock Research ·
+      P5 verification.

@@ -130,6 +130,7 @@ class Settings:
     root_dir: Path = ROOT_DIR
     data_dir: Path = ROOT_DIR / "data"
     ui_dir: Path = ROOT_DIR / "ui"
+    web_dir: Path = ROOT_DIR / "web" / "dist"
     config_path: Path | None = None
 
     # --- credentials (None == not configured) ----------------------------
@@ -268,6 +269,11 @@ def load_settings(config_path: str | os.PathLike[str] | None = None) -> Settings
     if not ui_dir.is_absolute():
         ui_dir = (ROOT_DIR / ui_dir).resolve()
 
+    web_dir_raw = _env("TRADINGLIB_WEB_DIR") or _dig(doc, "server", "web_dir") or str(ROOT_DIR / "web" / "dist")
+    web_dir = Path(web_dir_raw)
+    if not web_dir.is_absolute():
+        web_dir = (ROOT_DIR / web_dir).resolve()
+
     budgets = Budgets(
         per_run_usd=_env_float(
             "TRADINGLIB_BUDGET_PER_RUN_USD",
@@ -287,6 +293,7 @@ def load_settings(config_path: str | os.PathLike[str] | None = None) -> Settings
         root_dir=ROOT_DIR,
         data_dir=data_dir,
         ui_dir=ui_dir,
+        web_dir=web_dir,
         config_path=path if path.is_file() else None,
         anthropic_api_key=_env("ANTHROPIC_API_KEY", "TRADINGLIB_ANTHROPIC_API_KEY")
         or _dig(doc, "keys", "anthropic"),

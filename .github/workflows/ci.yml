@@ -18,3 +18,22 @@ jobs:
       - name: Test
         # Live vendor tests stay skipped: they need TRADINGLIB_NETWORK_TESTS=1.
         run: uv run pytest -q
+
+  web:
+    # The React console (SPEC D1b), built from web/ and served at /app.
+    runs-on: ubuntu-latest
+    defaults:
+      run:
+        working-directory: web
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: "24"
+          cache: npm
+          cache-dependency-path: web/package-lock.json
+      - run: npm ci
+      - run: npm run lint
+      - run: npm run typecheck
+      - run: npm test
+      - run: npm run build

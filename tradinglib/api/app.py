@@ -36,12 +36,15 @@ import os
 import time
 from collections.abc import AsyncIterator
 from contextlib import asynccontextmanager
+from pathlib import PurePosixPath
 from typing import Any
 
 from fastapi import FastAPI, WebSocket
-from fastapi.responses import JSONResponse
+from fastapi.responses import JSONResponse, RedirectResponse
 from fastapi.staticfiles import StaticFiles
+from starlette.exceptions import HTTPException
 from starlette.responses import Response
+from starlette.types import Scope
 
 from tradinglib import __version__
 from tradinglib.api.live import (
@@ -617,6 +620,24 @@ class _NoCacheStaticFiles(StaticFiles):
         return response
 
 
+class _SpaStaticFiles(_NoCacheStaticFiles):
+    """Serve the React build (``web/dist``) with client-side routing.
+
+    A deep link such as ``/app/stock/AAPL`` names a route, not a file, so a
+    404 for a path without a file extension falls back to ``index.html`` and
+    the router takes over. A missing asset (``/app/assets/x.js``) stays a 404.
+    """
+
+    async def get_response(self, path: str, scope: Scope) -> Response:
+        """Return the file at ``path``, or ``index.html`` for a route path."""
+        try:
+            return await super().get_response(path, scope)
+        except HTTPException as exc:
+            if exc.status_code != 404 or "." in PurePosixPath(path).name:
+                raise
+            return await super().get_response("index.html", scope)
+
+
 def create_app(
     settings: Settings | None = None,
     *,
@@ -717,6 +738,28 @@ def create_app(
         """Serve the subscribe protocol described in ``tradinglib.api.ws``."""
         hub: WsHub = websocket.app.state.ws_hub
         await hub.handle(websocket)
+
+    web_dir = resolved.web_dir
+    if web_dir.is_dir():
+
+        @app.get("/app", include_in_schema=False)
+        async def web_root() -> RedirectResponse:
+            """Send /app to /app/; the "/" mount would otherwise 404 it."""
+            return RedirectResponse("/app/")
+
+        # Before the "/" mount, which would otherwise swallow /app (SPEC D1b).
+        app.mount("/app", _SpaStaticFiles(directory=str(web_dir), html=True), name="web")
+    else:
+        logger.info("React build %s not found; /app disabled (npm run build in web/)", web_dir)
+
+        @app.get("/app", include_in_schema=False)
+        @app.get("/app/{path:path}", include_in_schema=False)
+        async def missing_web(path: str = "") -> JSONResponse:
+            """Report honestly that the React console has not been built."""
+            return JSONResponse(
+                status_code=503,
+                content={"error": "web_not_built", "detail": str(web_dir)},
+            )
 
     ui_dir = resolved.ui_dir
     if ui_dir.is_dir():

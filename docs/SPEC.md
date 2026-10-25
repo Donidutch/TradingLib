@@ -23,6 +23,9 @@ Two deliverables in this repository:
    FIXED here: any-ticker symbol lookup works; palette "Open active backtest"
    opens the Strategy Lab backtesting tab; no console errors; live data
    everywhere.
+3. `web/` — the same console in React + TypeScript, ported page by page and
+   served at `/app` beside `ui/` (D1b, 2026-10-25). The rules above apply to it
+   unchanged: no stubs, no hardcoded display data.
 
 ## 2. Locked decisions
 
@@ -31,6 +34,12 @@ Two deliverables in this repository:
 - D2: vanilla JS SPA, no build step. Live updates via WebSocket; charts via
   self-hosted TradingView lightweight-charts (candles/lines) + uPlot
   (sparklines) in ui/vendor/.
+- D1b (2026-10-25, owner): a React + TypeScript console is built from `web/`
+  and served at `/app`, page by page, alongside the vanilla console at `/`. It
+  must meet §6 for every page it replaces. D1a (verbatim CSS) and D2 (no build
+  step) apply to `ui/` only; `web/` has a Vite build and its own design tokens.
+  When every page is ported, `/` switches to the React app and `ui/` is retired
+  in a later decision. Plan: [UI_PORT.md](UI_PORT.md).
 - D3: LLM providers = Anthropic via `claude-agent-sdk` + OpenAI via `openai`,
   behind `tradinglib/agents/providers.py`. Model picker lists models for whichever
   keys are configured. claude-agent-sdk may fall back to local Claude Code CLI
@@ -112,7 +121,7 @@ TradingLib/
 │   │   ├── alpaca_broker.py
 │   │   └── ibkr_broker.py
 │   └── api/
-│       ├── app.py               # FastAPI factory; serves ui/ statics; lifespan starts scheduler
+│       ├── app.py               # FastAPI factory; serves ui/ at / and web/dist at /app; lifespan starts scheduler
 │       ├── ws.py                # WsHub: /ws endpoint, channel subscriptions, EventBus fan-out
 │       └── routes/              # one router per domain (see §5)
 ├── ui/
@@ -126,6 +135,7 @@ TradingLib/
 │   │   ├── components/          # shared render helpers (tables, panels, toasts, charts)
 │   │   └── pages/               # one module per workspace (overview, stock, lab, agents, data, docs, settings)
 │   └── vendor/                  # lightweight-charts.standalone.js, uplot.js/css (self-hosted)
+├── web/                         # React + TypeScript console (D1b), built to web/dist, served at /app
 └── tests/                       # pytest; core engines covered (see §8)
 ```
 

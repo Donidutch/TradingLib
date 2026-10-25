@@ -1,0 +1,15 @@
+.placeholder {
+  padding: 24px;
+  display: grid;
+  gap: 8px;
+}
+
+.placeholder h1 {
+  color: var(--ds-accent);
+  font-size: 14px;
+  letter-spacing: 1.5px;
+}
+
+.placeholder a {
+  color: var(--ds-accent);
+}

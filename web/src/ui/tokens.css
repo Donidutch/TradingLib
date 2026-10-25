@@ -1,0 +1,40 @@
+/* Design tokens: the only file in web/src allowed to hold colour literals
+   (enforced by src/ui/tokens.test.ts). Values come from today's console,
+   ui/css/01-tokens.css, plus the raw shell colours its CSS still inlines.
+   Names follow the copied design system (--ds-*), so its primitives fit. */
+
+:root {
+  /* Surfaces */
+  --ds-bg: #070b13;
+  --ds-surface: #0a0f1a;
+  --ds-surface-2: #0d1322;
+  --ds-surface-3: #0b1120; /* datastrip */
+  --ds-inset: #080b12;
+  --ds-hover: #101627;
+  --ds-active: #101d33;
+  --ds-selection: #22385c;
+
+  /* Borders */
+  --ds-border-subtle: #1c2739;
+  --ds-border: #2a3550;
+
+  /* Text */
+  --ds-text: #c6d2e2;
+  --ds-text-strong: #e8edf7;
+  --ds-text-muted: #8b96ad;
+  --ds-text-subtle: #5c6b84;
+  --ds-text-inverse: #ffffff;
+
+  /* Accent and signals */
+  --ds-accent: #7ea6ff;
+  --ds-button: #2456c8;
+  --ds-up: #2ee6a8;
+  --ds-down: #ff5c5c;
+  --ds-warn: #ffb020;
+
+  /* Type and shape */
+  --ds-font-mono: ui-monospace, "SF Mono", "Cascadia Code", Menlo, Consolas, monospace;
+  --ds-font-size: 12px;
+  --ds-radius-ctrl: 6px;
+  --ds-radius-card: 7px;
+}

@@ -83,7 +83,11 @@ npm run build      # the API then serves web/dist at http://127.0.0.1:8200/app
 npm run dev        # or a dev server on :5173 that proxies /api and /ws to :8200
 npm run lint && npm run typecheck && npm test
 npm run check:api  # validate every response schema against a running API
+npm run check:api:writes  # writes and live frames, on an API of its own over a temporary copy of data/
 ```
+
+`uv run python tools/compare_consoles.py` loads each ported page in both
+consoles with headless Chromium and compares every figure on it.
 
 Stack: Vite, React 19, strict TypeScript, TanStack Router and Query, Zod (every
 response is validated, and a mismatch is an error rather than an empty panel),

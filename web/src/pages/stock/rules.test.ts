@@ -9,7 +9,9 @@ describe("reason", () => {
   it("prefers the server's own detail", () => {
     const err = new ApiError("GET x → 404", { status: 404, payload: { detail: { error: "not_found", detail: "Yahoo returned no company profile" } } });
     expect(reason(err)).toBe("Yahoo returned no company profile");
-    expect(reason(new ApiError("GET x → 500 boom", { status: 500, payload: { detail: "boom" } }))).toBe("GET x → 500 boom");
+    expect(reason(new ApiError("GET x → 500 boom", { status: 500, payload: { detail: "boom" } }))).toBe("boom");
+    expect(reason(new ApiError("POST x → 422", { status: 422, payload: { detail: [{ msg: "symbol is required" }] } }))).toBe("symbol is required");
+    expect(reason(new ApiError("GET x → 502", { status: 502, payload: null }))).toBe("GET x → 502");
     expect(reason("plain")).toBe("plain");
   });
 });

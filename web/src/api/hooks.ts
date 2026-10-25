@@ -1,6 +1,7 @@
 /* TanStack Query hooks, one per resource. Keys live in `keys` so mutations
  * and the live stream can invalidate exactly what they change. */
-import { useMutation, useQuery, useQueryClient } from "@tanstack/react-query";
+import { useQuery, type QueryClient } from "@tanstack/react-query";
+import { useAction } from "./actions";
 import { useApi } from "./context";
 import type { Api } from "./endpoints";
 import type { Watchlist, WatchlistList } from "./schemas/watchlists";
@@ -57,14 +58,15 @@ export function useActiveScope() {
 /** Select a universe or `watchlist:<id>`; everything scoped to it refetches. */
 export function useSetActiveScope() {
   const api = useApi();
-  const client = useQueryClient();
-  return useMutation({
-    mutationFn: (ref: string) => api.universes.setActive(ref),
-    onSuccess: (scope) => {
+  return useAction({
+    run: (ref: string) => api.universes.setActive(ref),
+    apply: (client, scope) => {
       client.setQueryData(keys.activeScope, scope);
       // The list's `active` flags changed too; the scope itself is fresh.
-      return client.invalidateQueries({ queryKey: keys.universes, exact: true });
+      void client.invalidateQueries({ queryKey: keys.universes, exact: true });
     },
+    done: (scope) => `Active ${scope.scope.kind === "watchlist" ? "watchlist" : "universe"}: ${scope.scope.name}`,
+    failed: () => "Could not switch scope",
   });
 }
 
@@ -92,39 +94,42 @@ export function useWatchlists() {
 }
 
 /** Write a changed watchlist back into the list cache, server copy wins. */
-function useStoreWatchlist() {
-  const client = useQueryClient();
-  return (changed: Watchlist) => {
-    client.setQueryData<WatchlistList>(keys.watchlists, (list) =>
-      list
-        ? { ...list, watchlists: list.watchlists.map((w) => (w.id === changed.id ? changed : w)) }
-        : list,
-    );
-    return client.invalidateQueries({ queryKey: keys.watchlists });
-  };
+function storeWatchlist(client: QueryClient, changed: Watchlist) {
+  client.setQueryData<WatchlistList>(keys.watchlists, (list) =>
+    list ? { ...list, watchlists: list.watchlists.map((w) => (w.id === changed.id ? changed : w)) } : list,
+  );
 }
 
 export function useCreateWatchlist() {
   const api = useApi();
-  const store = useStoreWatchlist();
-  return useMutation({ mutationFn: api.watchlists.create, onSuccess: store });
+  return useAction({
+    run: api.watchlists.create,
+    apply: (client, created) => storeWatchlist(client, created),
+    invalidate: () => [keys.watchlists],
+    done: (created, body) => `${body.symbols?.join(", ") ?? created.name} added to ${created.name}`,
+    failed: (body) => `Could not add ${body.symbols?.join(", ") ?? body.name}`,
+  });
 }
 
 export function useAddWatchSymbol() {
   const api = useApi();
-  const store = useStoreWatchlist();
-  return useMutation({
-    mutationFn: ({ id, symbol }: { id: string; symbol: string }) => api.watchlists.addSymbol(id, symbol),
-    onSuccess: store,
+  return useAction({
+    run: ({ id, symbol }: { id: string; symbol: string }) => api.watchlists.addSymbol(id, symbol),
+    apply: (client, changed) => storeWatchlist(client, changed),
+    invalidate: () => [keys.watchlists],
+    done: (changed, { symbol }) => `${symbol} added to ${changed.name}`,
+    failed: ({ symbol }) => `Could not add ${symbol}`,
   });
 }
 
 export function useRemoveWatchSymbol() {
   const api = useApi();
-  const store = useStoreWatchlist();
-  return useMutation({
-    mutationFn: ({ id, symbol }: { id: string; symbol: string }) => api.watchlists.removeSymbol(id, symbol),
-    onSuccess: store,
+  return useAction({
+    run: ({ id, symbol }: { id: string; symbol: string }) => api.watchlists.removeSymbol(id, symbol),
+    apply: (client, changed) => storeWatchlist(client, changed),
+    invalidate: () => [keys.watchlists],
+    done: (changed, { symbol }) => `${symbol} removed from ${changed.name}`,
+    failed: ({ symbol }) => `Could not remove ${symbol}`,
   });
 }
 

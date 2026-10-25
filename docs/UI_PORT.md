@@ -284,16 +284,16 @@ app (theme, density, timezone).
 
 ### S0 — Shared foundation
 
-- [ ] Primitives copied from the design system as needed: field, select,
+- [x] Primitives copied from the design system as needed: field, select,
   switch, a confirm dialog on the modal, and the data table (adds
   `@tanstack/react-table`).
-- [ ] One mutation pattern: `useMutation` plus cache invalidation by key, a
+- [x] One mutation pattern: `useMutation` plus cache invalidation by key, a
   toast on success, the server's reason in place and in a toast on failure.
   Tests for the pattern.
-- [ ] Live channel hooks for `lab`, `runs`, `approvals`, `ingest` and `quality`,
+- [x] Live channel hooks for `lab`, `runs`, `approvals`, `ingest` and `quality`,
   with schemas for their frames (captured from a running server first).
-- [ ] `check:api --writes` on a throwaway server, as above.
-- [ ] `tools/compare_consoles.py`: old page vs `/app` page per route and tab,
+- [x] `check:api --writes` on a throwaway server, as above.
+- [x] `tools/compare_consoles.py`: old page vs `/app` page per route and tab,
   figures compared as multisets, differences printed; P5's run reproduced with
   it.
 

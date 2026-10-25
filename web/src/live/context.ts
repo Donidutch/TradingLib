@@ -1,3 +1,4 @@
+import { useQueryClient, type QueryKey } from "@tanstack/react-query";
 import { createContext, useContext, useEffect, useRef, useSyncExternalStore } from "react";
 import type { z } from "zod";
 import type { LiveStream, StreamSnapshot } from "./stream";
@@ -44,4 +45,19 @@ export function useChannel<S extends z.ZodType>(
       JSON.parse(paramsKey) as Record<string, unknown>,
     );
   }, [stream, channel, schema, paramsKey]);
+}
+
+/**
+ * Refetch the queries a frame makes stale. Most pages show REST data and use
+ * the socket only to know when it changed, which is this.
+ */
+export function useLiveInvalidate<S extends z.ZodType>(
+  channel: string,
+  schema: S,
+  keysFor: (frame: z.output<S>) => readonly QueryKey[],
+): void {
+  const client = useQueryClient();
+  useChannel(channel, schema, (frame) => {
+    for (const queryKey of keysFor(frame)) void client.invalidateQueries({ queryKey });
+  });
 }

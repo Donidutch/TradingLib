@@ -3,7 +3,6 @@
 import { useState, type FormEvent } from "react";
 import type { Watchlist } from "../../api/schemas/watchlists";
 import { useAddWatchSymbol, useCreateWatchlist, useRemoveWatchSymbol } from "../../api/hooks";
-import { useToast } from "../../shell/toast-context";
 import { num, pct } from "../../ui/format";
 import { cn } from "../../ui/lib/cn";
 import { Badge } from "../../ui/primitives/badge";
@@ -14,10 +13,6 @@ import type { Quotes } from "./useTape";
 
 const input =
   "w-full rounded-[var(--ds-radius-ctrl)] border border-border bg-inset px-2 py-1 text-text placeholder:text-text-subtle";
-
-function errorText(err: unknown): string {
-  return err instanceof Error ? err.message : String(err);
-}
 
 export function WatchlistPanel({
   watchlist,
@@ -40,7 +35,6 @@ export function WatchlistPanel({
   selected: string | null;
   onSelect: (symbol: string) => void;
 }) {
-  const toast = useToast();
   const [filter, setFilter] = useState("");
   const [adding, setAdding] = useState("");
   const create = useCreateWatchlist();
@@ -61,29 +55,13 @@ export function WatchlistPanel({
         ? `${symbols.length} / ${universeSize}`
         : String(symbols.length);
 
-  const submit = async (event: FormEvent) => {
+  const submit = (event: FormEvent) => {
     event.preventDefault();
     const symbol = adding.trim().toUpperCase();
     if (!symbol) return;
-    try {
-      const changed = watchlist
-        ? await add.mutateAsync({ id: watchlist.id, symbol })
-        : await create.mutateAsync({ name: "Primary research", symbols: [symbol], is_default: true });
-      setAdding("");
-      toast.ok(`${symbol} added to ${changed.name}`);
-    } catch (err) {
-      toast.error(`Could not add ${symbol}: ${errorText(err)}`);
-    }
-  };
-
-  const drop = async (symbol: string) => {
-    if (!watchlist) return;
-    try {
-      const changed = await remove.mutateAsync({ id: watchlist.id, symbol });
-      toast.show(`${symbol} removed from ${changed.name}`);
-    } catch (err) {
-      toast.error(`Could not remove ${symbol}: ${errorText(err)}`);
-    }
+    const clear = { onSuccess: () => setAdding("") };
+    if (watchlist) add.mutate({ id: watchlist.id, symbol }, clear);
+    else create.mutate({ name: "Primary research", symbols: [symbol], is_default: true }, clear);
   };
 
   return (
@@ -112,7 +90,7 @@ export function WatchlistPanel({
           value={filter}
           onChange={(event) => setFilter(event.target.value)}
         />
-        <form className="flex gap-1.5" onSubmit={(event) => void submit(event)}>
+        <form className="flex gap-1.5" onSubmit={submit}>
           <input
             className={input}
             placeholder="TICKER"
@@ -174,7 +152,7 @@ export function WatchlistPanel({
                     className="pl-2 text-[11px] text-text-subtle hover:text-down"
                     onClick={(event) => {
                       event.stopPropagation();
-                      void drop(symbol);
+                      remove.mutate({ id: watchlist.id, symbol });
                     }}
                   >
                     ✕

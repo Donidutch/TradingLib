@@ -1,6 +1,5 @@
 /* Stock Research's formatting rules, ported from stock.js and kept apart
  * from the components so each one is tested on its own. */
-import { ApiError } from "../../api/client";
 import type { Company } from "../../api/schemas/research";
 import type { AltData } from "../../api/schemas/research";
 import { ago, int, num, pct, toneFor } from "../../ui/format";
@@ -8,16 +7,8 @@ import { ago, int, num, pct, toneFor } from "../../ui/format";
 /** The symbol /app/stock opens with, as the old page did. */
 export const DEFAULT_SYMBOL = "GRAB";
 
-/** The server's own reason: FastAPI's `detail.detail`, else the message. */
-export function reason(err: unknown): string {
-  if (err instanceof ApiError) {
-    const payload = err.payload as { detail?: { detail?: unknown } } | null;
-    if (payload && typeof payload.detail === "object" && typeof payload.detail.detail === "string") {
-      return payload.detail.detail;
-    }
-  }
-  return err instanceof Error ? err.message : String(err);
-}
+/** The server's own reason for a failure (shared with every page). */
+export { errorReason as reason } from "../../api/errors";
 
 /** Figures in millions, the unit the financials table uses. */
 export function millions(value: number | null | undefined): string {

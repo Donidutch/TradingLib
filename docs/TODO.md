@@ -112,6 +112,6 @@ approved and applied.
 - [x] P5 verification (2026-10-25): figures match the old console on five
       tickers; every §6 item for these pages checked in UI_PORT.md.
 - [ ] Step 2, planned in UI_PORT.md: the remaining pages, then switching `/`.
-      Approve its owner decisions · S0 foundation · S1 Settings and Docs ·
+      Owner decisions approved (2026-10-25) · S0 foundation done · S1 Settings and Docs ·
       S2–S3 Market & Data · S4–S6 Strategy Lab · S7–S8 Agent Center ·
       S9 verification · S10 switch `/` (own SPEC decision).

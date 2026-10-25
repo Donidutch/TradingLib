@@ -3,6 +3,7 @@ import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
 import type { ReactNode } from "react";
 import { readFileSync } from "node:fs";
 import { join } from "node:path";
+import { ToastProvider } from "../shell/ToastProvider";
 import { ApiProvider } from "./ApiProvider";
 import { ApiClient, ApiError } from "./client";
 import { useReachability } from "./context";
@@ -26,7 +27,9 @@ function setup() {
   const api = makeApi(new ApiClient());
   const wrapper = ({ children }: { children: ReactNode }) => (
     <QueryClientProvider client={queryClient}>
-      <ApiProvider api={api}>{children}</ApiProvider>
+      <ApiProvider api={api}>
+        <ToastProvider>{children}</ToastProvider>
+      </ApiProvider>
     </QueryClientProvider>
   );
   return { queryClient, wrapper };

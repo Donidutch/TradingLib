@@ -338,11 +338,12 @@ describe("screener", () => {
   });
 });
 
-describe("unported tabs", () => {
-  it("open in the current console", async () => {
+describe("tabs", () => {
+  it("open in this app, every one of them", async () => {
     const user = userEvent.setup();
-    await renderApp("/app/data", dataServer().handler);
-    await user.click(await screen.findByRole("tab", { name: "Data Quality ↗" }));
-    expect(openLegacy).toHaveBeenCalledWith("/#data/quality");
+    const app = await renderApp("/app/data", dataServer().handler);
+    await user.click(await screen.findByRole("tab", { name: "Data Quality" }));
+    await waitFor(() => expect(app.router.state.location.pathname).toBe("/data/quality"));
+    expect(openLegacy).not.toHaveBeenCalled();
   });
 });

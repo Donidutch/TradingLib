@@ -1,0 +1,292 @@
+{
+  "results": [
+    {
+      "dataset": "bars:AAPL:1d",
+      "key": "bars:AAPL:1d",
+      "kind": "bars",
+      "label": "AAPL 1d",
+      "symbol": "AAPL",
+      "interval": "1d",
+      "namespace": null,
+      "name": null,
+      "score": 89.97,
+      "observed_at": "2026-10-25T18:21:55.510640+00:00",
+      "passed": false,
+      "checks": [
+        {
+          "check": "completeness",
+          "dataset": "bars:AAPL:1d",
+          "passed": true,
+          "score": 0.99802,
+          "detail": "504/505 expected observations present (1 missing, one bar per trading session)",
+          "severity": "info",
+          "observed_at": "2026-10-25T18:21:55.398973+00:00",
+          "metrics": {
+            "expected": 505,
+            "observed": 504,
+            "missing": 1,
+            "missing_ratio": 0.00198,
+            "cadence": "sessions",
+            "first": "2024-10-21T04:00:00+00:00",
+            "last": "2026-10-23T04:00:00+00:00",
+            "missing_sample": [
+              "2025-01-09"
+            ],
+            "stored_points": 504
+          }
+        },
+        {
+          "check": "staleness",
+          "dataset": "bars:AAPL:1d",
+          "passed": true,
+          "score": 1.0,
+          "detail": "last observation 2026-10-23T04:00:00+00:00; 0 scheduled observation(s) missing since (one bar per trading session)",
+          "severity": "info",
+          "observed_at": "2026-10-25T18:21:55.424205+00:00",
+          "metrics": {
+            "last": "2026-10-23T04:00:00+00:00",
+            "age_seconds": 224515.424,
+            "missed_periods": 0,
+            "cadence": "sessions",
+            "checked_at": "2026-10-25T18:21:55.424205+00:00"
+          }
+        },
+        {
+          "check": "outliers",
+          "dataset": "bars:AAPL:1d",
+          "passed": false,
+          "score": 0.602386,
+          "detail": "4/503 log-returns exceed |z|>6 (median/MAD)",
+          "severity": "error",
+          "observed_at": "2026-10-25T18:21:55.371134+00:00",
+          "metrics": {
+            "points": 504,
+            "changes": 503,
+            "flagged": 4,
+            "flagged_ratio": 0.007952,
+            "threshold": 6.0,
+            "estimator": "median/MAD",
+            "basis": "log-returns",
+            "median": 0.0011337828774014014,
+            "mad": 0.00822188688147829,
+            "worst": [
+              {
+                "ts": "2025-04-09T04:00:00+00:00",
+                "value": 198.85000610351562,
+                "change": 0.14261745218572397,
+                "z": 11.607
+              },
+              {
+                "ts": "2025-04-03T04:00:00+00:00",
+                "value": 203.19000244140625,
+                "change": -0.09701334317497601,
+                "z": -8.052
+              },
+              {
+                "ts": "2026-07-31T04:00:00+00:00",
+                "value": 308.9100036621094,
+                "change": -0.07638294211415975,
+                "z": -6.359
+              }
+            ]
+          }
+        }
+      ]
+    },
+    {
+      "dataset": "bars:ABNB:1d",
+      "key": "bars:ABNB:1d",
+      "kind": "bars",
+      "label": "ABNB 1d",
+      "symbol": "ABNB",
+      "interval": "1d",
+      "namespace": null,
+      "name": null,
+      "score": 96.06,
+      "observed_at": "2026-10-25T18:21:55.647011+00:00",
+      "passed": false,
+      "checks": [
+        {
+          "check": "completeness",
+          "dataset": "bars:ABNB:1d",
+          "passed": true,
+          "score": 1.0,
+          "detail": "318/318 expected observations present (0 missing, one bar per trading session)",
+          "severity": "info",
+          "observed_at": "2026-10-25T18:21:55.540149+00:00",
+          "metrics": {
+            "expected": 318,
+            "observed": 318,
+            "missing": 0,
+            "missing_ratio": 0.0,
+            "cadence": "sessions",
+            "first": "2025-07-22T04:00:00+00:00",
+            "last": "2026-10-23T04:00:00+00:00",
+            "missing_sample": [],
+            "stored_points": 318
+          }
+        },
+        {
+          "check": "staleness",
+          "dataset": "bars:ABNB:1d",
+          "passed": true,
+          "score": 1.0,
+          "detail": "last observation 2026-10-23T04:00:00+00:00; 0 scheduled observation(s) missing since (one bar per trading session)",
+          "severity": "info",
+          "observed_at": "2026-10-25T18:21:55.560616+00:00",
+          "metrics": {
+            "last": "2026-10-23T04:00:00+00:00",
+            "age_seconds": 224515.561,
+            "missed_periods": 0,
+            "cadence": "sessions",
+            "checked_at": "2026-10-25T18:21:55.560616+00:00"
+          }
+        },
+        {
+          "check": "outliers",
+          "dataset": "bars:ABNB:1d",
+          "passed": false,
+          "score": 0.842271,
+          "detail": "1/317 log-returns exceed |z|>6 (median/MAD)",
+          "severity": "warn",
+          "observed_at": "2026-10-25T18:21:55.518433+00:00",
+          "metrics": {
+            "points": 318,
+            "changes": 317,
+            "flagged": 1,
+            "flagged_ratio": 0.003155,
+            "threshold": 6.0,
+            "estimator": "median/MAD",
+            "basis": "log-returns",
+            "median": 0.0012252525675267023,
+            "mad": 0.011106093150965002,
+            "worst": [
+              {
+                "ts": "2026-08-07T04:00:00+00:00",
+                "value": 178.07000732421875,
+                "change": 0.16066748592121272,
+                "z": 9.683
+              }
+            ]
+          }
+        }
+      ]
+    },
+    {
+      "dataset": "bars:ADBE:1d",
+      "key": "bars:ADBE:1d",
+      "kind": "bars",
+      "label": "ADBE 1d",
+      "symbol": "ADBE",
+      "interval": "1d",
+      "namespace": null,
+      "name": null,
+      "score": 94.63,
+      "observed_at": "2026-10-25T18:21:55.771725+00:00",
+      "passed": false,
+      "checks": [
+        {
+          "check": "completeness",
+          "dataset": "bars:ADBE:1d",
+          "passed": true,
+          "score": 0.997899,
+          "detail": "475/476 expected observations present (1 missing, one bar per trading session)",
+          "severity": "info",
+          "observed_at": "2026-10-25T18:21:55.670888+00:00",
+          "metrics": {
+            "expected": 476,
+            "observed": 475,
+            "missing": 1,
+            "missing_ratio": 0.002101,
+            "cadence": "sessions",
+            "first": "2024-12-02T05:00:00+00:00",
+            "last": "2026-10-23T04:00:00+00:00",
+            "missing_sample": [
+              "2025-01-09"
+            ],
+            "stored_points": 475
+          }
+        },
+        {
+          "check": "staleness",
+          "dataset": "bars:ADBE:1d",
+          "passed": true,
+          "score": 1.0,
+          "detail": "last observation 2026-10-23T04:00:00+00:00; 0 scheduled observation(s) missing since (one bar per trading session)",
+          "severity": "info",
+          "observed_at": "2026-10-25T18:21:55.690040+00:00",
+          "metrics": {
+            "last": "2026-10-23T04:00:00+00:00",
+            "age_seconds": 224515.69,
+            "missed_periods": 0,
+            "cadence": "sessions",
+            "checked_at": "2026-10-25T18:21:55.690040+00:00"
+          }
+        },
+        {
+          "check": "outliers",
+          "dataset": "bars:ADBE:1d",
+          "passed": false,
+          "score": 0.78903,
+          "detail": "2/474 log-returns exceed |z|>6 (median/MAD)",
+          "severity": "warn",
+          "observed_at": "2026-10-25T18:21:55.651212+00:00",
+          "metrics": {
+            "points": 475,
+            "changes": 474,
+            "flagged": 2,
+            "flagged_ratio": 0.004219,
+            "threshold": 6.0,
+            "estimator": "median/MAD",
+            "basis": "log-returns",
+            "median": -6.605941399051574e-05,
+            "mad": 0.011482301942137951,
+            "worst": [
+              {
+                "ts": "2025-03-13T04:00:00+00:00",
+                "value": 377.8399963378906,
+                "change": -0.1491170340040524,
+                "z": -8.756
+              },
+              {
+                "ts": "2024-12-12T05:00:00+00:00",
+                "value": 474.6300048828125,
+                "change": -0.1472554206642256,
+                "z": -8.646
+              }
+            ]
+          }
+        }
+      ]
+    }
+  ],
+  "count": 134,
+  "summary": {
+    "datasets": 134,
+    "overall_quality_pct": 96.64,
+    "stale_series": 0,
+    "missing_values_pct": 0.1428,
+    "expected_observations": 63040,
+    "observed_observations": 62950,
+    "failed_checks": 71,
+    "open_incidents": 71,
+    "last_run": "2026-10-25T18:22:12.185947+00:00",
+    "worst": [
+      {
+        "dataset": "bars:HONA:1d",
+        "label": "HONA 1d",
+        "score": 75.0
+      },
+      {
+        "dataset": "series:fred:DGS10",
+        "label": "fred/DGS10",
+        "score": 81.25
+      },
+      {
+        "dataset": "bars:CSCO:1d",
+        "label": "CSCO 1d",
+        "score": 88.17
+      }
+    ]
+  }
+}

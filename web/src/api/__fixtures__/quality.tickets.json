@@ -1,0 +1,18 @@
+{
+  "tickets": [
+    {
+      "id": "ec3d4e4792334579",
+      "dataset": "",
+      "check": "sla",
+      "title": "SLA breach \u00b7 FRED",
+      "body": "late (schedule: 1d)",
+      "severity": "warn",
+      "status": "open",
+      "opened_by": "user",
+      "incident_id": null,
+      "created_at": "2026-10-25T18:22:13.144330+00:00",
+      "closed_at": null
+    }
+  ],
+  "count": 1
+}

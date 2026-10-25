@@ -95,6 +95,67 @@ describe("screener", () => {
   }, 240_000);
 });
 
+describe("ingestion", () => {
+  const form = {
+    sourceName: "Writes file",
+    sourceDomain: "Prices & quotes",
+    sourceProtocol: "file",
+    sourceEndpoint: "/nonexistent/*.parquet",
+    sourceAuth: "None",
+    sourceFormat: "Parquet",
+    sourceFrequency: "Daily",
+    sourceScope: "All available symbols",
+    sourceTimezone: "UTC",
+    sourceRetries: "Exponential backoff",
+    backfillEnabled: false,
+    backfillRange: "Last 1 year",
+    backfillBatch: "Automatic",
+    advancedConfig: null,
+  };
+
+  it("tests, saves, edits, pauses and deletes a source", async () => {
+    const test = await api.ingest.test(form);
+    expect(test.ok).toBe(false);
+    expect(test.error).toContain("no files match");
+    const created = await api.ingest.create(form);
+    expect(created.source.name).toBe("Writes file");
+    const updated = await api.ingest.update(created.source.id, { ...form, id: created.source.id, sourceFrequency: "Hourly" });
+    expect(updated.source.schedule).toBe("1h");
+    expect((await api.ingest.setEnabled(created.source.id, false)).source.enabled).toBe(false);
+    expect((await api.ingest.remove(created.source.id)).deleted).toBe(created.source.id);
+  }, 60_000);
+
+  it("subscribes and unsubscribes, probes and backfills a source", async () => {
+    const sub = await api.ingest.subscribe({ source_id: "fred", channel: "series", scope: ["universe:us-quality-50"], active: true, feed_mode: "scheduled", preserve_pit: true, granularity: "" });
+    expect((await api.ingest.subscriptions()).subscriptions.map((x) => x.id)).toContain(sub.id);
+    expect((await api.ingest.unsubscribe(sub.id)).deleted).toBe(sub.id);
+    expect((await api.ingest.probe("fred")).state.status).toBeTruthy();
+    expect((await api.ingest.backfill("fred", "30d", "now")).started).toBe(true);
+    const finished = await framesOn("ingest", 1, 60_000);
+    expectAll(IngestFrame, finished);
+  }, 120_000);
+});
+
+describe("quality", () => {
+  it("runs the suite, resolves an incident, decides an outlier and opens a ticket", async () => {
+    const run = await api.quality.run();
+    expect(run.count).toBeGreaterThan(0);
+    const incidents = await api.quality.incidents();
+    const open = incidents.incidents.find((i) => i.status === "open");
+    if (open) expect((await api.quality.resolve(open.id)).status).not.toBe("open");
+    const outliers = await api.quality.outliers();
+    const flagged = outliers.outliers.find((o) => o.needs_review);
+    if (flagged) {
+      expect((await api.quality.decide(flagged.id, "escalate")).outlier.state).toBe("escalated");
+      expect((await api.quality.decide(flagged.id, "open")).outlier.state).toBe("open");
+    }
+    const ticket = await api.quality.openTicket({ title: "Writes ticket", dataset: "", check: "sla", body: "check", severity: "warn" });
+    expect(ticket.ticket.title).toBe("Writes ticket");
+    expect((await api.quality.series()).datasets.length).toBeGreaterThan(0);
+    expect((await api.quality.sla()).sla.length).toBeGreaterThan(0);
+  }, 360_000);
+});
+
 describe("settings", () => {
   it("saves one field at a time and answers with the stored whole", async () => {
     const before = await api.settings.get();

@@ -1,0 +1,42 @@
+{
+  "sla": [
+    {
+      "source_id": "alpaca",
+      "name": "Alpaca Market Stream",
+      "schedule": "Streaming",
+      "state": "breached",
+      "age_seconds": null,
+      "detail": "no successful ingest since the source was created",
+      "domain": "market",
+      "schedule_seconds": null,
+      "last_ingest_at": null,
+      "tolerance_seconds": 900
+    },
+    {
+      "source_id": "fred",
+      "name": "FRED Macro",
+      "schedule": "Hourly",
+      "state": "breached",
+      "age_seconds": 13414.4,
+      "detail": "3.7h since the last ingest, tolerance 2.0h",
+      "domain": "macro",
+      "schedule_seconds": 3600,
+      "last_ingest_at": "2026-10-25T14:40:51.432759+00:00",
+      "tolerance_seconds": 7200
+    },
+    {
+      "source_id": "trends",
+      "name": "Google Trends",
+      "schedule": "Daily",
+      "state": "pending",
+      "age_seconds": null,
+      "detail": "no successful ingest recorded yet",
+      "domain": "alternative",
+      "schedule_seconds": 86400,
+      "last_ingest_at": null,
+      "tolerance_seconds": null
+    }
+  ],
+  "count": 7,
+  "breached": 2
+}

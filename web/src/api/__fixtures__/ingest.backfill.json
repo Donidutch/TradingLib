@@ -1,0 +1,7 @@
+{
+  "started": true,
+  "source_id": "fred",
+  "range": "30d",
+  "end": null,
+  "channel": "ingest"
+}

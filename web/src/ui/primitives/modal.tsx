@@ -1,4 +1,4 @@
-import { useEffect, type ReactNode } from "react";
+import { useEffect, useId, type ReactNode } from "react";
 import { X } from "lucide-react";
 import { cn } from "../lib/cn";
 import { IconButton } from "./button";
@@ -24,6 +24,7 @@ export function Modal({
   className?: string;
   children?: ReactNode;
 }) {
+  const titleId = useId();
   useEffect(() => {
     if (!open) return;
     const onKey = (e: KeyboardEvent) => {
@@ -45,6 +46,7 @@ export function Modal({
       className="fixed inset-0 z-[100] flex items-center justify-center p-4"
       role="dialog"
       aria-modal="true"
+      aria-labelledby={title ? titleId : undefined}
     >
       <div
         className="absolute inset-0 bg-backdrop backdrop-blur-sm"
@@ -61,7 +63,11 @@ export function Modal({
         {(title || description) && (
           <div className="flex items-start justify-between gap-3 px-5 pt-4 pb-3 border-b border-border-subtle">
             <div className="min-w-0">
-              {title && <h2 className="text-sm font-medium text-text">{title}</h2>}
+              {title && (
+                <h2 id={titleId} className="text-sm font-medium text-text">
+                  {title}
+                </h2>
+              )}
               {description && (
                 <p className="mt-0.5 text-[12px] text-text-muted">{description}</p>
               )}

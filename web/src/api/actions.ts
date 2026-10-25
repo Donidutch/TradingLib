@@ -11,8 +11,8 @@ export interface ActionOptions<A, R> {
   invalidate?: (result: R, args: A) => readonly QueryKey[];
   /** Cache writes that cannot wait for a refetch (the server's copy wins). */
   apply?: (client: QueryClient, result: R, args: A) => void;
-  /** Success toast; null for none. */
-  done?: (result: R, args: A) => string | null;
+  /** Success toast; null for none. A `warn` tone for a write that landed but did not do all it was asked. */
+  done?: (result: R, args: A) => string | { text: string; tone: "ok" | "warn" } | null;
   /** What failed, e.g. "Could not add NVDA"; the server's reason follows. */
   failed: (args: A) => string;
 }
@@ -26,7 +26,8 @@ export function useAction<A, R>(options: ActionOptions<A, R>) {
       options.apply?.(client, result, args);
       await Promise.all((options.invalidate?.(result, args) ?? []).map((queryKey) => client.invalidateQueries({ queryKey })));
       const message = options.done?.(result, args);
-      if (message) toast.ok(message);
+      if (typeof message === "string") toast.ok(message);
+      else if (message) toast.show(message.text, message.tone);
     },
     onError: (err, args) => toast.error(`${options.failed(args)}: ${errorReason(err)}`),
   });

@@ -1,0 +1,69 @@
+{
+  "outliers": [
+    {
+      "id": "bea850a6e6484e88ad353d36643686e3",
+      "dataset": "series:fred:UNRATE",
+      "label": "fred/UNRATE",
+      "ts": "2020-08-01T00:00:00+00:00",
+      "value": 8.4,
+      "previous": null,
+      "change": -0.19415601444095731,
+      "z": -6.089,
+      "basis": "log-returns",
+      "suggestion": "human",
+      "state": "open",
+      "needs_review": true,
+      "escalated": false,
+      "decided_by": null,
+      "note": null,
+      "detected_at": "2026-10-25T18:22:12.102149+00:00",
+      "decided_at": null
+    },
+    {
+      "id": "bfac48d751344c44897c52059aec60db",
+      "dataset": "series:fred:UNRATE",
+      "label": "fred/UNRATE",
+      "ts": "2020-04-01T00:00:00+00:00",
+      "value": 14.8,
+      "previous": null,
+      "change": 1.2130226398458537,
+      "z": 38.044,
+      "basis": "log-returns",
+      "suggestion": "human",
+      "state": "open",
+      "needs_review": true,
+      "escalated": false,
+      "decided_by": null,
+      "note": null,
+      "detected_at": "2026-10-25T18:22:12.102149+00:00",
+      "decided_at": null
+    },
+    {
+      "id": "989071985084492abc8b52a811ea98ef",
+      "dataset": "series:fred:UNRATE",
+      "label": "fred/UNRATE",
+      "ts": "2020-03-01T00:00:00+00:00",
+      "value": 4.4,
+      "previous": null,
+      "change": 0.2288415724288475,
+      "z": 7.177,
+      "basis": "log-returns",
+      "suggestion": "human",
+      "state": "open",
+      "needs_review": true,
+      "escalated": false,
+      "decided_by": null,
+      "note": null,
+      "detected_at": "2026-10-25T18:22:12.102149+00:00",
+      "decided_at": null
+    }
+  ],
+  "count": 157,
+  "counts": {
+    "open": 157,
+    "quarantined": 0,
+    "accepted": 0,
+    "escalated": 0,
+    "awaiting_review": 157
+  }
+}

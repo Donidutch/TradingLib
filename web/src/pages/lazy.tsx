@@ -1,5 +1,6 @@
 /* Each page (and the chart library they share) loads when first opened, so
  * the shell paints without waiting for code it may not need. */
+import type { DataTab } from "./data/tabs";
 import { lazy, Suspense } from "react";
 
 const OverviewPage = lazy(() => import("./overview/OverviewPage").then((m) => ({ default: m.OverviewPage })));
@@ -43,7 +44,7 @@ export function LazyDocs({ article }: { article: string | undefined }) {
   );
 }
 
-export function LazyData({ tab }: { tab: "collections" | "screener" }) {
+export function LazyData({ tab }: { tab: DataTab }) {
   return (
     <Suspense fallback={loading}>
       <DataPage tab={tab} />

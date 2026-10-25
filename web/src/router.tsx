@@ -1,6 +1,7 @@
 import { createRootRoute, createRoute, createRouter } from "@tanstack/react-router";
 import { LazyData, LazyDocs, LazyOverview, LazySettings, LazyStock } from "./pages/lazy";
 import { DEFAULT_SYMBOL } from "./pages/stock/rules";
+import { isDataTab } from "./pages/data/tabs";
 import { Shell } from "./shell/Shell";
 
 const rootRoute = createRootRoute({ component: Shell });
@@ -62,7 +63,7 @@ const dataRoute = createRoute({
   path: "/data/$tab",
   component: function Data() {
     const tab = dataRoute.useParams().tab;
-    return <LazyData tab={tab === "screener" ? "screener" : "collections"} />;
+    return <LazyData tab={isDataTab(tab) ? tab : "collections"} />;
   },
 });
 

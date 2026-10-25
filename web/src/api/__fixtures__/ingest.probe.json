@@ -1,0 +1,14 @@
+{
+  "source_id": "fred",
+  "state": {
+    "source_id": "fred",
+    "status": "connected",
+    "status_label": "Live",
+    "last_ingest_at": "2026-10-25T14:40:51.432759+00:00",
+    "last_error": null,
+    "latency_ms": 406.435,
+    "rows_ingested": 18087,
+    "checked_at": "2026-10-25T18:22:13.009104+00:00",
+    "backfilled_at": null
+  }
+}

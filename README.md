@@ -68,8 +68,9 @@ uv run uvicorn tradinglib.api.app:create_app --factory --port 8200 --loop asynci
 ## React console (`web/`)
 
 The console is being ported page by page to React + TypeScript
-([`docs/UI_PORT.md`](docs/UI_PORT.md)). The shell, Overview and Stock Research
-are done and run beside the vanilla console; pages not yet ported link to it.
+([`docs/UI_PORT.md`](docs/UI_PORT.md)). The shell, Overview, Stock Research,
+Market & Data, Settings and Docs are done and run beside the vanilla console;
+pages not yet ported link to it.
 
 ![Overview in the React console](docs/img/app-overview.png)
 ![Stock Research in the React console](docs/img/app-stock.png)

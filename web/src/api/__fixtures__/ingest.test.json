@@ -1,0 +1,15 @@
+{
+  "ok": false,
+  "reachable": true,
+  "authenticated": true,
+  "latency_ms": null,
+  "message": "no files match '/nonexistent/*.parquet'",
+  "error": "no files match '/nonexistent/*.parquet'",
+  "sample": [],
+  "sample_record": null,
+  "inferred_schema": {},
+  "status_code": null,
+  "tested_at": "2026-10-25T18:22:13.052813+00:00",
+  "source_id": "local-file",
+  "name": "Local file"
+}

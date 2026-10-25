@@ -1,6 +1,8 @@
 /* The console's workspaces. Ported ones are routes in this app; the rest
  * still live in the vanilla console at /, reached through its hash routes. */
 
+import { isDataTab, type DataTab } from "../pages/data/tabs";
+
 export interface Workspace {
   key: string;
   label: string;
@@ -28,7 +30,7 @@ export type Target =
   | { kind: "app"; to: "/stock" }
   | { kind: "app"; to: "/stock/$symbol"; symbol: string }
   | { kind: "app"; to: "/docs" | "/settings" | "/data" }
-  | { kind: "app"; to: "/data/$tab"; tab: "collections" | "screener" }
+  | { kind: "app"; to: "/data/$tab"; tab: DataTab }
   | { kind: "app"; to: "/docs/$article"; article: string }
   | { kind: "legacy"; href: string };
 
@@ -49,9 +51,8 @@ export function targetForHash(hash: string): Target {
     if (key === "stock" && !sub) return { kind: "app", to: "/stock" };
     if (key === "stock" && sub) return { kind: "app", to: "/stock/$symbol", symbol: decodeURIComponent(sub) };
     if (key === "settings") return { kind: "app", to: "/settings" };
-    // Market & Data's last three tabs are ported in S3.
     if (key === "data" && !sub) return { kind: "app", to: "/data" };
-    if (key === "data" && (sub === "collections" || sub === "screener")) return { kind: "app", to: "/data/$tab", tab: sub };
+    if (key === "data" && isDataTab(sub)) return { kind: "app", to: "/data/$tab", tab: sub };
     if (key === "docs") return sub ? { kind: "app", to: "/docs/$article", article: decodeURIComponent(sub) } : { kind: "app", to: "/docs" };
   }
   return { kind: "legacy", href: `/#${clean}` };

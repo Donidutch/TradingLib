@@ -1,0 +1,28 @@
+{
+  "outlier": {
+    "id": "bea850a6e6484e88ad353d36643686e3",
+    "dataset": "series:fred:UNRATE",
+    "label": "fred/UNRATE",
+    "ts": "2020-08-01T00:00:00+00:00",
+    "value": 8.4,
+    "previous": null,
+    "change": -0.19415601444095731,
+    "z": -6.089,
+    "basis": "log-returns",
+    "suggestion": "human",
+    "state": "escalated",
+    "needs_review": true,
+    "escalated": true,
+    "decided_by": "user",
+    "note": null,
+    "detected_at": "2026-10-25T18:22:12.102149+00:00",
+    "decided_at": "2026-10-25T18:22:21.387032+00:00"
+  },
+  "counts": {
+    "open": 156,
+    "quarantined": 0,
+    "accepted": 0,
+    "escalated": 1,
+    "awaiting_review": 157
+  }
+}

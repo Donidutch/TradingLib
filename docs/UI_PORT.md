@@ -369,14 +369,48 @@ until then open in the current console.
 
 ### S3 — Market & Data II: sources, ingestion, quality (F.3–F.5: 63 rows)
 
-- [ ] Source Catalog: statuses, detail, subscription configuration (including
+- [x] Source Catalog: statuses, detail, subscription configuration (including
   granularity and the "applied or not, and why" answer), active subscriptions.
-- [ ] Data Ingestion: the full configure form with every SourceConfig field
+- [x] Data Ingestion: the full configure form with every SourceConfig field
   (SPEC §4 mapping), protocol-dependent fields, custom poll intervals validated
   as the old page does, Test connection, Save, backfill.
-- [ ] Data Quality: summary, per-dataset checks, incidents, outliers, tickets,
+- [x] Data Quality: summary, per-dataset checks, incidents, outliers, tickets,
   SLA, run checks; live `ingest` and `quality` frames.
-- [ ] Routes `/data/<tab>`; tests; compare.
+- [x] Routes `/data/<tab>`; tests; compare.
+
+Done 2026-10-25. `tools/compare_consoles.py data`: 5 of 5 pages match (428
+figures on the throwaway copy); the full run over every ported page on the real
+server: 52 of 52 areas, 1,116 figures. Write checks cover every ingestion and
+quality write on the throwaway server (11 of 11). Notes: removing a
+subscription and deleting a source ask first (agreed in the plan); the ages in
+the two tables tick every five seconds as the old ones did, which the
+comparison caught; the modal primitive now names its dialog after its title;
+an action's success toast can carry a warn tone (a probe that did not connect,
+a backfill already running); a live frame invalidates the tab's queries and
+React Query keeps at most one fetch per query running, in place of the old
+hand-written coalescing. All five Market & Data tabs now open in this app, and
+`#data/<tab>` hashes from search and the palette land here.
+
+Map (`data.js` lines 2049–3983 → `web/src/pages/data/`; COVERAGE.md F.3–F.5).
+
+| Area | Source | Shows and does | Empty / error |
+| --- | --- | --- | --- |
+| Catalog sidebar | `GET /api/ingest/sources`, `GET /api/ingest/subscriptions` | badge "n sources"; one button per source with its status pill (Connected, Degraded, Disconnected, Credentials required, Not probed) and "protocol · domain"; "+ Request new source" opens Data Ingestion with an empty form; the protocol key | load error in the detail panel |
+| Catalog detail | same | name, pill, endpoint, "BUILT-IN / USER SOURCE · PROTOCOL · AUTH … ✓ or — NOT CONFIGURED · schedule"; Credentials (configured: says so; otherwise opens Settings); protocols supported (one enabled); this source's subscriptions as selectable cards; observed state: status, last ingest, rows, latency, last probe, last error | "No ingestion sources are registered in this build."; "No subscription configured for this source yet. …" |
+| Subscription panel | same, `POST /api/ingest/subscriptions` | credential warning or ready note; channel (default from the domain); feed mode with the honest note about streaming or polling; preserve point-in-time; frequency chips from the source's options with the note on whether the resolution reaches the fetch (the API's verdict when a subscription has it, else the prediction); poll interval presets plus a custom field, validated (45s, 2m, 4h, 1d), with the cost and bar-alignment advice; scope (universes, watchlists, all, custom symbols); the estimate line; + Add subscription (disabled without credentials), Dry run, Use custom configuration | warnings from the API's `feed_mode_detail` and `granularity_detail` as toasts |
+| Poll interval write | `PUT /api/ingest/sources/{id}` with the source re-posted | "now polls every …"; refused with an explanation when the source stores a key (re-posting would clear it) | unrecognised interval refused before sending |
+| Backfill | `POST /api/ingest/sources/{id}/backfill?range=&end=`, `ingest` frames `backfill_*` | protocol chips; FROM / TO with the format note and configured default; Run backfill (disabled without credentials); progress and the result written under it from live frames | "No history endpoint — …"; 409 `backfill_running` as a warning; failure as a toast |
+| Active subscriptions | same | per row: source, channel · granularity, protocol abbreviation, frequency, scope, last ingest age, status (PAUSED · …), Remove (confirmed first) | "No subscriptions configured. …" |
+| Ingestion form | `POST /api/ingest/sources/test`, `POST /api/ingest/sources`, `PUT …/{id}` | every SourceConfig field (SPEC §4): name, domain, protocol (label, placeholder, hint and default frequency follow it), endpoint, auth (fields relabel per auth type; key value write-only), format, frequency (custom cron), scope (custom symbols), timezone, retry policy, backfill on first connection (range, batch, custom start date), advanced JSON; Test connection with the result facts (reachable, authenticated, status, latency, tested at, message, error, inferred schema, sample); Save; editing a source fills the form and warns that a stored key must be re-entered | name required; test and save errors in place and as toasts |
+| Configured sources | `GET /api/ingest/sources`, `POST …/{id}/test`, `POST …/{id}/enabled`, `DELETE …/{id}` | badge "connected / total connected"; per row: source, domain, protocol, frequency, backfill, freshness age, coverage rows, status (error in title), Test, Edit, Pause or Resume, Delete (user sources, confirmed first); the lifecycle note | "No ingestion sources are registered."; error row |
+| Quality cards | `GET /api/quality/summary` | overall quality (bar, green at 95%+), stale series, missing values, failed checks | "no run yet" |
+| Incidents | `GET /api/quality/incidents?include_resolved=true`, `POST …/{id}/resolve` | badge "n open"; check, dataset, severity (toned), status, Resolve on open ones | no checks run yet / every check passed |
+| Check suite | `GET /api/quality/series`, `GET /api/quality/sla`, `GET /api/quality/datasets`, `GET /api/quality/tickets`, `POST /api/quality/run`, `POST /api/quality/tickets` | last run age; six named checks (gap scan, outlier detection, stale tickers, schema drift, dupe rows, lookahead) with scope, result (NOT RUN, CLEAN, n FLAGS…) and failing datasets in the title; Review / List opens the failing datasets; SLA rows for sources past their cadence with Ticket; Run checks; stored vs scored counts; open tickets | "No check has been recorded yet. …"; "NO SOURCES" / "ALL WITHIN CADENCE" |
+| Outlier queue | `GET /api/quality/outliers?limit=200`, `POST …/{id}/decide` | badge open and escalated counts; up to 25 open and 10 decided: label, value, z, date, basis, change, the detector's suggestion (its button highlighted); Quarantine, Accept value, Escalate or clear escalation, undo on decided ones; the note on what quarantine does | "Nothing flagged. …" |
+| Live | `ingest`, `quality` frames | the open tab reloads, coalesced; backfill frames go to the backfill line | — |
+
+Deliberate differences: removing a subscription and deleting a source ask
+first (agreed in the plan).
 
 ### S4 — Strategy Lab I: frame, hypotheses, experiments (part of D)
 

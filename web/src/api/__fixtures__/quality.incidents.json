@@ -1,0 +1,111 @@
+{
+  "incidents": [
+    {
+      "id": "ddab5907a6bd475bbdf0c88511aca44e",
+      "dataset": "series:fred:UNRATE",
+      "check": "outliers",
+      "severity": "error",
+      "message": "5/943 log-returns exceed |z|>6 (median/MAD)",
+      "opened_at": "2026-10-25T18:22:12.105626+00:00",
+      "resolved_at": null,
+      "status": "open",
+      "metrics": {
+        "points": 944,
+        "changes": 943,
+        "flagged": 5,
+        "flagged_ratio": 0.005302,
+        "threshold": 6.0,
+        "estimator": "median/MAD",
+        "basis": "log-returns",
+        "median": 0.0,
+        "mad": 0.021506205220963803,
+        "worst": [
+          {
+            "ts": "2020-04-01T00:00:00+00:00",
+            "value": 14.8,
+            "change": 1.2130226398458537,
+            "z": 38.044
+          },
+          {
+            "ts": "1953-12-01T00:00:00+00:00",
+            "value": 4.5,
+            "change": 0.2513144282809061,
+            "z": 7.882
+          },
+          {
+            "ts": "2020-03-01T00:00:00+00:00",
+            "value": 4.4,
+            "change": 0.2288415724288475,
+            "z": 7.177
+          }
+        ]
+      }
+    },
+    {
+      "id": "20a6b79fb25d426b97cb4486d3979f23",
+      "dataset": "series:fred:DGS10",
+      "check": "outliers",
+      "severity": "error",
+      "message": "240/16186 log-returns exceed |z|>6 (median/MAD)",
+      "opened_at": "2026-10-25T18:22:11.855606+00:00",
+      "resolved_at": null,
+      "status": "open",
+      "metrics": {
+        "points": 16187,
+        "changes": 16186,
+        "flagged": 240,
+        "flagged_ratio": 0.014828,
+        "threshold": 6.0,
+        "estimator": "median/MAD",
+        "basis": "log-returns",
+        "median": 0.0,
+        "mad": 0.005498547762616601,
+        "worst": [
+          {
+            "ts": "2020-03-10T00:00:00+00:00",
+            "value": 0.76,
+            "change": 0.34174929372205665,
+            "z": 41.922
+          },
+          {
+            "ts": "2020-03-17T00:00:00+00:00",
+            "value": 1.02,
+            "change": 0.33451337213587995,
+            "z": 41.034
+          },
+          {
+            "ts": "2020-03-09T00:00:00+00:00",
+            "value": 0.54,
+            "change": -0.31508104663989533,
+            "z": -38.651
+          }
+        ]
+      }
+    },
+    {
+      "id": "032b07566227492f9597cfd7d03698fc",
+      "dataset": "series:fred:CPILFESL",
+      "check": "completeness",
+      "severity": "warn",
+      "message": "47/48 expected observations present (1 missing, one point per month)",
+      "opened_at": "2026-10-25T18:22:11.303422+00:00",
+      "resolved_at": null,
+      "status": "open",
+      "metrics": {
+        "expected": 48,
+        "observed": 47,
+        "missing": 1,
+        "missing_ratio": 0.020833,
+        "cadence": "monthly",
+        "first": "2022-10-01T00:00:00+00:00",
+        "last": "2026-09-01T00:00:00+00:00",
+        "missing_sample": [
+          "2025-10-01"
+        ],
+        "stored_points": 47
+      }
+    }
+  ],
+  "count": 71,
+  "open": 71
+}

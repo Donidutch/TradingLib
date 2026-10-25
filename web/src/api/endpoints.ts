@@ -32,6 +32,28 @@ import {
   Thesis,
   Valuation,
 } from "./schemas/research";
+import {
+  BackfillStarted,
+  ConnectionTest,
+  SourceList,
+  SourceProbe,
+  SourceSaved,
+  Subscription,
+  SubscriptionList,
+  type SourceForm,
+} from "./schemas/ingest";
+import {
+  Incident,
+  Incidents,
+  OutlierDecided,
+  Outliers,
+  QualityRun,
+  QualitySeries,
+  QualitySummary,
+  Sla,
+  TicketOpened,
+  Tickets,
+} from "./schemas/quality";
 import { Health, Settings, type SettingsPatch } from "./schemas/settings";
 import { Search, Status } from "./schemas/status";
 import { Watchlist, WatchlistList } from "./schemas/watchlists";
@@ -110,8 +132,39 @@ export function makeApi(c: ApiClient) {
       acknowledge: (id: string) => c.post(`/api/screens/alerts/${enc(id)}/acknowledge`, z.unknown(), {}),
     },
 
+    ingest: {
+      sources: (signal?: AbortSignal) => c.get("/api/ingest/sources", SourceList, null, signal),
+      subscriptions: (signal?: AbortSignal) => c.get("/api/ingest/subscriptions", SubscriptionList, null, signal),
+      subscribe: (body: { source_id: string; channel: string; scope: string[]; active: boolean; feed_mode: string; preserve_pit: boolean; granularity: string }) =>
+        c.post("/api/ingest/subscriptions", Subscription, body),
+      unsubscribe: (id: string) => c.del(`/api/ingest/subscriptions/${enc(id)}`, Deleted),
+      /** Probe a configured source now. */
+      probe: (id: string) => c.request("POST", `/api/ingest/sources/${enc(id)}/test`, SourceProbe, { body: {}, timeoutMs: 90_000 }),
+      /** `range` and `end` travel in the query string, which is where the route reads them. */
+      backfill: (id: string, range: string, end: string) =>
+        c.request("POST", `/api/ingest/sources/${enc(id)}/backfill`, BackfillStarted, { query: { range, end } }),
+      setEnabled: (id: string, enabled: boolean) => c.post(`/api/ingest/sources/${enc(id)}/enabled`, SourceSaved, { enabled }),
+      /** Test the form as filled in, before anything is saved. */
+      test: (form: SourceForm) => c.request("POST", "/api/ingest/sources/test", ConnectionTest, { body: form, timeoutMs: 90_000 }),
+      create: (form: SourceForm) => c.post("/api/ingest/sources", SourceSaved, form),
+      update: (id: string, body: SourceForm | Record<string, unknown>) => c.request("PUT", `/api/ingest/sources/${enc(id)}`, SourceSaved, { body }),
+      remove: (id: string) => c.del(`/api/ingest/sources/${enc(id)}`, Deleted),
+    },
+
     quality: {
       datasets: (signal?: AbortSignal) => c.get("/api/quality/datasets", Datasets, null, signal),
+      summary: (signal?: AbortSignal) => c.get("/api/quality/summary", QualitySummary, null, signal),
+      series: (signal?: AbortSignal) => c.get("/api/quality/series", QualitySeries, null, signal),
+      incidents: (signal?: AbortSignal) => c.get("/api/quality/incidents", Incidents, { include_resolved: true }, signal),
+      outliers: (signal?: AbortSignal) => c.get("/api/quality/outliers", Outliers, { limit: 200 }, signal),
+      sla: (signal?: AbortSignal) => c.get("/api/quality/sla", Sla, null, signal),
+      tickets: (signal?: AbortSignal) => c.get("/api/quality/tickets", Tickets, null, signal),
+      run: () => c.request("POST", "/api/quality/run", QualityRun, { body: {}, timeoutMs: 300_000 }),
+      resolve: (id: string) => c.post(`/api/quality/incidents/${enc(id)}/resolve`, Incident, {}),
+      openTicket: (body: { title: string; dataset: string; check: string; body: string; severity: string }) =>
+        c.post("/api/quality/tickets", TicketOpened, body),
+      decide: (id: string, decision: "quarantine" | "accept" | "escalate" | "open") =>
+        c.post(`/api/quality/outliers/${enc(id)}/decide`, OutlierDecided, { decision, by: "user" }),
     },
 
     macro: {
@@ -178,6 +231,14 @@ export function readEndpoints(api: Api, symbol: string, universe: string) {
     "screens.alerts": () => api.screens.alerts(),
     "screens.preview": () => api.screens.preview({ universe_id: universe, rules: [] }),
     "quality.datasets": () => api.quality.datasets(),
+    "ingest.sources": () => api.ingest.sources(),
+    "ingest.subscriptions": () => api.ingest.subscriptions(),
+    "quality.summary": () => api.quality.summary(),
+    "quality.series": () => api.quality.series(),
+    "quality.incidents": () => api.quality.incidents(),
+    "quality.outliers": () => api.quality.outliers(),
+    "quality.sla": () => api.quality.sla(),
+    "quality.tickets": () => api.quality.tickets(),
     "universes.breadth": () => api.universes.breadth(universe),
     "watchlists.list": () => api.watchlists.list(),
     "macro.panel": () => api.macro.panel(),

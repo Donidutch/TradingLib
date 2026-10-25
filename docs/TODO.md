@@ -113,5 +113,5 @@ approved and applied.
       tickers; every §6 item for these pages checked in UI_PORT.md.
 - [ ] Step 2, planned in UI_PORT.md: the remaining pages, then switching `/`.
       Owner decisions approved (2026-10-25) · S0 foundation done · S1 Settings and Docs done ·
-      S2 Market & Data I done · S3 Market & Data II · S4–S6 Strategy Lab · S7–S8 Agent Center ·
+      S2 Market & Data I done · S3 Market & Data II done · S4–S6 Strategy Lab · S7–S8 Agent Center ·
       S9 verification · S10 switch `/` (own SPEC decision).

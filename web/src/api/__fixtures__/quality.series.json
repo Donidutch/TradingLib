@@ -1,0 +1,183 @@
+{
+  "datasets": [
+    {
+      "dataset": "bars:AAPL:1d",
+      "kind": "bars",
+      "label": "AAPL 1d",
+      "score": 89.97,
+      "observed_at": "2026-10-25T18:21:55.510640+00:00",
+      "passed": false,
+      "checks": [
+        {
+          "check": "completeness",
+          "passed": true,
+          "score": 0.99802,
+          "severity": "info",
+          "detail": "504/505 expected observations present (1 missing, one bar per trading session)",
+          "observed_at": "2026-10-25T18:21:55.398973+00:00",
+          "metrics": {
+            "expected": 505,
+            "observed": 504,
+            "missing": 1,
+            "missing_ratio": 0.00198,
+            "cadence": "sessions",
+            "first": "2024-10-21T04:00:00+00:00",
+            "last": "2026-10-23T04:00:00+00:00",
+            "missing_sample": [
+              "2025-01-09"
+            ],
+            "stored_points": 504
+          }
+        },
+        {
+          "check": "duplicates",
+          "passed": true,
+          "score": 1.0,
+          "severity": "info",
+          "detail": "504 rows, every timestamp unique",
+          "observed_at": "2026-10-25T18:21:55.446759+00:00",
+          "metrics": {
+            "rows": 504,
+            "duplicates": 0,
+            "timestamps": 0,
+            "sample": []
+          }
+        },
+        {
+          "check": "lookahead",
+          "passed": true,
+          "score": 1.0,
+          "severity": "info",
+          "detail": "504 rows, none dated ahead of their availability",
+          "observed_at": "2026-10-25T18:21:55.487107+00:00",
+          "metrics": {
+            "rows": 504,
+            "future": 0,
+            "post_close": 0,
+            "checked_at": "2026-10-25T18:21:55.487107+00:00",
+            "sample": []
+          }
+        }
+      ]
+    },
+    {
+      "dataset": "bars:ABNB:1d",
+      "kind": "bars",
+      "label": "ABNB 1d",
+      "score": 96.06,
+      "observed_at": "2026-10-25T18:21:55.647011+00:00",
+      "passed": false,
+      "checks": [
+        {
+          "check": "completeness",
+          "passed": true,
+          "score": 1.0,
+          "severity": "info",
+          "detail": "318/318 expected observations present (0 missing, one bar per trading session)",
+          "observed_at": "2026-10-25T18:21:55.540149+00:00",
+          "metrics": {
+            "expected": 318,
+            "observed": 318,
+            "missing": 0,
+            "missing_ratio": 0.0,
+            "cadence": "sessions",
+            "first": "2025-07-22T04:00:00+00:00",
+            "last": "2026-10-23T04:00:00+00:00",
+            "missing_sample": [],
+            "stored_points": 318
+          }
+        },
+        {
+          "check": "duplicates",
+          "passed": true,
+          "score": 1.0,
+          "severity": "info",
+          "detail": "318 rows, every timestamp unique",
+          "observed_at": "2026-10-25T18:21:55.580277+00:00",
+          "metrics": {
+            "rows": 318,
+            "duplicates": 0,
+            "timestamps": 0,
+            "sample": []
+          }
+        },
+        {
+          "check": "lookahead",
+          "passed": true,
+          "score": 1.0,
+          "severity": "info",
+          "detail": "318 rows, none dated ahead of their availability",
+          "observed_at": "2026-10-25T18:21:55.623985+00:00",
+          "metrics": {
+            "rows": 318,
+            "future": 0,
+            "post_close": 0,
+            "checked_at": "2026-10-25T18:21:55.623985+00:00",
+            "sample": []
+          }
+        }
+      ]
+    },
+    {
+      "dataset": "bars:ADBE:1d",
+      "kind": "bars",
+      "label": "ADBE 1d",
+      "score": 94.63,
+      "observed_at": "2026-10-25T18:21:55.771725+00:00",
+      "passed": false,
+      "checks": [
+        {
+          "check": "completeness",
+          "passed": true,
+          "score": 0.997899,
+          "severity": "info",
+          "detail": "475/476 expected observations present (1 missing, one bar per trading session)",
+          "observed_at": "2026-10-25T18:21:55.670888+00:00",
+          "metrics": {
+            "expected": 476,
+            "observed": 475,
+            "missing": 1,
+            "missing_ratio": 0.002101,
+            "cadence": "sessions",
+            "first": "2024-12-02T05:00:00+00:00",
+            "last": "2026-10-23T04:00:00+00:00",
+            "missing_sample": [
+              "2025-01-09"
+            ],
+            "stored_points": 475
+          }
+        },
+        {
+          "check": "duplicates",
+          "passed": true,
+          "score": 1.0,
+          "severity": "info",
+          "detail": "475 rows, every timestamp unique",
+          "observed_at": "2026-10-25T18:21:55.709632+00:00",
+          "metrics": {
+            "rows": 475,
+            "duplicates": 0,
+            "timestamps": 0,
+            "sample": []
+          }
+        },
+        {
+          "check": "lookahead",
+          "passed": true,
+          "score": 1.0,
+          "severity": "info",
+          "detail": "475 rows, none dated ahead of their availability",
+          "observed_at": "2026-10-25T18:21:55.749734+00:00",
+          "metrics": {
+            "rows": 475,
+            "future": 0,
+            "post_close": 0,
+            "checked_at": "2026-10-25T18:21:55.749734+00:00",
+            "sample": []
+          }
+        }
+      ]
+    }
+  ],
+  "count": 134
+}

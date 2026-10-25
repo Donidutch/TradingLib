@@ -1,0 +1,108 @@
+{
+  "source": {
+    "id": "local-file",
+    "name": "Local file",
+    "data_domain": "market",
+    "data_domain_label": "Prices & quotes",
+    "protocol": "file",
+    "protocol_label": "Database file / flat file",
+    "can_backfill": true,
+    "endpoint": "/nonexistent/*.parquet",
+    "auth": {
+      "type": "none",
+      "label": "None",
+      "configured": true,
+      "key_name": null,
+      "key_value": null,
+      "key_set": false,
+      "in_header": true,
+      "username": null,
+      "password": null,
+      "token_url": null,
+      "client_id": null,
+      "client_secret": null,
+      "scopes": []
+    },
+    "format": "parquet",
+    "format_label": "Parquet",
+    "schedule": "1d",
+    "schedule_detail": {
+      "kind": "interval",
+      "raw": "1d",
+      "label": "Daily",
+      "interval_seconds": 86400.0,
+      "cron": null,
+      "periodic": true
+    },
+    "scope": [],
+    "scope_label": "All available symbols",
+    "source_tz": "UTC",
+    "retry_policy": {
+      "mode": "exponential",
+      "label": "Exponential backoff",
+      "max_attempts": 3,
+      "backoff_seconds": 2.0,
+      "backoff_multiplier": 2.0,
+      "max_backoff_seconds": 60.0,
+      "timeout_seconds": 30.0
+    },
+    "backfill": {
+      "enabled": true,
+      "range": "1y",
+      "batch": "auto",
+      "batch_size": 500,
+      "start_date": null
+    },
+    "advanced": {
+      "headers": {},
+      "query_params": {},
+      "subscriptions": [],
+      "sql": null,
+      "glob": null,
+      "pagination": {},
+      "schema_mapping": {}
+    },
+    "provider": null,
+    "builtin": false,
+    "enabled": true,
+    "created_at": "2026-10-25T18:22:13.058607+00:00",
+    "updated_at": "2026-10-25T18:22:13.058607+00:00",
+    "state": {
+      "source_id": "local-file",
+      "status": "unknown",
+      "status_label": "Unknown",
+      "last_ingest_at": null,
+      "last_error": null,
+      "latency_ms": null,
+      "rows_ingested": 0,
+      "checked_at": null,
+      "backfilled_at": null
+    },
+    "subscriptions": [],
+    "granularity_options": [
+      "1m",
+      "5m",
+      "15m"
+    ],
+    "granularity_default": "",
+    "granularity_reaches_fetch": false
+  },
+  "job": {
+    "source_id": "local-file",
+    "schedule": "1d",
+    "next_run_at": "2026-10-25T18:22:13.060383+00:00",
+    "last_run_at": null,
+    "last_status": "pending",
+    "last_error": null,
+    "runs": 0,
+    "rows": 0,
+    "last_rows": 0,
+    "last_latency_ms": null
+  },
+  "backfill": {
+    "started": true,
+    "source_id": "local-file",
+    "range": "1y",
+    "channel": "ingest"
+  }
+}

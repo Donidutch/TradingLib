@@ -138,7 +138,7 @@ def cases(symbols: list[str]) -> dict[str, list[Case]]:
             # Coverage and the screener's per-rule previews take a while on a cold cache.
             wait=30,
         )
-        for tab in ("collections", "screener")
+        for tab in ("collections", "screener", "source-catalog", "ingestion", "quality")
     ]
     return {"overview": [overview], "stock": stock, "settings": [settings], "docs": docs, "data": data}
 

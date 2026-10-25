@@ -1,0 +1,110 @@
+{
+  "source": {
+    "id": "fred",
+    "name": "FRED Macro",
+    "data_domain": "macro",
+    "data_domain_label": "Macro / economic",
+    "protocol": "polling",
+    "protocol_label": "Polling API",
+    "can_backfill": true,
+    "endpoint": "https://fred.stlouisfed.org/graph/fredgraph.csv",
+    "auth": {
+      "type": "none",
+      "label": "None",
+      "configured": true,
+      "key_name": null,
+      "key_value": null,
+      "key_set": false,
+      "in_header": true,
+      "username": null,
+      "password": null,
+      "token_url": null,
+      "client_id": null,
+      "client_secret": null,
+      "scopes": []
+    },
+    "format": "csv",
+    "format_label": "CSV",
+    "schedule": "1h",
+    "schedule_detail": {
+      "kind": "interval",
+      "raw": "1h",
+      "label": "Hourly",
+      "interval_seconds": 3600.0,
+      "cron": null,
+      "periodic": true
+    },
+    "scope": [
+      "DGS10",
+      "CPIAUCSL",
+      "UNRATE"
+    ],
+    "scope_label": "Macro series",
+    "source_tz": "UTC",
+    "retry_policy": {
+      "mode": "exponential",
+      "label": "Exponential backoff",
+      "max_attempts": 3,
+      "backoff_seconds": 2.0,
+      "backoff_multiplier": 2.0,
+      "max_backoff_seconds": 60.0,
+      "timeout_seconds": 30.0
+    },
+    "backfill": {
+      "enabled": true,
+      "range": "all",
+      "batch": "auto",
+      "batch_size": 500,
+      "start_date": null
+    },
+    "advanced": {
+      "headers": {},
+      "query_params": {},
+      "subscriptions": [],
+      "sql": null,
+      "glob": null,
+      "pagination": {},
+      "schema_mapping": {},
+      "dataset": "series"
+    },
+    "provider": "fred",
+    "builtin": true,
+    "enabled": false,
+    "created_at": "2026-10-25T14:40:50.028930+00:00",
+    "updated_at": "2026-10-25T18:22:13.030260+00:00",
+    "state": {
+      "source_id": "fred",
+      "status": "connected",
+      "status_label": "Live",
+      "last_ingest_at": "2026-10-25T14:40:51.432759+00:00",
+      "last_error": null,
+      "latency_ms": 406.435,
+      "rows_ingested": 18087,
+      "checked_at": "2026-10-25T18:22:13.009104+00:00",
+      "backfilled_at": null
+    },
+    "subscriptions": [
+      {
+        "id": "954d204504ec408881761e42671b31f2",
+        "source_id": "fred",
+        "channel": "series",
+        "scope": [
+          "universe:us-quality-50"
+        ],
+        "active": true,
+        "feed_mode": "scheduled",
+        "preserve_pit": true,
+        "granularity": "",
+        "created_at": "2026-10-25T18:22:12.359352+00:00"
+      }
+    ],
+    "granularity_options": [
+      "1d",
+      "1wk",
+      "1mo"
+    ],
+    "granularity_default": "",
+    "granularity_reaches_fetch": false
+  },
+  "job": null
+}

@@ -24,9 +24,14 @@ export const keys = {
     ["research", symbol.toUpperCase(), part, ...rest] as const,
 };
 
-export function useStatus() {
+/** The datastrip payload; `refetchInterval` is the REST fallback cadence. */
+export function useStatus(refetchInterval?: number) {
   const api = useApi();
-  return useQuery({ queryKey: keys.status, queryFn: ({ signal }) => api.status(signal) });
+  return useQuery({
+    queryKey: keys.status,
+    queryFn: ({ signal }) => api.status(signal),
+    refetchInterval,
+  });
 }
 
 export function useSearch(q: string) {
@@ -57,7 +62,8 @@ export function useSetActiveScope() {
     mutationFn: (ref: string) => api.universes.setActive(ref),
     onSuccess: (scope) => {
       client.setQueryData(keys.activeScope, scope);
-      return client.invalidateQueries({ queryKey: keys.universes });
+      // The list's `active` flags changed too; the scope itself is fresh.
+      return client.invalidateQueries({ queryKey: keys.universes, exact: true });
     },
   });
 }

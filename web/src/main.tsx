@@ -6,9 +6,7 @@ import { ApiClient } from "./api/client";
 import { makeApi } from "./api/endpoints";
 import { LiveStream } from "./live/stream";
 import { makeRouter } from "./router";
-import "./ui/tokens.css";
-import "./ui/base.css";
-import "./app.css";
+import "./ui/theme.css";
 
 const root = document.getElementById("root");
 if (!root) throw new Error("#root missing from index.html");

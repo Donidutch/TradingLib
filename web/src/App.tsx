@@ -3,6 +3,7 @@ import { RouterProvider } from "@tanstack/react-router";
 import { ApiProvider } from "./api/ApiProvider";
 import type { Api } from "./api/endpoints";
 import { StreamProvider } from "./live/StreamProvider";
+import { ToastProvider } from "./shell/ToastProvider";
 import type { LiveStream } from "./live/stream";
 import type { makeRouter } from "./router";
 
@@ -18,7 +19,9 @@ export function App({ router, queryClient, api, stream }: AppProps) {
     <QueryClientProvider client={queryClient}>
       <ApiProvider api={api}>
         <StreamProvider stream={stream}>
-          <RouterProvider router={router} />
+          <ToastProvider>
+            <RouterProvider router={router} />
+          </ToastProvider>
         </StreamProvider>
       </ApiProvider>
     </QueryClientProvider>

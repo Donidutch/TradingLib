@@ -1,0 +1,35 @@
+/* PICK mode marks. Panels opt in with data-panel (the Panel primitive does). */
+body.pickmode main [data-panel] {
+  outline: 1px dashed color-mix(in srgb, var(--ds-accent) 45%, transparent);
+  outline-offset: -1px;
+  cursor: copy;
+}
+
+body.pickmode main [data-panel]:hover {
+  outline: 2px solid var(--ds-accent);
+  outline-offset: -2px;
+}
+
+body.pickmode main {
+  user-select: none;
+}
+
+[data-panel][data-picked] {
+  position: relative;
+  outline: 2px solid var(--ds-up) !important;
+  outline-offset: -2px !important;
+}
+
+[data-panel][data-picked]::after {
+  content: "✓ " attr(data-picked);
+  position: absolute;
+  top: 4px;
+  right: 6px;
+  z-index: 9;
+  pointer-events: none;
+  border-radius: 4px;
+  padding: 3px 5px;
+  background: var(--ds-up);
+  color: var(--ds-text-inverse);
+  font: 10px/1 var(--ds-font-mono);
+}

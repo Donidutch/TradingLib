@@ -20,8 +20,12 @@ export const TapeNotice = z.looseObject({
 
 /** `notifications`: user-facing messages from agents, findings, pipelines. */
 export const Notification = z.looseObject({
-  kind: z.string(),
-  message: z.string(),
+  kind: z.string().optional(),
+  message: z.string().optional(),
+  detail: z.string().optional(),
+  title: z.string().optional(),
+  level: z.string().optional(),
+  severity: z.string().optional(),
   action: z.string().optional(),
 });
 

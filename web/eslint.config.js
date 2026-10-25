@@ -16,4 +16,9 @@ export default tseslint.config(
       "react-refresh/only-export-components": ["warn", { allowConstantExport: true }],
     },
   },
+  {
+    // Copied design-system primitives export their variant helpers too.
+    files: ["src/ui/primitives/**"],
+    rules: { "react-refresh/only-export-components": "off" },
+  },
 );

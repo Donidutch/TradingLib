@@ -1,6 +1,6 @@
 # React port of the console — plan
 
-Status: P0 and P1 done 2026-10-25. First step: the shell, Overview and Stock Research.
+Status: P0–P2 done 2026-10-25. First step: the shell, Overview and Stock Research.
 
 ## Why
 
@@ -27,6 +27,10 @@ validated API calls, and UI tests.
   today's `ui/css/01-tokens.css` values plus the raw colours the CSS still uses
   (hover, active, selection). Charts read tokens through the theme hook. A test
   fails if a hex or `rgb()` colour appears anywhere else in `web/src`.
+- **Tailwind v4 (owner, 2026-10-25, at P2).** The copied primitives are written
+  with Tailwind classes, so the app uses Tailwind v4 with its default palette
+  removed: every colour utility maps to a `--ds-*` token (`web/src/ui/theme.css`),
+  and a test fails on a colour utility the theme does not define.
 
 ## SPEC amendment (approved by the owner 2026-10-25, applied in P0)
 
@@ -93,10 +97,12 @@ Each slice ends green on its own checks and is committed alone.
 
 ### P2 — Shell
 
-- [ ] Rail, topbar, datastrip, universe selector, ENGINE indicator, ET clock,
-  command palette (pages and any ticker).
-- [ ] Toasts; connection loss shows degraded, recovery returns to live.
-- [ ] Tests for navigation, palette, degraded/recovered state.
+- [x] Rail, topbar, datastrip, universe selector, ENGINE indicator, ET clock,
+  command palette (pages and any ticker), PICK mode (SPEC §6 topbar).
+- [x] Overview and Stock Research routes say they are not ported yet and link
+  to the current console; rail and palette entries for unported pages open it.
+- [x] Toasts; connection loss shows degraded, recovery returns to live.
+- [x] Tests for navigation, palette, degraded/recovered state.
 
 ### P3 — Overview
 

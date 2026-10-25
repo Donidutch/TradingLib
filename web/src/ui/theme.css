@@ -1,0 +1,84 @@
+/* Tailwind v4, restricted to the design tokens: the default palette is
+   removed, so `bg-red-500` does not exist and every colour utility resolves
+   to a --ds-* variable from tokens.css. */
+@import "tailwindcss";
+@import "./tokens.css";
+
+@theme inline {
+  --color-*: initial;
+  --color-transparent: transparent;
+  --color-current: currentColor;
+
+  --color-bg: var(--ds-bg);
+  --color-surface: var(--ds-surface);
+  --color-surface-2: var(--ds-surface-2);
+  --color-surface-3: var(--ds-surface-3);
+  --color-inset: var(--ds-inset);
+  --color-elevated: var(--ds-elevated);
+  --color-active: var(--ds-active);
+  --color-backdrop: var(--ds-backdrop);
+
+  --color-border: var(--ds-border);
+  --color-border-subtle: var(--ds-border-subtle);
+  --color-border-strong: var(--ds-border-strong);
+
+  --color-text: var(--ds-text);
+  --color-text-strong: var(--ds-text-strong);
+  --color-text-muted: var(--ds-text-muted);
+  --color-text-subtle: var(--ds-text-subtle);
+  --color-text-inverse: var(--ds-text-inverse);
+
+  --color-accent: var(--ds-accent);
+  --color-accent-bright: var(--ds-accent-bright);
+  --color-accent-dim: var(--ds-accent-dim);
+  --color-accent-contrast: var(--ds-accent-contrast);
+  --color-button: var(--ds-button);
+  --color-up: var(--ds-up);
+  --color-up-dim: var(--ds-up-dim);
+  --color-down: var(--ds-down);
+  --color-down-dim: var(--ds-down-dim);
+  --color-warn: var(--ds-warn);
+  --color-warn-dim: var(--ds-warn-dim);
+  --color-stream: var(--ds-stream);
+  --color-stream-dim: var(--ds-stream-dim);
+
+  --font-sans: var(--ds-font-mono);
+  --font-mono: var(--ds-font-mono);
+
+  --radius: var(--ds-radius-card);
+  --radius-sm: var(--ds-radius-ctrl);
+  --radius-md: var(--ds-radius-card);
+  --radius-lg: var(--ds-radius-card);
+
+  --animate-in: ds-in 120ms ease-out;
+  @keyframes ds-in {
+    from {
+      opacity: 0;
+      transform: translateY(4px);
+    }
+  }
+}
+
+@utility mono {
+  font-family: var(--ds-font-mono);
+  font-variant-numeric: tabular-nums;
+}
+
+@layer base {
+  html,
+  body,
+  #root {
+    height: 100%;
+  }
+
+  body {
+    background: var(--ds-bg);
+    color: var(--ds-text);
+    font: var(--ds-font-size) / 1.5 var(--ds-font-mono);
+  }
+
+  ::selection {
+    background: var(--ds-selection);
+    color: var(--ds-text-strong);
+  }
+}

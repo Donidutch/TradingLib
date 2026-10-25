@@ -1,19 +1,13 @@
-import { render, screen } from "@testing-library/react";
-import { QueryClient } from "@tanstack/react-query";
-import { createMemoryHistory } from "@tanstack/react-router";
-import { App } from "./App";
-import { ApiClient } from "./api/client";
-import { makeApi } from "./api/endpoints";
-import { LiveStream } from "./live/stream";
-import { makeRouter } from "./router";
-import { fakeSocketFactory } from "./test/fake-socket";
+import { screen } from "@testing-library/react";
+import { renderApp } from "./test/render-app";
+
+afterEach(() => vi.unstubAllGlobals());
 
 describe("App", () => {
-  it("renders the index route under the /app base", async () => {
-    const router = makeRouter(createMemoryHistory({ initialEntries: ["/app/"] }));
-    const stream = new LiveStream({ url: "ws://test/ws", socketFactory: fakeSocketFactory });
-    render(<App router={router} queryClient={new QueryClient()} api={makeApi(new ApiClient())} stream={stream} />);
-    expect(await screen.findByRole("heading", { name: "TradingLib" })).toBeInTheDocument();
-    expect(screen.getByRole("link", { name: "current console" })).toHaveAttribute("href", "/");
+  it("renders the shell and the index route under the /app base", async () => {
+    await renderApp("/app/");
+    expect(await screen.findByRole("heading", { name: "OVERVIEW" })).toBeInTheDocument();
+    expect(screen.getByRole("navigation", { name: "Workspaces" })).toBeInTheDocument();
+    expect(screen.getByRole("link", { name: "current console" })).toHaveAttribute("href", "/#overview");
   });
 });

@@ -1,23 +1,37 @@
-import { createRootRoute, createRoute, createRouter, Outlet } from "@tanstack/react-router";
+import { createRootRoute, createRoute, createRouter } from "@tanstack/react-router";
+import { NotPorted } from "./pages/NotPorted";
+import { Shell } from "./shell/Shell";
 
-// Pages arrive slice by slice (docs/UI_PORT.md); P0 only proves the app is
-// built and served at /app.
-const rootRoute = createRootRoute({ component: Outlet });
+const rootRoute = createRootRoute({ component: Shell });
 
-const indexRoute = createRoute({
+const overviewRoute = createRoute({
   getParentRoute: () => rootRoute,
   path: "/",
-  component: () => (
-    <main className="placeholder">
-      <h1>TradingLib</h1>
-      <p>
-        The React console is being ported. Use the <a href="/">current console</a> meanwhile.
-      </p>
-    </main>
-  ),
+  component: () => <NotPorted title="Overview" slice="P3" href="/#overview" />,
 });
 
-export const routeTree = rootRoute.addChildren([indexRoute]);
+const stockIndexRoute = createRoute({
+  getParentRoute: () => rootRoute,
+  path: "/stock",
+  component: () => <NotPorted title="Stock Research" slice="P4" href="/#stock" />,
+});
+
+const stockRoute = createRoute({
+  getParentRoute: () => rootRoute,
+  path: "/stock/$symbol",
+  component: function StockPage() {
+    const { symbol } = stockRoute.useParams();
+    return (
+      <NotPorted
+        title={`Stock Research · ${symbol.toUpperCase()}`}
+        slice="P4"
+        href={`/#stock/${encodeURIComponent(symbol.toUpperCase())}`}
+      />
+    );
+  },
+});
+
+export const routeTree = rootRoute.addChildren([overviewRoute, stockIndexRoute, stockRoute]);
 
 export function makeRouter(history?: Parameters<typeof createRouter>[0]["history"]) {
   return createRouter({ routeTree, basepath: "/app", history });

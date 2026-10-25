@@ -18,7 +18,7 @@ it("connects on mount, reports state and delivers channel events", () => {
   const messages: string[] = [];
   const { result, unmount } = renderHook(
     () => {
-      useChannel("notifications", Notification, (n) => messages.push(n.message));
+      useChannel("notifications", Notification, (n) => messages.push(n.message ?? ""));
       return useStreamSnapshot();
     },
     { wrapper },

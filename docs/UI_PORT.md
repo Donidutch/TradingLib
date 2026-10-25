@@ -226,3 +226,178 @@ Rough size: P0 and P1 in one session, P2 and P3 in one, P4 and P5 in one.
 
 Strategy Lab, Agent Center, Market & Data, Docs and Settings pages; switching
 `/` to the React app; retiring `ui/`; backend response models.
+
+## Step 2 — the remaining pages (planned 2026-10-25)
+
+Port Settings, Docs, Market & Data, the Strategy Lab and the Agent Center the
+way step 1 ported Overview and Stock Research, then switch `/` to the React
+app. Same rules: no stubs, no invented values, a missing value says why, every
+response validated, each slice green on its own and committed alone.
+
+Size: step 1 covered 78 COVERAGE.md rows (sections A–C) in about 2,700 lines of
+old page code. Step 2 covers the other 293 rows in about 14,400 lines:
+
+| Page | Old file | Lines | COVERAGE rows | Live channels |
+| --- | --- | --- | --- | --- |
+| Settings | `settings.js` | 487 | H: 7 | none |
+| Docs | `docs.js` | 311 | G: 3 | none |
+| Market & Data | `data.js` | 3,995 | F: 94 | `ingest`, `quality`, `notifications` |
+| Strategy Lab | `lab.js` | 4,689 | D: 62 | `lab` |
+| Agent Center | `agents.js` | 4,944 | E: 127 | `runs`, `approvals` |
+
+What is new compared with step 1: these pages write (create, update, delete,
+run, approve), they use large tables and forms, and Settings changes the whole
+app (theme, density, timezone).
+
+### How each page slice works
+
+1. **Map first.** The page's COVERAGE.md section already lists every element
+   and its endpoint; the slice copies those rows into a panel map here, adds
+   empty and error states, and marks anything the port does differently.
+2. **Data layer.** Zod schema and type per endpoint the page reads, mutation
+   hooks for what it writes, `check:api` extended to cover them, fixtures
+   saved from a real server.
+3. **Build** the page, with its live channels.
+4. **Tests** per panel: data, empty and error states; per write: request body,
+   success feedback, failure feedback.
+5. **Compare** with the old page on a running server using the comparison tool
+   from S0, and fix every figure that differs or record why it differs.
+6. **Rail and palette** entries for the page switch from the old console to the
+   app.
+
+### Decisions for the owner (approve at the first commit)
+
+- **Writes are checked only on a throwaway server.** `check:api` gains a write
+  mode that starts its own API on a temporary copy of `data/` and never runs
+  against port 8200 or the real data directory. Read checks stay as they are.
+- **Destructive actions ask first.** Delete, reject and cancel get a
+  confirmation dialog in the React app, also where the old console acted on one
+  click. The request is unchanged.
+- **The comparison tool is committed.** The figure check used in P5 becomes
+  `tools/compare_consoles.py` (headless Chromium over the DevTools protocol, no
+  new Python dependency beyond `websockets`), so every slice and CI-less local
+  runs can repeat it.
+- **Light theme ported as tokens.** The old Settings page ships a light theme
+  as raw CSS overrides; the port defines the same colours as a light token set
+  in `tokens.css` under `[data-theme="light"]`.
+- **The switch is its own decision (S10).** Nothing in S0–S9 changes `/`.
+
+### S0 — Shared foundation
+
+- [ ] Primitives copied from the design system as needed: field, select,
+  switch, a confirm dialog on the modal, and the data table (adds
+  `@tanstack/react-table`).
+- [ ] One mutation pattern: `useMutation` plus cache invalidation by key, a
+  toast on success, the server's reason in place and in a toast on failure.
+  Tests for the pattern.
+- [ ] Live channel hooks for `lab`, `runs`, `approvals`, `ingest` and `quality`,
+  with schemas for their frames (captured from a running server first).
+- [ ] `check:api --writes` on a throwaway server, as above.
+- [ ] `tools/compare_consoles.py`: old page vs `/app` page per route and tab,
+  figures compared as multisets, differences printed; P5's run reproduced with
+  it.
+
+### S1 — Settings and Docs
+
+- [ ] Settings: Appearance (theme, density, timezone) and Research defaults
+  (benchmark, default universe), each written to `PUT /api/settings` and read
+  back; the API-keys card, write-only end to end (status and source shown,
+  never a key).
+- [ ] Applied app-wide at load, not only on the page: `data-theme` and
+  `data-density` on `<html>` backed by light and density token sets, and the
+  topbar clock in the chosen timezone.
+- [ ] Docs: methodology and product guide, the five entries opening their
+  articles, version from `/api/health`, shortcuts from the shell.
+- [ ] Tests; compare; rail entries for both move into the app.
+
+### S2 — Market & Data I: collections and screener (F.1, F.2: 31 rows)
+
+- [ ] Universes and watchlists: list, create, edit, delete, set active,
+  members with point-in-time membership, snapshots and change log, refresh,
+  coverage.
+- [ ] Screener: rule builder with live funnel counts from
+  `POST /api/screens/preview`, save, run, alerts, and "Backtest this screen"
+  creating a real lab backtest.
+- [ ] Routes `/data/collections` and `/data/screener`; tests; compare.
+
+### S3 — Market & Data II: sources, ingestion, quality (F.3–F.5: 63 rows)
+
+- [ ] Source Catalog: statuses, detail, subscription configuration (including
+  granularity and the "applied or not, and why" answer), active subscriptions.
+- [ ] Data Ingestion: the full configure form with every SourceConfig field
+  (SPEC §4 mapping), protocol-dependent fields, custom poll intervals validated
+  as the old page does, Test connection, Save, backfill.
+- [ ] Data Quality: summary, per-dataset checks, incidents, outliers, tickets,
+  SLA, run checks; live `ingest` and `quality` frames.
+- [ ] Routes `/data/<tab>`; tests; compare.
+
+### S4 — Strategy Lab I: frame, hypotheses, experiments (part of D)
+
+- [ ] Lab header, five-card funnel and tab bar as routes `/lab/<tab>?id=`, so
+  deep links and the palette land on an entity.
+- [ ] Hypotheses: list, detail, create, edit, status changes, evidence, delete.
+- [ ] Experiments: split and full views, create, run, the run log streaming
+  over `lab`.
+- [ ] Tests; compare.
+
+### S5 — Strategy Lab II: backtests and analyses
+
+- [ ] Backtests: list, queue, run, results with the equity curve and the fan
+  chart, artifact bundle, tearsheet PDF and returns CSV downloads, delete.
+- [ ] Analyses: sweeps, walk-forward, Monte Carlo, counts.
+- [ ] Palette "Open active backtest" lands in the app.
+- [ ] Tests; compare.
+
+### S6 — Strategy Lab III: validation, evaluation, pipeline tab
+
+- [ ] Validation gates, promotion and approvals (withdraw included), pending
+  promotions, strategies.
+- [ ] Evaluation scorecard (all eight evidence rows with their reasons),
+  candidates, tracking, refresh.
+- [ ] Pipeline tab: screens, quality and universes panels, recent agent and
+  screen runs.
+- [ ] Tests; compare; every §6 Strategy Lab item checked here.
+
+### S7 — Agent Center I: the human gate and the registries (E.1, E.4–E.6, E.8, E.9: 65 rows)
+
+- [ ] Overview with the inbox merge and live counters.
+- [ ] Approval Review: approve resumes the run, reject kills it, both
+  confirmed; live `approvals` frames.
+- [ ] Findings with search and the evidence explorer; Knowledge with
+  full-text search; Audit Log, filterable; Configuration with writable budgets,
+  provider status and spend.
+- [ ] Routes `/agents/<view>`, the old hash aliases mapped; tests; compare.
+
+### S8 — Agent Center II: Pipeline Builder, AutoPipeline, Agent Studio (E.2, E.3, E.7: 62 rows)
+
+- [ ] Pipeline Builder: saved pipelines and versions, stage cards, add,
+  duplicate and remove a stage, per-stage configuration (agent, model, scope,
+  objective, include-in-run, contracts, handoff), the immutable approval stage,
+  locking of approved pipelines.
+- [ ] Run inspector (preview, inputs, outputs, logs, artifacts) updating live
+  over `runs`; run ledger and run comparison; "New run" really runs.
+- [ ] AutoPipeline schedules with guardrails and their runs; Agent Studio CRUD
+  with each agent's run record.
+- [ ] Tests; compare. This is the largest slice and may split in two at the
+  run inspector.
+
+### S9 — Verification
+
+- [ ] `tools/compare_consoles.py` over every route and tab, several symbols
+  and entities, on the real data read-only and on a scratch copy for pages
+  that need entities to exist.
+- [ ] Every remaining §6 item checked off here, as P5 did for step 1.
+- [ ] COVERAGE.md re-pointed from `ui/` to `web/` files; README screenshots
+  for the new pages.
+
+### S10 — Switch `/` to the React app (needs its own SPEC decision)
+
+- [ ] SPEC amendment D1c, for owner approval: `/` serves `web/dist`; the
+  vanilla console moves to `/legacy/` for one release, then `ui/` is deleted
+  in a separate commit.
+- [ ] Old hash links (`/#stock/NVDA`, `/#tl/lab/backtests?id=…`) redirect to
+  their new routes.
+- [ ] pytest updated (the smoke tests that read `ui/`), CI unchanged otherwise.
+
+Rough size: S0 one session; S1 one; S2 and S3 one each; S4–S6 one each; S7
+one; S8 one or two; S9 one; S10 short.

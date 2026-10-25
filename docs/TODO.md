@@ -109,4 +109,7 @@ approved and applied.
 - [x] P2 shell (2026-10-25).
 - [x] P3 Overview (2026-10-25).
 - [x] P4 Stock Research (2026-10-25).
-- [ ] P5 verification.
+- [x] P5 verification (2026-10-25): figures match the old console on five
+      tickers; every §6 item for these pages checked in UI_PORT.md.
+- [ ] Next step, not planned yet: the remaining pages (Strategy Lab, Agent
+      Center, Market & Data, Docs, Settings), then switch `/` to the React app.

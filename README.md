@@ -43,12 +43,13 @@ Requires Python 3.14 and [uv](https://docs.astral.sh/uv/).
 git clone https://github.com/Donidutch/TradingLib.git
 cd TradingLib
 uv sync --extra test
-uv run pytest -q                 # 621 passed, 10 skipped (live-network tests are opt-in)
+uv run pytest -q                 # 626 passed, 10 skipped (live-network tests are opt-in)
 uv run python -m tradinglib.api  # console at http://127.0.0.1:8200
 ```
 
 The service serves the console from `ui/` at `/`, the JSON API under `/api`
-and a WebSocket at `/ws`.
+and a WebSocket at `/ws`. The React console is served at `/app` once it is
+built (see below).
 
 LLM agent stages run through the Claude Agent SDK, which uses either an
 Anthropic API key or a locally authenticated Claude Code CLI.
@@ -63,6 +64,31 @@ it can exec. If you run uvicorn yourself, pass the loop explicitly:
 ```bash
 uv run uvicorn tradinglib.api.app:create_app --factory --port 8200 --loop asyncio
 ```
+
+## React console (`web/`)
+
+The console is being ported page by page to React + TypeScript
+([`docs/UI_PORT.md`](docs/UI_PORT.md)). The shell, Overview and Stock Research
+are done and run beside the vanilla console; pages not yet ported link to it.
+
+![Overview in the React console](docs/img/app-overview.png)
+![Stock Research in the React console](docs/img/app-stock.png)
+
+Requires Node 22.12 or newer.
+
+```bash
+cd web
+npm ci
+npm run build      # the API then serves web/dist at http://127.0.0.1:8200/app
+npm run dev        # or a dev server on :5173 that proxies /api and /ws to :8200
+npm run lint && npm run typecheck && npm test
+npm run check:api  # validate every response schema against a running API
+```
+
+Stack: Vite, React 19, strict TypeScript, TanStack Router and Query, Zod (every
+response is validated, and a mismatch is an error rather than an empty panel),
+Tailwind v4 restricted to the design tokens in `web/src/ui/tokens.css`,
+lightweight-charts, Vitest with Testing Library.
 
 ## Configuration
 
@@ -80,7 +106,8 @@ tradinglib/
   data/       providers, ingest, cache, quality, universes
   trade/      paper broker, portfolio, Alpaca and IBKR adapters
   api/        FastAPI app, routes, WebSocket
-ui/           browser research console (vanilla JS)
+ui/           browser research console (vanilla JS), served at /
+web/          React + TypeScript console, served at /app
 tests/        pytest suite
 docs/         build specification, UI coverage matrix, roadmap
 ```

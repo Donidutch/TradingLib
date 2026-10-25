@@ -74,7 +74,7 @@ const panel = async (name: RegExp | string) =>
 describe("market strip and health", () => {
   it("shows the status figures in the reference's wording", async () => {
     await overview();
-    const strip = screen.getByLabelText("Market strip");
+    const strip = await screen.findByLabelText("Market strip");
     await waitFor(() => expect(strip).toHaveTextContent("4 of 7 sources connected"));
     expect(strip).toHaveTextContent("Research gateway 1069ms");
     expect(strip).toHaveTextContent("1 delayed series");
@@ -104,7 +104,7 @@ describe("market strip and health", () => {
 describe("ticker tape", () => {
   it("lists the scope and fills prices from the tape channel", async () => {
     const app = await overview();
-    const tape = screen.getByLabelText("Ticker tape");
+    const tape = await screen.findByLabelText("Ticker tape");
     await waitFor(() => expect(tape).toHaveTextContent("● US QUALITY 50"));
     expect(within(tape).getByText("MSFT").parentElement).toHaveAttribute("title", "Microsoft Corporation");
     act(() => app.socket().open());

@@ -1,6 +1,6 @@
 # React port of the console — plan
 
-Status: P0–P4 done 2026-10-25. First step: the shell, Overview and Stock Research.
+Status: P0–P5 done 2026-10-25. The first step (shell, Overview, Stock Research) is complete. First step: the shell, Overview and Stock Research.
 
 ## Why
 
@@ -172,9 +172,53 @@ it is shown.
 
 ### P5 — Verification
 
-- [ ] Side by side against the old console on a running server: same symbols,
+- [x] Side by side against the old console on a running server: same symbols,
   same figures, every §6 item for these pages checked off here.
-- [ ] README: how to run `web/`, and screenshots.
+- [x] README: how to run `web/`, and screenshots.
+- [x] Each page's code loads on first visit (main bundle 336 kB, was 723 kB).
+
+Figure check (2026-10-25, scripted): the old and new pages loaded side by side
+in frames on one server, each tab opened in both, and every figure on it (prices,
+percentages, multiples, counts, dates, CURRENT / RISK-ON style states) compared
+as a multiset. Overview: 59 figures, identical. Stock Research for AAPL, MSFT,
+NVDA, SPY and GRAB, head plus all seven tabs: identical, with two differences
+that are not figures:
+
+- The range buttons: the old page renders "1D5D1M…" as one run of text, so
+  the comparison splits it differently. Same eight ranges.
+- Financials for MSFT, NVDA and GRAB: the old table has an extra first year
+  column of "—". That year's row is entirely null; the old filter meant to drop
+  it, but `isFinite(Number(null))` is true in JavaScript. The port drops it.
+
+SPEC §6 for the ported pages:
+
+| §6 item | Status | How it was checked |
+| --- | --- | --- |
+| Topbar palette, ⌘K works | done | tests; live: ⌘K, search "nv", NVDA opened |
+| PICK mode + count + Export | done | tests: mark, persist, export, clear |
+| Universe selector drives tape / screens / scanner scope | done | tests; live on a scratch copy of the data: selecting the watchlist set it server-side and the tape followed |
+| ENGINE HEALTHY from real health | done | tests for each state; live: DEGRADED with the server's subsystem list |
+| Live ET clock | done | tests; live |
+| Datastrip: every figure from `/api/status`, updated over WS | done | tests (REST and channel); live, same figures as the old strip |
+| Overview: market strip | done | figure check |
+| Overview: ticker tape (live) | done | tests; live tape cycles |
+| Overview: watchlist with filter + live prices | done | tests; live on the scratch copy: names, prices and changes from the tape |
+| Overview: panels as in REFERENCE | done | panel map in P3, figure check |
+| Overview: agent inbox merge | done | tests; live (empty inbox) |
+| Stock Research: symbol form loads ANY ticker | done | tests; live, including an unknown ticker showing the server's reason |
+| Stock Research: the seven tabs | done | figure check on five tickers |
+| Price chart (lightweight-charts, live-updating) | done | tests (live point, intraday ranges); live chart |
+| Fundamental snapshot (real derived metrics) | done | figure check |
+| Revenue / EBITDA bars | done | tests; live |
+| News + sentiment | done | tests; live (the vendor returned no news this weekend, same on both pages) |
+| Alt signals (Trends, news sentiment) | done | figure check |
+| Data freshness real | done | tests; live CURRENT with per-component ages |
+| Palette: navigation, "Open active backtest", symbol research jump | done | tests; the backtest action opens the Strategy Lab in the current console, since the lab is not ported |
+| Toasts for action feedback | done | tests; live (scope switch, unknown ticker) |
+| Connection loss → degraded; recovery → live | done | tests; live in P2 by stopping and restarting the API |
+
+Not covered by this step: the Strategy Lab, Agent Center, Market & Data, Docs
+and Settings items of §6, which stay in the vanilla console.
 
 Rough size: P0 and P1 in one session, P2 and P3 in one, P4 and P5 in one.
 

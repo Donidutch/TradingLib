@@ -1,0 +1,81 @@
+{
+  "hypotheses": [
+    {
+      "id": "H-2",
+      "title": "Low volatility outperforms on a risk-adjusted basis",
+      "statement": "The least volatile names beat the most volatile ones per unit of risk.",
+      "falsifier": "low-vol sharpe not above the equal-weight book",
+      "rationale": null,
+      "status": "draft",
+      "owner": "agent",
+      "origin": "lit scan",
+      "universe_id": null,
+      "tags": [
+        "lowvol"
+      ],
+      "created_at": "2026-10-25T19:07:55.685971+00:00",
+      "updated_at": "2026-10-25T19:07:55.685971+00:00",
+      "evidence_count": 0,
+      "evidence": [],
+      "status_history": [
+        {
+          "from": null,
+          "to": "draft",
+          "at": "2026-10-25T19:07:55.685971+00:00",
+          "note": "created"
+        }
+      ],
+      "metrics": {}
+    },
+    {
+      "id": "H-1",
+      "title": "Momentum persists in large-cap tech",
+      "statement": "12-1 momentum ranks predict next-month returns in large-cap tech.",
+      "falsifier": "top-decile momentum shows no excess return out of sample",
+      "rationale": "Classic cross-sectional momentum.",
+      "status": "active",
+      "owner": "nicklas",
+      "origin": "manual",
+      "universe_id": null,
+      "tags": [
+        "momentum",
+        "tech"
+      ],
+      "created_at": "2026-10-25T19:07:55.680158+00:00",
+      "updated_at": "2026-10-25T19:07:55.680158+00:00",
+      "evidence_count": 1,
+      "evidence": [
+        {
+          "id": 1,
+          "kind": "url",
+          "ref": "https://example.org/momentum",
+          "label": "Jegadeesh & Titman",
+          "url": null,
+          "supports": true,
+          "added_at": "2026-10-25T19:07:55.688370+00:00"
+        }
+      ],
+      "status_history": [
+        {
+          "from": null,
+          "to": "active",
+          "at": "2026-10-25T19:07:55.680158+00:00",
+          "note": "created"
+        }
+      ],
+      "metrics": {}
+    }
+  ],
+  "count": 2,
+  "summary": {
+    "total": 2,
+    "by_status": {
+      "draft": 1,
+      "active": 1,
+      "testing": 0,
+      "validated": 0,
+      "rejected": 0,
+      "archived": 0
+    }
+  }
+}

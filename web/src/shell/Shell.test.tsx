@@ -104,7 +104,7 @@ describe("navigation", () => {
     const app = await renderApp();
     const rail = screen.getByRole("navigation", { name: "Workspaces" });
     expect(within(rail).getByRole("link", { name: /Overview/ })).toHaveAttribute("aria-current", "page");
-    expect(within(rail).getByRole("link", { name: /Strategy Lab/ })).toHaveAttribute("href", "/#tl/lab");
+    expect(within(rail).getByRole("link", { name: /Strategy Lab/ })).toHaveAttribute("href", "/app/lab");
     expect(within(rail).getByRole("link", { name: /Agent Center/ })).toHaveAttribute("href", "/#agents");
     expect(within(rail).getByRole("link", { name: /Settings/ })).toHaveAttribute("href", "/app/settings");
 
@@ -156,7 +156,7 @@ describe("command palette", () => {
 
   it("opens the backtests tab, and says so, when there is no active backtest", async () => {
     const user = userEvent.setup();
-    await renderApp();
+    await renderApp("/app/", (url) => (url.pathname === "/api/lab/backtests" ? json(200, { backtests: [], count: 0 }) : undefined));
     await user.keyboard("{Control>}k{/Control}");
     await user.click(screen.getByRole("option", { name: /Open active backtest/ }));
     await waitFor(() => expect(openLegacy).toHaveBeenCalledWith("/#tl/lab/backtests"));

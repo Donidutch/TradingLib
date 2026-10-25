@@ -156,6 +156,64 @@ describe("quality", () => {
   }, 360_000);
 });
 
+describe("strategy lab", () => {
+  it("creates, edits, moves and links a hypothesis, then deletes it", async () => {
+    const body = {
+      title: "Writes check",
+      statement: "A statement.",
+      falsifier: "No effect out of sample.",
+      rationale: null,
+      owner: null,
+      origin: "manual",
+      universe_id: null,
+      tags: ["check"],
+    };
+    const created = await api.lab.createHypothesis({ ...body, status: "draft" });
+    expect(created.status).toBe("draft");
+    expect((await api.lab.updateHypothesis(created.id, { ...body, owner: "check" })).owner).toBe("check");
+    expect((await api.lab.setHypothesisStatus(created.id, "active")).status).toBe("active");
+    await api.lab.addEvidence(created.id, { kind: "note", ref: "n-1", label: "a note" });
+    const linked = (await api.lab.hypotheses({ include_evidence: true })).hypotheses.find((h) => h.id === created.id);
+    expect(linked?.evidence?.map((e) => e.ref)).toEqual(["n-1"]);
+    await api.lab.removeEvidence(created.id, linked?.evidence?.[0]?.id ?? "");
+    await api.lab.deleteHypothesis(created.id);
+    expect((await api.lab.hypotheses({})).hypotheses.some((h) => h.id === created.id)).toBe(false);
+  });
+
+  it("creates an experiment, runs it and its config as a backtest, and deletes it", async () => {
+    const config = {
+      name: "writes-exp",
+      universe_id: null,
+      symbols: ["AAPL", "MSFT", "NVDA"],
+      signal: { kind: "momentum", lookback: 63, skip: 5, top_n: 2, weighting: "equal" },
+      benchmark: "SPY",
+      rebalance: "monthly",
+      oos_fraction: 0.3,
+    };
+    const exp = await api.lab.createExperiment({
+      name: "writes-exp",
+      config,
+      hypothesis_id: null,
+      kind: "combined",
+      horizon: 21,
+      owner: null,
+      notes: null,
+      criteria: { min_oos_sharpe: 0.8, max_drawdown: 0.15, min_trades: 30 },
+    });
+    const run = await api.lab.runExperiment(exp.id);
+    expect(run.status).toBe("complete");
+    expect(run.log?.length).toBeGreaterThan(0);
+    const detail = await api.lab.experiment(exp.id);
+    expect(detail.runs.map((r) => r.id)).toContain(run.id);
+    const backtest = await api.lab.runBacktest({ config: exp.config, experiment_id: exp.id, hypothesis_id: null, source: "manual" });
+    expect(backtest.experiment_id).toBe(exp.id);
+    const logs = frames.filter((f) => f.channel === "lab" && (f.payload as { phase?: string }).phase === "log");
+    expect(logs.length).toBeGreaterThan(0);
+    await api.lab.deleteExperiment(exp.id);
+    expect((await api.lab.experiments()).experiments.some((e) => e.id === exp.id)).toBe(false);
+  }, 300_000);
+});
+
 describe("settings", () => {
   it("saves one field at a time and answers with the stored whole", async () => {
     const before = await api.settings.get();

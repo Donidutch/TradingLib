@@ -1,0 +1,17 @@
+{
+  "runs": [],
+  "count": 0,
+  "counts": {
+    "queued": 0,
+    "running": 0,
+    "awaiting_approval": 0,
+    "paused": 0,
+    "succeeded": 0,
+    "failed": 0,
+    "killed": 0,
+    "total": 0,
+    "active": 0,
+    "idle": 0,
+    "pending_approvals": 0
+  }
+}

@@ -1,0 +1,206 @@
+{
+  "experiments": [
+    {
+      "id": "exp-4b0d9c25e9",
+      "name": "lowvol_top4",
+      "hypothesis_id": "H-2",
+      "kind": "combined",
+      "stage": "research",
+      "universe_id": null,
+      "config": {
+        "name": "lowvol_top4",
+        "universe_id": null,
+        "symbols": [
+          "AAPL",
+          "MSFT",
+          "NVDA"
+        ],
+        "signal": {
+          "kind": "low_volatility",
+          "expression": null,
+          "filter_expression": null,
+          "symbols": [],
+          "lookback": 63,
+          "skip": 21,
+          "fast": 50,
+          "slow": 200,
+          "top_n": 4,
+          "weighting": "equal",
+          "min_signal": null
+        },
+        "start": null,
+        "end": null,
+        "benchmark": "SPY",
+        "rebalance": "monthly",
+        "initial_capital": 1000000,
+        "gross_exposure": 1,
+        "max_positions": null,
+        "long_only": true,
+        "costs": {
+          "commission_bps": 1,
+          "slippage_bps": 5,
+          "borrow_bps_annual": 0
+        },
+        "oos_start": null,
+        "oos_fraction": 0.3,
+        "risk_free_rate": 0,
+        "periods_per_year": null,
+        "trim_warmup": true,
+        "interval": "1d",
+        "params": {}
+      },
+      "signal": "inverse 63d volatility · equal weighted · top 4",
+      "criteria": {
+        "min_oos_sharpe": 0.8,
+        "max_drawdown": 0.15,
+        "min_trades": 30
+      },
+      "horizon": 21,
+      "owner": "nicklas",
+      "notes": "seeded for S4",
+      "created_at": "2026-10-25T19:07:55.698055+00:00",
+      "updated_at": "2026-10-25T19:07:55.698055+00:00",
+      "benchmark": "SPY",
+      "period": {
+        "start": null,
+        "end": null
+      },
+      "params": {}
+    },
+    {
+      "id": "exp-16f09805f7",
+      "name": "mom_6_1_top4",
+      "hypothesis_id": "H-1",
+      "kind": "combined",
+      "stage": "research",
+      "universe_id": null,
+      "config": {
+        "name": "mom_6_1_top4",
+        "universe_id": null,
+        "symbols": [
+          "AAPL",
+          "MSFT",
+          "NVDA"
+        ],
+        "signal": {
+          "kind": "momentum",
+          "expression": null,
+          "filter_expression": null,
+          "symbols": [],
+          "lookback": 126,
+          "skip": 21,
+          "fast": 50,
+          "slow": 200,
+          "top_n": 4,
+          "weighting": "equal",
+          "min_signal": null
+        },
+        "start": null,
+        "end": null,
+        "benchmark": "SPY",
+        "rebalance": "monthly",
+        "initial_capital": 1000000,
+        "gross_exposure": 1,
+        "max_positions": null,
+        "long_only": true,
+        "costs": {
+          "commission_bps": 1,
+          "slippage_bps": 5,
+          "borrow_bps_annual": 0
+        },
+        "oos_start": null,
+        "oos_fraction": 0.3,
+        "risk_free_rate": 0,
+        "periods_per_year": null,
+        "trim_warmup": true,
+        "interval": "1d",
+        "params": {}
+      },
+      "signal": "126d momentum skipping 21d · equal weighted · top 4",
+      "criteria": {
+        "min_oos_sharpe": 0.8,
+        "max_drawdown": 0.15,
+        "min_trades": 30
+      },
+      "horizon": 21,
+      "owner": "nicklas",
+      "notes": "seeded for S4",
+      "created_at": "2026-10-25T19:07:55.695790+00:00",
+      "updated_at": "2026-10-25T19:07:55.695790+00:00",
+      "benchmark": "SPY",
+      "period": {
+        "start": null,
+        "end": null
+      },
+      "params": {}
+    },
+    {
+      "id": "exp-4327e88747",
+      "name": "mom_12_1_top4",
+      "hypothesis_id": "H-1",
+      "kind": "combined",
+      "stage": "research",
+      "universe_id": null,
+      "config": {
+        "name": "mom_12_1_top4",
+        "universe_id": null,
+        "symbols": [
+          "AAPL",
+          "MSFT",
+          "NVDA"
+        ],
+        "signal": {
+          "kind": "momentum",
+          "expression": null,
+          "filter_expression": null,
+          "symbols": [],
+          "lookback": 252,
+          "skip": 21,
+          "fast": 50,
+          "slow": 200,
+          "top_n": 4,
+          "weighting": "equal",
+          "min_signal": null
+        },
+        "start": null,
+        "end": null,
+        "benchmark": "SPY",
+        "rebalance": "monthly",
+        "initial_capital": 1000000,
+        "gross_exposure": 1,
+        "max_positions": null,
+        "long_only": true,
+        "costs": {
+          "commission_bps": 1,
+          "slippage_bps": 5,
+          "borrow_bps_annual": 0
+        },
+        "oos_start": null,
+        "oos_fraction": 0.3,
+        "risk_free_rate": 0,
+        "periods_per_year": null,
+        "trim_warmup": true,
+        "interval": "1d",
+        "params": {}
+      },
+      "signal": "252d momentum skipping 21d · equal weighted · top 4",
+      "criteria": {
+        "min_oos_sharpe": 0.8,
+        "max_drawdown": 0.15,
+        "min_trades": 30
+      },
+      "horizon": 21,
+      "owner": "nicklas",
+      "notes": "seeded for S4",
+      "created_at": "2026-10-25T19:07:55.691373+00:00",
+      "updated_at": "2026-10-25T19:07:55.691373+00:00",
+      "benchmark": "SPY",
+      "period": {
+        "start": null,
+        "end": null
+      },
+      "params": {}
+    }
+  ],
+  "count": 3
+}

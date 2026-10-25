@@ -4,6 +4,7 @@ import { readFileSync } from "node:fs";
 import { join } from "node:path";
 import type { z } from "zod";
 import { BackfillStarted, ConnectionTest, SourceProbe, SourceSaved, Subscription } from "./schemas/ingest";
+import { ExperimentDetail, ExperimentRun } from "./schemas/lab";
 import { Incident, OutlierDecided, QualityRun, TicketOpened } from "./schemas/quality";
 import { QueuedBacktest, ScreenRun } from "./schemas/screens";
 import { Snapshot, Universe } from "./schemas/universes";
@@ -12,6 +13,8 @@ import { Watchlist } from "./schemas/watchlists";
 const fixture = (name: string): unknown => JSON.parse(readFileSync(join(import.meta.dirname, "__fixtures__", `${name}.json`), "utf8"));
 
 const cases: [string, z.ZodType][] = [
+  ["lab.experiment", ExperimentDetail],
+  ["lab.runExperiment", ExperimentRun],
   ["ingest.subscribe", Subscription],
   ["ingest.probe", SourceProbe],
   ["ingest.backfill", BackfillStarted],

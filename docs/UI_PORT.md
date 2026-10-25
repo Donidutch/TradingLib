@@ -414,12 +414,51 @@ first (agreed in the plan).
 
 ### S4 — Strategy Lab I: frame, hypotheses, experiments (part of D)
 
-- [ ] Lab header, five-card funnel and tab bar as routes `/lab/<tab>?id=`, so
+- [x] Lab header, five-card funnel and tab bar as routes `/lab/<tab>?id=`, so
   deep links and the palette land on an entity.
-- [ ] Hypotheses: list, detail, create, edit, status changes, evidence, delete.
-- [ ] Experiments: split and full views, create, run, the run log streaming
+- [x] Hypotheses: list, detail, create, edit, status changes, evidence, delete.
+- [x] Experiments: split and full views, create, run, the run log streaming
   over `lab`.
-- [ ] Tests; compare.
+- [x] Tests; compare.
+
+Done 2026-10-25. `tools/compare_consoles.py lab` on a seeded throwaway copy: 7
+of 7 views match (487 figures: both tabs, every hypothesis and experiment by
+id); the full run on the real server, where the lab is empty: 54 of 54 areas,
+1,148 figures. The compare tool reads the entity ids from the server it
+compares. Write checks cover every hypothesis and experiment write, a real
+experiment run with its streamed log, and a backtest of its config (13 of 13).
+Notes: the shared query keys for the palette's lab reads stay separate from
+the lab's own, and writes refresh both by prefix; a lab tab's count is part of
+its accessible name ("HYPOTHESES 2"); the compare and form views were checked
+by hand on the seeded copy, including a real run streaming its log.
+
+Map (`lab.js` lines 1–1470 and 1449–2916 → `web/src/pages/lab/`; COVERAGE.md D).
+The lab is empty on the real server, so S4's comparison and fixtures use a
+throwaway copy seeded with two hypotheses, three experiments (two run for
+real), one validation report and one screen run. Backtests, Validation,
+Evaluation and Pipeline open in the current console until S5 and S6.
+
+| Area | Source | Shows and does | Empty / error |
+| --- | --- | --- | --- |
+| Header | `GET /api/universes/active` | "> STRATEGY LAB", the crumb (tab, selection or "new …", the active universe), + NEW EXPERIMENT, + NEW HYPOTHESIS | — |
+| Funnel | `GET /api/lab/evaluation` funnel, else the loaded experiments | five cards RESEARCH → LIVE counting experiments that reached each stage (killed count as research), captions with the conversion rates; a card filters the experiment list to that stage and toggles off | counts from the experiment list when evaluation fails |
+| Tab bar | `GET /api/lab` summary, report and strategy counts | six tabs with counts as `/lab/<tab>?id=`; Backtests, Validation, Evaluation, Pipeline open in the current console (↗) | counts fall back to list lengths |
+| Hypothesis list | `GET /api/lab/hypotheses?include_evidence=true`, experiments | "H-n · title", owner pill (blue for agent), "n experiments · n evidence · STATUS" toned; selecting one puts its id in the URL | "No hypotheses yet" with a create button; load error |
+| Hypothesis detail | same, backtests, validation reports, universes | id, title, status; WOULD FALSIFY THIS; statement; rationale; provenance (origin, owner, universe, experiments, created, updated, tags); linked evidence with detach ✕ and the + LINK form (kind, ref, label); experiments under it with stage, judged Sharpe and gates; + NEW EXPERIMENT (preselects it), EDIT, MARK <status> for every other state, DELETE (confirmed); status history newest first | "Select a hypothesis …"; "Nothing linked yet."; "No experiments yet. …" |
+| Hypothesis form | `POST /api/lab/hypotheses`, `PUT …/{id}` | title, statement, falsifier (required, said so), rationale, owner, origin, universe scope, tags, status (new only); Cancel | "Title, statement and falsifier are all required."; the server's refusal |
+| Hypothesis writes | `POST …/{id}/status`, `DELETE …/{id}`, `POST …/{id}/evidence`, `DELETE …/{id}/evidence/{eid}` | toasts "Created H-n", "Saved H-n", "H-n → STATUS", "Deleted H-n", "Evidence linked", "Evidence detached" | "Evidence needs a reference."; refusals in a toast |
+| Agent activity | `GET /api/agents/runs?limit=12`, `GET /api/agents/definitions` | badge live, autonomous, idle or none; up to six runs: the acting agent and what its stage is doing; opens the run in the Agent Center (current console until S7) | "No agent runs yet"; "Agent Center unreachable" |
+| Experiment list | `GET /api/lab/experiments`, backtests, reports | "n of m"; stage chip filter; text filter; origin filter (manual, agent, screen, derived from runs); rows with compare checkbox, name, stage pill, origin pill, hypothesis, judged Sharpe, gates; COMPARE SELECTED (n) | "No experiments yet" / "Nothing at this filter"; load error |
+| Experiment detail | same, `GET /api/lab/experiments/{id}` | name, stage, hypothesis link; id, signal, universe or symbol count, created; OOS SHARPE, DEFLATED, MAX DD, TRADES, UNIVERSE; strategy as rules or the stored JSON; acceptance criteria; its backtests (run links open the Backtests tab, current console until S5); analyses chips and + SWEEP, + MONTE CARLO, + WALK-FORWARD (current console until S5); experiment runs (IC, seconds, PASS / NOT MET, status) | "No completed backtest yet …"; "Never run."; runs error |
+| Experiment actions | `POST …/{id}/run`, `POST /api/lab/backtests/run`, `DELETE …/{id}` | ▷ RUN EXPERIMENT with the live log; ▷ RUN BACKTEST WITH CURRENT CONFIG; ⑂ SEND TO PIPELINE (current console until S6); CLONE & EDIT; COMPARE WITH…; DELETE (confirmed) | the server's reason in a toast and in the log |
+| Run log | `lab` frames kind `experiment` | started, log lines, complete or failed; duplicates of the stored log dropped; at most 400 lines | "No run log yet. …" |
+| Experiment form | `POST /api/lab/experiments`, gates, quality summary | name, hypothesis, kind, IC horizon, owner, notes; the BacktestConfig editor (period and data, portfolio, signal and costs); acceptance criteria; "THIS RUN WILL BE JUDGED BY" with gate names and store quality; SAVE EXPERIMENT, ▷ SAVE AND RUN; seeded by clone or hypothesis | "The experiment needs a name."; "Choose a universe or list explicit symbols." |
+| Compare | loaded data | 2–4 experiments: metrics with the best value marked, config diff of differing fields only, verdict per experiment; ← BACK | "Select 2–4 experiments to compare."; "Tick a second experiment …" |
+| Screening | `GET /api/screens`, `GET /api/screens/runs?limit=50` | screens with universe, rules, last run, survivors; RUN (persisted run); → BACKTEST queues one and opens it (current console until S5) | "No screens saved yet. …"; load error |
+| Live | `lab` frames | experiment, backtest, validation, promotion and analysis events refetch what they touch; an open form is never wiped | — |
+
+Deliberate difference: deleting a hypothesis or an experiment uses the
+confirm dialog instead of the browser's.
 
 ### S5 — Strategy Lab II: backtests and analyses
 

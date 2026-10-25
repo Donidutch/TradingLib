@@ -1,7 +1,9 @@
 import { createRootRoute, createRoute, createRouter } from "@tanstack/react-router";
-import { LazyData, LazyDocs, LazyOverview, LazySettings, LazyStock } from "./pages/lazy";
+import { LazyData, LazyDocs, LazyLab, LazyOverview, LazySettings, LazyStock } from "./pages/lazy";
 import { DEFAULT_SYMBOL } from "./pages/stock/rules";
 import { isDataTab } from "./pages/data/tabs";
+import { isPortedLabTab, legacyLab } from "./pages/lab/tabs";
+import { openLegacy } from "./shell/legacy";
 import { Shell } from "./shell/Shell";
 
 const rootRoute = createRootRoute({ component: Shell });
@@ -67,7 +69,37 @@ const dataRoute = createRoute({
   },
 });
 
+const labSearch = (search: Record<string, unknown>): { id?: string } =>
+  typeof search.id === "string" && search.id.trim() ? { id: search.id.trim() } : {};
+
+const labIndexRoute = createRoute({
+  getParentRoute: () => rootRoute,
+  path: "/lab",
+  validateSearch: labSearch,
+  component: function Lab() {
+    return <LazyLab tab="experiments" id={labIndexRoute.useSearch().id} />;
+  },
+});
+
+const labRoute = createRoute({
+  getParentRoute: () => rootRoute,
+  path: "/lab/$tab",
+  validateSearch: labSearch,
+  component: function Lab() {
+    const tab = labRoute.useParams().tab;
+    const { id } = labRoute.useSearch();
+    // A tab not ported yet opens in the current console; the lab stays on experiments.
+    if (!isPortedLabTab(tab)) {
+      openLegacy(legacyLab(tab, id));
+      return <LazyLab tab="experiments" id={undefined} />;
+    }
+    return <LazyLab tab={tab} id={id} />;
+  },
+});
+
 export const routeTree = rootRoute.addChildren([
+  labIndexRoute,
+  labRoute,
   dataIndexRoute,
   dataRoute,
   overviewRoute,

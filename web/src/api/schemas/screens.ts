@@ -95,6 +95,12 @@ export const ScreenRun = z.looseObject({
   warnings: z.array(z.string()),
 });
 
+/** GET /api/screens/runs: persisted runs, newest first. */
+export const ScreenRuns = z.looseObject({
+  runs: z.array(z.looseObject({ id: z.string(), screen_id: nstr, ran_at: nstr, base_count: z.number(), pass_count: z.number() })),
+  count: z.number(),
+});
+
 /** POST /api/screens/{id}/queue-backtest. */
 export const QueuedBacktest = z.looseObject({
   id: z.string(),

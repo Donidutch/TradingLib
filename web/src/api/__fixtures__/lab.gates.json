@@ -1,0 +1,64 @@
+{
+  "gates": [
+    {
+      "id": "min_oos_sharpe",
+      "name": "OOS Sharpe >= 0.8",
+      "status": "pending",
+      "passed": false,
+      "metric": "sharpe",
+      "threshold": 0.8,
+      "comparator": ">=",
+      "observed": null,
+      "window": "out_of_sample",
+      "hard": false,
+      "detail": null
+    },
+    {
+      "id": "max_drawdown",
+      "name": "Max drawdown <= 15%",
+      "status": "pending",
+      "passed": false,
+      "metric": "max_drawdown",
+      "threshold": 0.15,
+      "comparator": "<=",
+      "observed": null,
+      "window": "full",
+      "hard": false,
+      "detail": null
+    },
+    {
+      "id": "min_trades",
+      "name": "Trades >= 30",
+      "status": "pending",
+      "passed": false,
+      "metric": "trades",
+      "threshold": 30,
+      "comparator": ">=",
+      "observed": null,
+      "window": "full",
+      "hard": false,
+      "detail": null
+    }
+  ],
+  "count": 12,
+  "thresholds": {
+    "min_oos_sharpe": 0.8,
+    "max_drawdown": 0.15,
+    "min_trades": 30,
+    "min_history_years": 2,
+    "cost_multiplier": 2,
+    "min_cost_retention": 0.6,
+    "min_deflated_sharpe": 0.5,
+    "max_p_value": 0.05,
+    "min_excess_return": 0,
+    "max_pbo": 0.5,
+    "cscv_groups": 8,
+    "min_regime_sharpe": 0,
+    "regime_buckets": 3
+  },
+  "hard_gates": [
+    "min_history",
+    "lookahead_scan",
+    "artifact_bundle"
+  ]
+}

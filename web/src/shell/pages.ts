@@ -2,13 +2,14 @@
  * still live in the vanilla console at /, reached through its hash routes. */
 
 import { isDataTab, type DataTab } from "../pages/data/tabs";
+import { isPortedLabTab, type PortedLabTab } from "../pages/lab/tabs";
 
 export interface Workspace {
   key: string;
   label: string;
   glyph: string;
   /** Path in this app, for workspaces already ported. */
-  path?: "/" | "/stock" | "/data" | "/docs" | "/settings";
+  path?: "/" | "/stock" | "/lab" | "/data" | "/docs" | "/settings";
   /** Hash in the vanilla console, for the rest. */
   legacyHash?: string;
   section: "RESEARCH" | "PLATFORM";
@@ -17,7 +18,7 @@ export interface Workspace {
 export const WORKSPACES: readonly Workspace[] = [
   { key: "overview", label: "Overview", glyph: "⌂", path: "/", section: "RESEARCH" },
   { key: "stock", label: "Stock Research", glyph: "⌕", path: "/stock", section: "RESEARCH" },
-  { key: "lab", label: "Strategy Lab", glyph: "⚗", legacyHash: "#tl/lab", section: "RESEARCH" },
+  { key: "lab", label: "Strategy Lab", glyph: "⚗", path: "/lab", section: "RESEARCH" },
   { key: "agents", label: "Agent Center", glyph: "A", legacyHash: "#agents", section: "RESEARCH" },
   { key: "data", label: "Market & Data", glyph: "D", path: "/data", section: "RESEARCH" },
   { key: "docs", label: "Documentation", glyph: "?", path: "/docs", section: "PLATFORM" },
@@ -32,6 +33,8 @@ export type Target =
   | { kind: "app"; to: "/docs" | "/settings" | "/data" }
   | { kind: "app"; to: "/data/$tab"; tab: DataTab }
   | { kind: "app"; to: "/docs/$article"; article: string }
+  | { kind: "app"; to: "/lab" }
+  | { kind: "app"; to: "/lab/$tab"; tab: PortedLabTab; id?: string }
   | { kind: "legacy"; href: string };
 
 /**
@@ -44,6 +47,13 @@ export function targetForHash(hash: string): Target {
   const clean = hash.replace(/^#/, "");
   const [path = "", query] = clean.split("?", 2);
   const [key, sub] = path.split("/", 2);
+  // "#tl/lab/<tab>[?id=…]": the two ported tabs land here, with their entity.
+  if (path === "tl/lab" && !query) return { kind: "app", to: "/lab" };
+  const lab = /^tl\/lab\/([^/]+)$/.exec(path);
+  if (lab && isPortedLabTab(lab[1])) {
+    const id = new URLSearchParams(query ?? "").get("id");
+    return id ? { kind: "app", to: "/lab/$tab", tab: lab[1], id } : { kind: "app", to: "/lab/$tab", tab: lab[1] };
+  }
   if (!query) {
     if (key === "" || key === "overview") {
       return sub ? { kind: "app", to: "/", symbol: decodeURIComponent(sub).toUpperCase() } : { kind: "app", to: "/" };

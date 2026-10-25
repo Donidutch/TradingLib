@@ -1,4 +1,341 @@
 {
-  "backtests": [],
-  "count": 0
+  "backtests": [
+    {
+      "id": "bt-5bdfc7837dcc",
+      "name": "mom_6_1_top4",
+      "status": "complete",
+      "source": "experiment",
+      "hypothesis_id": "H-1",
+      "experiment_id": "exp-16f09805f7",
+      "screen_id": null,
+      "config": {
+        "name": "mom_6_1_top4",
+        "universe_id": null,
+        "symbols": [
+          "AAPL",
+          "MSFT",
+          "NVDA"
+        ],
+        "signal": {
+          "kind": "momentum",
+          "expression": null,
+          "filter_expression": null,
+          "symbols": [],
+          "lookback": 126,
+          "skip": 21,
+          "fast": 50,
+          "slow": 200,
+          "top_n": 4,
+          "weighting": "equal",
+          "min_signal": null
+        },
+        "start": null,
+        "end": null,
+        "benchmark": "SPY",
+        "rebalance": "monthly",
+        "initial_capital": 1000000,
+        "gross_exposure": 1,
+        "max_positions": null,
+        "long_only": true,
+        "costs": {
+          "commission_bps": 1,
+          "slippage_bps": 5,
+          "borrow_bps_annual": 0
+        },
+        "oos_start": null,
+        "oos_fraction": 0.3,
+        "risk_free_rate": 0,
+        "periods_per_year": null,
+        "trim_warmup": true,
+        "interval": "1d",
+        "params": {}
+      },
+      "out_of_sample": {
+        "periods": 338,
+        "years": 1.3412698412698412,
+        "total_return": 0.6837015092960863,
+        "cagr": 0.4746694756738221,
+        "volatility": 0.3343524871213898,
+        "sharpe": 1.3281687650910592,
+        "sortino": 2.082876883929095,
+        "max_drawdown": -0.26338164827627564,
+        "hit_rate": 0.5680473372781065,
+        "turnover": 6.198335496451855,
+        "trades": 78,
+        "best_period": 0.10810896904658308,
+        "worst_period": -0.074323601796439,
+        "benchmark_return": 0.278807856966496,
+        "benchmark_cagr": 0.20124054937744806,
+        "excess_return": 0.4048936523295903,
+        "information_ratio": 0.9470823503535957,
+        "alpha_vs_benchmark": 0.08731793177189472,
+        "beta_vs_benchmark": 1.8703584751478517,
+        "start": "2025-06-23T04:00:00+00:00",
+        "end": "2026-10-23T04:00:00+00:00"
+      },
+      "universe_id": null,
+      "created_at": "2026-10-25T19:07:56.690295+00:00",
+      "finished_at": "2026-10-25T19:07:56.996319+00:00",
+      "duration_ms": 302.747,
+      "symbols": [
+        "AAPL",
+        "MSFT",
+        "NVDA"
+      ],
+      "symbol_count": 12,
+      "stats": {
+        "periods": 1128,
+        "years": 4.476190476190476,
+        "total_return": 5.188272113136787,
+        "cagr": 0.5025881962908612,
+        "volatility": 0.3663103845528975,
+        "sharpe": 1.2941009306036269,
+        "sortino": 2.014400976002359,
+        "max_drawdown": -0.33107525267901217,
+        "hit_rate": 0.5372340425531915,
+        "turnover": 2.644775085789369,
+        "trades": 158,
+        "best_period": 0.14300842876214964,
+        "worst_period": -0.0944846020356178,
+        "benchmark_return": 0.8264118230127124,
+        "benchmark_cagr": 0.14404278084771316,
+        "excess_return": 4.361860290124074,
+        "information_ratio": 1.246381257903591,
+        "alpha_vs_benchmark": 0.22817470464586762,
+        "beta_vs_benchmark": 1.651049073212359,
+        "start": "2022-04-27T04:00:00+00:00",
+        "end": "2026-10-23T04:00:00+00:00"
+      },
+      "error": null,
+      "signal": "126d momentum skipping 21d · equal weighted · top 4",
+      "benchmark": "SPY",
+      "started_at": "2026-10-25T19:07:56.690292+00:00",
+      "in_sample": {
+        "periods": 790,
+        "years": 3.134920634920635,
+        "total_return": 2.6753973783179297,
+        "cagr": 0.5146940392112953,
+        "volatility": 0.3793615685751792,
+        "sharpe": 1.2833760194363328,
+        "sortino": 1.993864984976056,
+        "max_drawdown": -0.33107525267901217,
+        "hit_rate": 0.5240506329113924,
+        "turnover": 1.1243910113540279,
+        "trades": 80,
+        "best_period": 0.14300842876214964,
+        "worst_period": -0.0944846020356178,
+        "benchmark_return": 0.42821442100395246,
+        "benchmark_cagr": 0.1204104211700947,
+        "excess_return": 2.247182957313977,
+        "information_ratio": 1.3786236679948183,
+        "alpha_vs_benchmark": 0.27568854459959513,
+        "beta_vs_benchmark": 1.6117711948907156,
+        "start": "2022-04-27T04:00:00+00:00",
+        "end": "2025-06-20T04:00:00+00:00"
+      },
+      "warnings": [
+        "warm-up: the first 126 bars held no position and were trimmed"
+      ],
+      "periods_per_year": 252,
+      "artifact_bundle": {
+        "bundle_id": "20ecd9820b437ef2",
+        "sha256": "20ecd9820b437ef22fcf4b1422eeadf0f9d88bcaaa7c218000a890faad4ebfd3",
+        "pinned_at": "2026-10-25T19:07:56.983335+00:00",
+        "config": {
+          "sha256": "f9df5549344c4f50b3b624101b882efd1a47a024053cb874dfc2a4f6ff677c43",
+          "bytes": 670
+        },
+        "data": {
+          "sha256": "6daef6d126521c7bbe597254551dd496a9cece976e455ab00feeacae4d28a9ea",
+          "rows": 1129,
+          "columns": 12,
+          "symbols": [
+            "AAPL",
+            "MSFT",
+            "NVDA"
+          ],
+          "first_bar": "2022-04-26T04:00:00+00:00",
+          "last_bar": "2026-10-23T04:00:00+00:00"
+        },
+        "code": {
+          "sha256": "f7ec949ceba3b2171f53fb456244f72cab6c02e2d6990bdceb362c75c19ef9b1",
+          "modules": [
+            "__init__.py",
+            "analyses.py",
+            "backtest.py"
+          ],
+          "tradinglib_version": "0.1.0"
+        }
+      }
+    },
+    {
+      "id": "bt-99c18832dbbd",
+      "name": "mom_12_1_top4",
+      "status": "complete",
+      "source": "experiment",
+      "hypothesis_id": "H-1",
+      "experiment_id": "exp-4327e88747",
+      "screen_id": null,
+      "config": {
+        "name": "mom_12_1_top4",
+        "universe_id": null,
+        "symbols": [
+          "AAPL",
+          "MSFT",
+          "NVDA"
+        ],
+        "signal": {
+          "kind": "momentum",
+          "expression": null,
+          "filter_expression": null,
+          "symbols": [],
+          "lookback": 252,
+          "skip": 21,
+          "fast": 50,
+          "slow": 200,
+          "top_n": 4,
+          "weighting": "equal",
+          "min_signal": null
+        },
+        "start": null,
+        "end": null,
+        "benchmark": "SPY",
+        "rebalance": "monthly",
+        "initial_capital": 1000000,
+        "gross_exposure": 1,
+        "max_positions": null,
+        "long_only": true,
+        "costs": {
+          "commission_bps": 1,
+          "slippage_bps": 5,
+          "borrow_bps_annual": 0
+        },
+        "oos_start": null,
+        "oos_fraction": 0.3,
+        "risk_free_rate": 0,
+        "periods_per_year": null,
+        "trim_warmup": true,
+        "interval": "1d",
+        "params": {}
+      },
+      "out_of_sample": {
+        "periods": 301,
+        "years": 1.1944444444444444,
+        "total_return": 0.1128298008637072,
+        "cagr": 0.09363041297749342,
+        "volatility": 0.2536417413984282,
+        "sharpe": 0.4788269754918846,
+        "sortino": 0.7108095836088676,
+        "max_drawdown": -0.21690219654009757,
+        "hit_rate": 0.5382059800664452,
+        "turnover": 3.4236729947732045,
+        "trades": 55,
+        "best_period": 0.06770370671604382,
+        "worst_period": -0.04437213272903956,
+        "benchmark_return": 0.17844896562311052,
+        "benchmark_cagr": 0.14736618952135383,
+        "excess_return": -0.06561916475940333,
+        "information_ratio": -0.12546098666127994,
+        "alpha_vs_benchmark": -0.08687132088402447,
+        "beta_vs_benchmark": 1.4352630095196308,
+        "start": "2025-08-14T04:00:00+00:00",
+        "end": "2026-10-23T04:00:00+00:00"
+      },
+      "universe_id": null,
+      "created_at": "2026-10-25T19:07:56.042840+00:00",
+      "finished_at": "2026-10-25T19:07:56.352102+00:00",
+      "duration_ms": 304.82399999999996,
+      "symbols": [
+        "AAPL",
+        "MSFT",
+        "NVDA"
+      ],
+      "symbol_count": 12,
+      "stats": {
+        "periods": 1002,
+        "years": 3.9761904761904763,
+        "total_return": 5.326105741929548,
+        "cagr": 0.5903159613172164,
+        "volatility": 0.32828466105906756,
+        "sharpe": 1.5766861909810546,
+        "sortino": 2.5474468043868503,
+        "max_drawdown": -0.2786775102946272,
+        "hit_rate": 0.5389221556886228,
+        "turnover": 1.684945262472256,
+        "trades": 125,
+        "best_period": 0.14300842876214964,
+        "worst_period": -0.0944846020356178,
+        "benchmark_return": 0.9743581632338274,
+        "benchmark_cagr": 0.18658468675495476,
+        "excess_return": 4.35174757869572,
+        "information_ratio": 1.405460247647264,
+        "alpha_vs_benchmark": 0.22873665686295883,
+        "beta_vs_benchmark": 1.5794878904422551,
+        "start": "2022-10-26T04:00:00+00:00",
+        "end": "2026-10-23T04:00:00+00:00"
+      },
+      "error": null,
+      "signal": "252d momentum skipping 21d · equal weighted · top 4",
+      "benchmark": "SPY",
+      "started_at": "2026-10-25T19:07:56.042835+00:00",
+      "in_sample": {
+        "periods": 701,
+        "years": 2.7817460317460316,
+        "total_return": 4.684701952643272,
+        "cagr": 0.8677003070576064,
+        "volatility": 0.3551868911021125,
+        "sharpe": 1.936175014121786,
+        "sortino": 3.1899987267805447,
+        "max_drawdown": -0.2786775102946272,
+        "hit_rate": 0.5392296718972895,
+        "turnover": 0.9383588895441739,
+        "trades": 70,
+        "best_period": 0.14300842876214964,
+        "worst_period": -0.0944846020356178,
+        "benchmark_return": 0.6753870730327951,
+        "benchmark_cagr": 0.2038333288599503,
+        "excess_return": 4.009314879610477,
+        "information_ratio": 1.9090842806113355,
+        "alpha_vs_benchmark": 0.36654748513295,
+        "beta_vs_benchmark": 1.613118857878124,
+        "start": "2022-10-26T04:00:00+00:00",
+        "end": "2025-08-13T04:00:00+00:00"
+      },
+      "warnings": [
+        "warm-up: the first 252 bars held no position and were trimmed"
+      ],
+      "periods_per_year": 252,
+      "artifact_bundle": {
+        "bundle_id": "69d9714eed9ca4ab",
+        "sha256": "69d9714eed9ca4ab36dd648d5904b1aeac7a7985ebaa68f261605f86b190d516",
+        "pinned_at": "2026-10-25T19:07:56.336275+00:00",
+        "config": {
+          "sha256": "a9b8ecc760b18e241e7797a72bc8b09f5c2915d1491dff209281ad17646e7218",
+          "bytes": 671
+        },
+        "data": {
+          "sha256": "0a6db9339f83db9793abc06681bb6357ea59290e90e634936ccc7e201072723b",
+          "rows": 1003,
+          "columns": 12,
+          "symbols": [
+            "AAPL",
+            "MSFT",
+            "NVDA"
+          ],
+          "first_bar": "2022-10-25T04:00:00+00:00",
+          "last_bar": "2026-10-23T04:00:00+00:00"
+        },
+        "code": {
+          "sha256": "f7ec949ceba3b2171f53fb456244f72cab6c02e2d6990bdceb362c75c19ef9b1",
+          "modules": [
+            "__init__.py",
+            "analyses.py",
+            "backtest.py"
+          ],
+          "tradinglib_version": "0.1.0"
+        }
+      }
+    }
+  ],
+  "count": 2
 }

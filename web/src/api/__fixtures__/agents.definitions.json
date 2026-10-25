@@ -1,0 +1,194 @@
+{
+  "agents": [
+    {
+      "id": "human-review",
+      "name": "Human Review",
+      "role": "Mandatory decision authority",
+      "kind": "human",
+      "status": "locked",
+      "system_prompt": "A person reviews the evidence, the test history and the risks before any promotion. Automation always stops here.",
+      "provider": "none",
+      "model": "",
+      "fallback_model": null,
+      "tools": [],
+      "permissions": [
+        "approve for paper research",
+        "reject",
+        "request more validation"
+      ],
+      "temperature": 0,
+      "max_tokens": 4096,
+      "budget_usd": null,
+      "timeout_s": null,
+      "retries": 0,
+      "scope": {},
+      "tags": [
+        "approval"
+      ],
+      "notes": null,
+      "enabled": true,
+      "locked": true,
+      "version": 1,
+      "presets": {},
+      "preset_fields": [
+        "budget_usd",
+        "max_tokens",
+        "retries"
+      ],
+      "calls_a_model": false,
+      "created_at": "2026-10-25T14:40:50.046161+00:00",
+      "updated_at": "2026-10-25T14:40:50.046161+00:00",
+      "active": false
+    },
+    {
+      "id": "validation-agent",
+      "name": "Validation Agent",
+      "role": "Independent challenge",
+      "kind": "stage",
+      "status": "active",
+      "system_prompt": "You challenge a candidate strategy rather than defend it. Re-run the backtest under stressed assumptions with run_backtest, compare against the benchmark, and state which gates fail. A recommendation to promote requires every required gate to pass.",
+      "provider": "anthropic",
+      "model": "",
+      "fallback_model": null,
+      "tools": [
+        "run_backtest",
+        "get_series",
+        "search_knowledge"
+      ],
+      "permissions": [
+        "read attempt ledger",
+        "create validation reports"
+      ],
+      "temperature": 0,
+      "max_tokens": 4096,
+      "budget_usd": null,
+      "timeout_s": null,
+      "retries": 0,
+      "scope": {},
+      "tags": [
+        "validation"
+      ],
+      "notes": null,
+      "enabled": true,
+      "locked": false,
+      "version": 1,
+      "presets": {
+        "Fast": {
+          "max_tokens": 6144,
+          "retries": 0,
+          "timeout_s": 180,
+          "scope": {
+            "stress_scenarios": 1
+          }
+        },
+        "Quick": {
+          "max_tokens": 12288,
+          "retries": 1,
+          "timeout_s": 420,
+          "scope": {
+            "stress_scenarios": 3
+          }
+        },
+        "Full": {
+          "max_tokens": 24576,
+          "retries": 2,
+          "timeout_s": 900,
+          "scope": {
+            "stress_scenarios": 6
+          }
+        }
+      },
+      "preset_fields": [
+        "budget_usd",
+        "max_tokens",
+        "retries"
+      ],
+      "calls_a_model": true,
+      "created_at": "2026-10-25T14:40:50.045387+00:00",
+      "updated_at": "2026-10-25T14:40:50.045387+00:00",
+      "active": false
+    },
+    {
+      "id": "quant-agent",
+      "name": "Quant Agent",
+      "role": "Experiments and backtests",
+      "kind": "stage",
+      "status": "active",
+      "system_prompt": "You test hypotheses. Build the signal specification, run it with run_backtest against the stated benchmark, and report the real statistics - including the ones that argue against the hypothesis. Never describe a backtest you did not run.",
+      "provider": "anthropic",
+      "model": "",
+      "fallback_model": null,
+      "tools": [
+        "resolve_universe",
+        "get_series",
+        "run_screen"
+      ],
+      "permissions": [
+        "read point-in-time data",
+        "create backtests"
+      ],
+      "temperature": 0,
+      "max_tokens": 4096,
+      "budget_usd": null,
+      "timeout_s": null,
+      "retries": 0,
+      "scope": {},
+      "tags": [
+        "quant"
+      ],
+      "notes": null,
+      "enabled": true,
+      "locked": false,
+      "version": 1,
+      "presets": {
+        "Fast": {
+          "max_tokens": 6144,
+          "retries": 0,
+          "timeout_s": 180,
+          "scope": {
+            "max_backtests": 1,
+            "folds": 2
+          }
+        },
+        "Quick": {
+          "max_tokens": 12288,
+          "retries": 1,
+          "timeout_s": 480,
+          "scope": {
+            "max_backtests": 3,
+            "folds": 5
+          }
+        },
+        "Full": {
+          "max_tokens": 24576,
+          "retries": 2,
+          "timeout_s": 900,
+          "scope": {
+            "max_backtests": 8,
+            "folds": 8
+          }
+        }
+      },
+      "preset_fields": [
+        "budget_usd",
+        "max_tokens",
+        "retries"
+      ],
+      "calls_a_model": true,
+      "created_at": "2026-10-25T14:40:50.044621+00:00",
+      "updated_at": "2026-10-25T14:40:50.044621+00:00",
+      "active": false
+    }
+  ],
+  "count": 6,
+  "counts": {
+    "total": 6,
+    "enabled": 6,
+    "disabled": 0,
+    "active": 0,
+    "idle": 6,
+    "stages": 5,
+    "workers": 0,
+    "human": 1
+  }
+}

@@ -57,6 +57,29 @@ export const FindingList = z.looseObject({
   counts: z.record(z.string(), z.number()),
 });
 
+/** tradinglib.agents.runs: a pipeline run, as the lab's activity panel reads it. */
+export const AgentRun = z.looseObject({
+  id: z.string(),
+  name: nstr.optional(),
+  pipeline_id: nstr.optional(),
+  status: z.string(),
+  trigger: nstr.optional(),
+  current_stage_id: nstr.optional(),
+  error: nstr.optional(),
+  cost_usd: nnum.optional(),
+  started_at: nstr.optional(),
+  finished_at: nstr.optional(),
+  created_at: nstr.optional(),
+  progress: z.looseObject({ completed: z.number().optional(), total: z.number().optional() }).nullable().optional(),
+  stages: z
+    .array(z.looseObject({ stage_id: nstr.optional(), name: nstr.optional(), status: nstr.optional(), agent_id: nstr.optional() }))
+    .optional(),
+});
+export const AgentRuns = z.looseObject({ runs: z.array(AgentRun), count: z.number() });
+
+export const AgentDefinitions = z.looseObject({ agents: z.array(z.looseObject({ id: z.string(), name: z.string() })), count: z.number() });
+
+export type AgentRun = z.infer<typeof AgentRun>;
 export type InboxItem = z.infer<typeof InboxItem>;
 export type Inbox = z.infer<typeof Inbox>;
 export type Finding = z.infer<typeof Finding>;

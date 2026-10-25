@@ -12,10 +12,26 @@ import {
   ScreenAlerts,
   ScreenList,
   ScreenRun,
+  ScreenRuns,
   type PreviewRequest,
 } from "./schemas/screens";
-import { FindingList, Inbox } from "./schemas/agents";
-import { BacktestList, HypothesisList } from "./schemas/lab";
+import { AgentDefinitions, AgentRuns, FindingList, Inbox } from "./schemas/agents";
+import {
+  Analyses,
+  Backtest,
+  BacktestList,
+  Evaluation,
+  Experiment,
+  ExperimentDetail,
+  ExperimentList,
+  ExperimentRun,
+  GateSuite,
+  Hypothesis,
+  HypothesisList,
+  LabSummary,
+  Strategies,
+  ValidationReports,
+} from "./schemas/lab";
 import { MacroPanel } from "./schemas/macro";
 import {
   AltData,
@@ -125,7 +141,9 @@ export function makeApi(c: ApiClient) {
         c.request("PUT", `/api/screens/${enc(id)}`, Screen, { body }),
       run: (id: string, limit = 200) =>
         c.request("POST", `/api/screens/${enc(id)}/run`, ScreenRun, { body: { limit }, timeoutMs: 180_000 }),
-      queueBacktest: (id: string, body: { run_id: string; benchmark: string }) =>
+      runs: (signal?: AbortSignal) => c.get("/api/screens/runs", ScreenRuns, { limit: 50 }, signal),
+      /** `run_id` defaults to the screen's latest run, `benchmark` to SPY. */
+      queueBacktest: (id: string, body: { run_id?: string; benchmark?: string }) =>
         c.request("POST", `/api/screens/${enc(id)}/queue-backtest`, QueuedBacktest, { body, timeoutMs: 120_000 }),
       alerts: (signal?: AbortSignal) => c.get("/api/screens/alerts", ScreenAlerts, { limit: 20 }, signal),
       checkAlerts: () => c.post("/api/screens/alerts/check", ScreenAlerts.pick({ alerts: true, count: true }), {}),
@@ -173,15 +191,41 @@ export function makeApi(c: ApiClient) {
 
     agents: {
       inbox: (signal?: AbortSignal) => c.get("/api/agents/inbox", Inbox, null, signal),
+      runs: (signal?: AbortSignal) => c.get("/api/agents/runs", AgentRuns, { limit: 12 }, signal),
+      definitions: (signal?: AbortSignal) => c.get("/api/agents/definitions", AgentDefinitions, { include_stats: false }, signal),
       findings: (query: { symbol?: string; limit?: number }, signal?: AbortSignal) =>
         c.get("/api/agents/findings", FindingList, query, signal),
     },
 
     lab: {
-      hypotheses: (query: { q?: string; limit?: number }, signal?: AbortSignal) =>
+      summary: (signal?: AbortSignal) => c.get("/api/lab", LabSummary, null, signal),
+      hypotheses: (query: { q?: string; limit?: number; include_evidence?: boolean }, signal?: AbortSignal) =>
         c.get("/api/lab/hypotheses", HypothesisList, query, signal),
       backtests: (query: { limit?: number }, signal?: AbortSignal) =>
         c.get("/api/lab/backtests", BacktestList, query, signal),
+      experiments: (signal?: AbortSignal) => c.get("/api/lab/experiments", ExperimentList, null, signal),
+      experiment: (id: string, signal?: AbortSignal) => c.get(`/api/lab/experiments/${enc(id)}`, ExperimentDetail, null, signal),
+      gates: (signal?: AbortSignal) => c.get("/api/lab/validation/gates", GateSuite, null, signal),
+      validation: (signal?: AbortSignal) => c.get("/api/lab/validation", ValidationReports, { limit: 200 }, signal),
+      strategies: (signal?: AbortSignal) => c.get("/api/lab/validation/strategies", Strategies, null, signal),
+      evaluation: (signal?: AbortSignal) => c.get("/api/lab/evaluation", Evaluation, null, signal),
+      analyses: (signal?: AbortSignal) => c.get("/api/lab/analyses", Analyses, { limit: 100 }, signal),
+
+      createHypothesis: (body: HypothesisBody & { status: string }) => c.post("/api/lab/hypotheses", Hypothesis, body),
+      updateHypothesis: (id: string, body: HypothesisBody) => c.request("PUT", `/api/lab/hypotheses/${enc(id)}`, Hypothesis, { body }),
+      setHypothesisStatus: (id: string, status: string) => c.post(`/api/lab/hypotheses/${enc(id)}/status`, Hypothesis, { status }),
+      deleteHypothesis: (id: string) => c.del(`/api/lab/hypotheses/${enc(id)}`, z.unknown()),
+      addEvidence: (id: string, body: { kind: string; ref: string; label: string | null }) =>
+        c.post(`/api/lab/hypotheses/${enc(id)}/evidence`, z.unknown(), body),
+      removeEvidence: (id: string, evidenceId: string | number) =>
+        c.del(`/api/lab/hypotheses/${enc(id)}/evidence/${enc(String(evidenceId))}`, z.unknown()),
+
+      createExperiment: (body: ExperimentBody) => c.post("/api/lab/experiments", Experiment, body),
+      deleteExperiment: (id: string) => c.del(`/api/lab/experiments/${enc(id)}`, z.unknown()),
+      /** Runs a real backtest and IC study; the log streams on `lab` meanwhile. */
+      runExperiment: (id: string) => c.request("POST", `/api/lab/experiments/${enc(id)}/run`, ExperimentRun, { body: {}, timeoutMs: 600_000 }),
+      runBacktest: (body: { config: Record<string, unknown>; experiment_id: string; hypothesis_id: string | null; source: string }) =>
+        c.request("POST", "/api/lab/backtests/run", Backtest, { body, timeoutMs: 600_000 }),
     },
 
     research: {
@@ -214,6 +258,29 @@ export function makeApi(c: ApiClient) {
 export type Api = ReturnType<typeof makeApi>;
 
 /** Every GET the app makes, with an example argument, for tests and check:api. */
+/** What the hypothesis form sends; status moves through its own route. */
+export interface HypothesisBody {
+  title: string;
+  statement: string;
+  falsifier: string;
+  rationale: string | null;
+  owner: string | null;
+  origin: string | null;
+  universe_id: string | null;
+  tags: string[];
+}
+
+export interface ExperimentBody {
+  name: string;
+  config: Record<string, unknown>;
+  hypothesis_id: string | null;
+  kind: string;
+  horizon: number;
+  owner: string | null;
+  notes: string | null;
+  criteria: { min_oos_sharpe: number; max_drawdown: number; min_trades: number };
+}
+
 export function readEndpoints(api: Api, symbol: string, universe: string) {
   const r = api.research;
   return {
@@ -245,7 +312,18 @@ export function readEndpoints(api: Api, symbol: string, universe: string) {
     "agents.inbox": () => api.agents.inbox(),
     "agents.findings": () => api.agents.findings({ symbol }),
     "lab.hypotheses": () => api.lab.hypotheses({ q: symbol }),
-    "lab.backtests": () => api.lab.backtests({}),
+    "lab.backtests": () => api.lab.backtests({ limit: 200 }),
+    "lab.summary": () => api.lab.summary(),
+    "lab.hypothesesWithEvidence": () => api.lab.hypotheses({ include_evidence: true }),
+    "lab.experiments": () => api.lab.experiments(),
+    "lab.gates": () => api.lab.gates(),
+    "lab.validation": () => api.lab.validation(),
+    "lab.strategies": () => api.lab.strategies(),
+    "lab.evaluation": () => api.lab.evaluation(),
+    "lab.analyses": () => api.lab.analyses(),
+    "screens.runs": () => api.screens.runs(),
+    "agents.runs": () => api.agents.runs(),
+    "agents.definitions": () => api.agents.definitions(),
     "research.resolve": () => r.resolve(symbol),
     "research.ranges": () => r.ranges(),
     "research.company": () => r.company(symbol),

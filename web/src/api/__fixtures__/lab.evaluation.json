@@ -1,0 +1,282 @@
+{
+  "funnel": {
+    "stages": [
+      {
+        "stage": "research",
+        "count": 3
+      },
+      {
+        "stage": "validated",
+        "count": 0
+      },
+      {
+        "stage": "paper",
+        "count": 0
+      }
+    ],
+    "total": 3
+  },
+  "summary": {
+    "hypotheses": {
+      "total": 2,
+      "by_status": {
+        "draft": 1,
+        "active": 1,
+        "testing": 0,
+        "validated": 0,
+        "rejected": 0,
+        "archived": 0
+      }
+    },
+    "experiments": {
+      "total": 3,
+      "by_stage": {
+        "research": 3,
+        "validated": 0,
+        "paper": 0,
+        "approved": 0,
+        "live": 0,
+        "killed": 0
+      }
+    },
+    "runs": {
+      "experiment_runs": 2,
+      "backtest_runs": 2,
+      "trials": 2
+    },
+    "validation": {
+      "reports": 1,
+      "passed": 0,
+      "gate_pass_rate": 0
+    },
+    "promoted": {
+      "total": 0,
+      "active": 0,
+      "by_stage": {}
+    },
+    "validated_hypotheses": 0
+  },
+  "scorecard": {
+    "candidates": [
+      {
+        "experiment_id": "exp-16f09805f7",
+        "name": "mom_6_1_top4",
+        "backtest_id": "bt-5bdfc7837dcc",
+        "hypothesis_id": "H-1",
+        "stage": "research",
+        "verdict": null,
+        "gates": null
+      },
+      {
+        "experiment_id": "exp-4327e88747",
+        "name": "mom_12_1_top4",
+        "backtest_id": "bt-99c18832dbbd",
+        "hypothesis_id": "H-1",
+        "stage": "research",
+        "verdict": "fail",
+        "gates": "7 / 12"
+      }
+    ],
+    "rows": [
+      {
+        "label": "OOS Sharpe",
+        "key": "oos_sharpe",
+        "format": "ratio",
+        "values": [
+          1.3281687650910592,
+          0.4788269754918846
+        ],
+        "displays": [
+          null,
+          null
+        ],
+        "notes": [
+          null,
+          null
+        ],
+        "tones": [
+          null,
+          null
+        ]
+      },
+      {
+        "label": "Deflated Sharpe",
+        "key": "deflated_sharpe",
+        "format": "ratio",
+        "values": [
+          null,
+          0.5725359639776239
+        ],
+        "displays": [
+          null,
+          null
+        ],
+        "notes": [
+          "no validation report has been run on this backtest, so no deflated Sharpe",
+          null
+        ],
+        "tones": [
+          null,
+          null
+        ]
+      },
+      {
+        "label": "Max drawdown",
+        "key": "max_drawdown",
+        "format": "percent",
+        "values": [
+          -0.33107525267901217,
+          -0.2786775102946272
+        ],
+        "displays": [
+          null,
+          null
+        ],
+        "notes": [
+          null,
+          null
+        ],
+        "tones": [
+          null,
+          null
+        ]
+      }
+    ],
+    "live_book": {
+      "account_id": null,
+      "days": 0,
+      "symbols": [],
+      "fills": 0,
+      "start": null,
+      "end": null,
+      "reason": "no live book: no trading account has been opened"
+    }
+  },
+  "candidates": [
+    {
+      "experiment_id": "exp-16f09805f7",
+      "name": "mom_6_1_top4",
+      "hypothesis_id": "H-1",
+      "stage": "research",
+      "universe_id": null,
+      "signal": "126d momentum skipping 21d · equal weighted · top 4",
+      "backtest_id": "bt-5bdfc7837dcc",
+      "ran_at": "2026-10-25T19:07:56.996319+00:00",
+      "oos_sharpe": 1.3281687650910592,
+      "deflated_sharpe": null,
+      "max_drawdown": -0.33107525267901217,
+      "trades": 158,
+      "excess_return": 0.4048936523295903,
+      "turnover": 2.644775085789369,
+      "gates_passed": null,
+      "gates_total": null,
+      "verdict": null,
+      "promoted": false,
+      "report_id": null
+    },
+    {
+      "experiment_id": "exp-4327e88747",
+      "name": "mom_12_1_top4",
+      "hypothesis_id": "H-1",
+      "stage": "research",
+      "universe_id": null,
+      "signal": "252d momentum skipping 21d · equal weighted · top 4",
+      "backtest_id": "bt-99c18832dbbd",
+      "ran_at": "2026-10-25T19:07:56.352102+00:00",
+      "oos_sharpe": 0.4788269754918846,
+      "deflated_sharpe": 0.5725359639776239,
+      "max_drawdown": -0.2786775102946272,
+      "trades": 125,
+      "excess_return": -0.06561916475940333,
+      "turnover": 1.684945262472256,
+      "gates_passed": 7,
+      "gates_total": 12,
+      "verdict": "fail",
+      "promoted": false,
+      "report_id": "val-05f56ec15a2b"
+    },
+    {
+      "experiment_id": "exp-4b0d9c25e9",
+      "name": "lowvol_top4",
+      "hypothesis_id": "H-2",
+      "stage": "research",
+      "universe_id": null,
+      "signal": "inverse 63d volatility · equal weighted · top 4",
+      "backtest_id": null,
+      "ran_at": null,
+      "oos_sharpe": null,
+      "deflated_sharpe": null,
+      "max_drawdown": null,
+      "trades": null,
+      "excess_return": null,
+      "turnover": null,
+      "gates_passed": null,
+      "gates_total": null,
+      "verdict": null,
+      "promoted": false,
+      "report_id": null
+    }
+  ],
+  "gate_outcomes": {
+    "window_days": 180,
+    "reports": 1,
+    "by_gate": [
+      {
+        "gate": "artifact_bundle",
+        "name": "Artifact bundle pinned",
+        "pass": 1,
+        "fail": 0,
+        "pending": 0,
+        "threshold": 0,
+        "hard": true,
+        "pass_rate": 1
+      },
+      {
+        "gate": "benchmark_outperformance",
+        "name": "OOS excess return over benchmark > 0",
+        "pass": 0,
+        "fail": 1,
+        "pending": 0,
+        "threshold": 0,
+        "hard": false,
+        "pass_rate": 0
+      },
+      {
+        "gate": "cost_sensitivity",
+        "name": "Sharpe retained at 2x costs",
+        "pass": 1,
+        "fail": 0,
+        "pending": 0,
+        "threshold": 0.6,
+        "hard": false,
+        "pass_rate": 1
+      }
+    ],
+    "daily": [
+      {
+        "date": "2026-10-25",
+        "reports": 1,
+        "gates_passed": 7,
+        "gates_total": 12,
+        "promotions": 0
+      }
+    ],
+    "timeline": [
+      {
+        "report_id": "val-05f56ec15a2b",
+        "backtest_id": "bt-99c18832dbbd",
+        "hypothesis_id": "H-1",
+        "evaluated_at": "2026-10-25T19:08:16.463733+00:00",
+        "verdict": "fail",
+        "score": 58.333333333333336,
+        "promoted": false,
+        "failed": [
+          "min_oos_sharpe",
+          "max_drawdown",
+          "benchmark_outperformance"
+        ]
+      }
+    ]
+  },
+  "tracking": []
+}

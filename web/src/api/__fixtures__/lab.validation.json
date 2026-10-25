@@ -1,0 +1,215 @@
+{
+  "reports": [
+    {
+      "id": "val-05f56ec15a2b",
+      "backtest_id": "bt-99c18832dbbd",
+      "experiment_id": "exp-4327e88747",
+      "evaluated_at": "2026-10-25T19:08:16.463733+00:00",
+      "gates_passed": 7,
+      "gates_total": 12,
+      "passed": false,
+      "verdict": "fail",
+      "tests": {
+        "t_test": {
+          "basis": "excess_over_benchmark",
+          "observations": 301,
+          "mean": -0.00009402736388473265,
+          "t_stat": -0.13711711787160272,
+          "p_value": 0.5544849010615822,
+          "significant": false
+        },
+        "deflated_sharpe": {
+          "sharpe": 0.030163264242398718,
+          "annualised_sharpe": 0.4788269754918846,
+          "expected_max_sharpe": 0.019663742945637656,
+          "deflated_sharpe": 0.5725359639776239,
+          "trials": 2,
+          "skew": 0.3799354187080488,
+          "kurtosis": 4.513201510683212,
+          "observations": 301,
+          "basis": "observed trial dispersion"
+        },
+        "bootstrap_sharpe": {
+          "metric": "sharpe",
+          "observed": 0.4788269754918846,
+          "mean": 0.8404432422370569,
+          "p05": -0.5011728744717846,
+          "p50": 0.7985415963857545,
+          "p95": 2.335413912293994,
+          "prob_positive": 0.824,
+          "iterations": 1000,
+          "block": 21,
+          "seed": 20260828
+        },
+        "variance_ratio": {
+          "q": 5,
+          "variance_ratio": 0.9125651664999526,
+          "z_stat": -1.1020656980040109,
+          "p_value": 0.2704331107018674,
+          "observations": 1002,
+          "interpretation": "random walk not rejected"
+        },
+        "cpcv_pbo": {
+          "pbo": 0.542857,
+          "splits": 70,
+          "candidates": 2,
+          "candidate_names": [
+            "this run",
+            "bt-5bdfc7837dcc"
+          ],
+          "observations": 301,
+          "groups": 8,
+          "median_logit": -0.693147,
+          "note": null
+        },
+        "regimes": {
+          "buckets": [
+            {
+              "regime": "low volatility",
+              "observations": 94,
+              "sharpe": 1.083048,
+              "total_return": 0.068293,
+              "mean_volatility": 0.181493
+            },
+            {
+              "regime": "mid volatility",
+              "observations": 93,
+              "sharpe": 0.996245,
+              "total_return": 0.088477,
+              "mean_volatility": 0.241475
+            },
+            {
+              "regime": "high volatility",
+              "observations": 94,
+              "sharpe": 0.048114,
+              "total_return": -0.012348,
+              "mean_volatility": 0.317404
+            }
+          ],
+          "worst_sharpe": 0.048114,
+          "best_sharpe": 1.083048,
+          "positive_share": 1,
+          "window": 21,
+          "note": null
+        },
+        "lookahead": {
+          "clean": true,
+          "findings": [],
+          "checks": {
+            "return_series_starts_after_entry_bar": true,
+            "future_dated_bars": 0,
+            "required_warmup_bars": 273,
+            "trim_warmup": true
+          }
+        },
+        "artifact_bundle": {
+          "bundle_id": "69d9714eed9ca4ab",
+          "sha256": "69d9714eed9ca4ab36dd648d5904b1aeac7a7985ebaa68f261605f86b190d516",
+          "pinned_at": "2026-10-25T19:08:16.107076+00:00",
+          "config": {
+            "sha256": "a9b8ecc760b18e241e7797a72bc8b09f5c2915d1491dff209281ad17646e7218",
+            "bytes": 671
+          },
+          "data": {
+            "sha256": "0a6db9339f83db9793abc06681bb6357ea59290e90e634936ccc7e201072723b",
+            "rows": 1003,
+            "columns": 12,
+            "symbols": [
+              "AAPL",
+              "MSFT",
+              "NVDA"
+            ],
+            "first_bar": "2022-10-25T04:00:00+00:00",
+            "last_bar": "2026-10-23T04:00:00+00:00"
+          },
+          "code": {
+            "sha256": "f7ec949ceba3b2171f53fb456244f72cab6c02e2d6990bdceb362c75c19ef9b1",
+            "modules": [
+              "__init__.py",
+              "analyses.py",
+              "backtest.py"
+            ],
+            "tradinglib_version": "0.1.0"
+          }
+        },
+        "cost_sensitivity": {
+          "multiplier": 2,
+          "base_sharpe": 0.4788269754918846,
+          "stressed_sharpe": 0.4711239286226808,
+          "base_cagr": 0.09363041297749342,
+          "stressed_cagr": 0.09144235485456842,
+          "base_costs_bps": 6,
+          "stressed_costs_bps": 12
+        }
+      },
+      "hypothesis_id": "H-1",
+      "gates": [
+        {
+          "id": "min_oos_sharpe",
+          "name": "OOS Sharpe >= 0.8",
+          "metric": "sharpe",
+          "threshold": 0.8,
+          "comparator": ">=",
+          "observed": 0.4788269754918846,
+          "status": "fail",
+          "window": "out_of_sample",
+          "hard": false,
+          "detail": null,
+          "passed": false
+        },
+        {
+          "id": "max_drawdown",
+          "name": "Max drawdown <= 15%",
+          "metric": "max_drawdown",
+          "threshold": 0.15,
+          "comparator": "<=",
+          "observed": 0.2786775102946272,
+          "status": "fail",
+          "window": "full",
+          "hard": false,
+          "detail": null,
+          "passed": false
+        },
+        {
+          "id": "min_trades",
+          "name": "Trades >= 30",
+          "metric": "trades",
+          "threshold": 30,
+          "comparator": ">=",
+          "observed": 125,
+          "status": "pass",
+          "window": "full",
+          "hard": false,
+          "detail": null,
+          "passed": true
+        }
+      ],
+      "score": 58.333333333333336,
+      "promoted": false,
+      "thresholds": {
+        "min_oos_sharpe": 0.8,
+        "max_drawdown": 0.15,
+        "min_trades": 30,
+        "min_history_years": 2,
+        "cost_multiplier": 2,
+        "min_cost_retention": 0.6,
+        "min_deflated_sharpe": 0.5,
+        "max_p_value": 0.05,
+        "min_excess_return": 0,
+        "max_pbo": 0.5,
+        "cscv_groups": 8,
+        "min_regime_sharpe": 0,
+        "regime_buckets": 3
+      },
+      "trials": 2,
+      "overrides": [],
+      "comment": null,
+      "approvals": [],
+      "approvals_required": 2,
+      "approvals_signed": 0,
+      "approvals_outstanding": 2,
+      "promotion_pending": false
+    }
+  ],
+  "count": 1
+}

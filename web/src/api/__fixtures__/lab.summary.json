@@ -1,0 +1,16 @@
+{
+  "hypotheses": {
+    "total": 2,
+    "by_status": {
+      "draft": 1,
+      "active": 1,
+      "testing": 0,
+      "validated": 0,
+      "rejected": 0,
+      "archived": 0
+    }
+  },
+  "experiments": 3,
+  "experiment_runs": 2,
+  "backtests": 2
+}

@@ -85,7 +85,19 @@ ALLOWED: tuple[Allowed, ...] = (
 )
 
 
-def cases(symbols: list[str]) -> dict[str, list[Case]]:
+def lab_ids(url: str, limit: int = 3) -> dict[str, list[str]]:
+    """The first few hypotheses and experiments on the server, for the lab cases."""
+    out: dict[str, list[str]] = {"hypotheses": [], "experiments": []}
+    for tab in out:
+        try:
+            payload = json.load(urllib.request.urlopen(f"{url}/api/lab/{tab}", timeout=30))
+        except OSError:
+            continue
+        out[tab] = [row["id"] for row in payload.get(tab, [])[:limit]]
+    return out
+
+
+def cases(symbols: list[str], lab: dict[str, list[str]] | None = None) -> dict[str, list[Case]]:
     """The pages to compare, by group name."""
     overview = Case(
         name="overview",
@@ -140,7 +152,19 @@ def cases(symbols: list[str]) -> dict[str, list[Case]]:
         )
         for tab in ("collections", "screener", "source-catalog", "ingestion", "quality")
     ]
-    return {"overview": [overview], "stock": stock, "settings": [settings], "docs": docs, "data": data}
+    lab_cases = [
+        Case(
+            name=f"lab/{tab}" + (f"/{entity}" if entity else ""),
+            old_url=f"/#tl/lab/{tab}" + (f"?id={entity}" if entity else ""),
+            new_url=f"/app/lab/{tab}" + (f"?id={entity}" if entity else ""),
+            old_root="#page-lab",
+            new_root="main",
+            wait=15,
+        )
+        for tab, ids in (lab or {"hypotheses": [], "experiments": []}).items()
+        for entity in [None, *ids]
+    ]
+    return {"overview": [overview], "stock": stock, "settings": [settings], "docs": docs, "data": data, "lab": lab_cases}
 
 
 #: Runs inside the harness page; compares one case and returns the result.
@@ -299,7 +323,7 @@ async def main(argv: list[str] | None = None) -> int:
     parser.add_argument("--symbols", default="AAPL,MSFT,NVDA,SPY,GRAB", help="tickers for Stock Research")
     args = parser.parse_args(argv)
 
-    groups = cases([s.strip().upper() for s in args.symbols.split(",") if s.strip()])
+    groups = cases([s.strip().upper() for s in args.symbols.split(",") if s.strip()], lab_ids(args.url))
     chosen = args.groups or list(groups)
     unknown = [g for g in chosen if g not in groups]
     if unknown:

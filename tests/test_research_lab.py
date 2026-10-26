@@ -57,6 +57,10 @@ from tradinglib.research.validation import (
     variance_ratio_test,
 )
 
+def _utc_today() -> date:
+    return datetime.now(timezone.utc).date()
+
+
 #: Names whose synthetic path trends up, and names whose path drifts down.
 WINNERS = ("MOMA", "MOMB", "MOMC")
 LOSERS = ("LAGA", "LAGB", "LAGC")
@@ -108,7 +112,10 @@ def _seed(store: TimeSeriesStore, end: date) -> dict[str, pd.Series]:
 def lab(settings: Settings, bus: EventBus) -> Iterator[SimpleNamespace]:
     """A fully wired Strategy Lab over a temporary store and database."""
     store = reset_store(TimeSeriesStore(settings.ts_dir))
-    end = date.today()
+    # The UTC date, not the local one: the lookahead scan compares bar stamps
+    # with UTC now, and between local and UTC midnight the local date's bar
+    # would count as future data.
+    end = _utc_today()
     paths = _seed(store, end)
     backtests = BacktestEngine(store=store, bus=bus)
     analyses = AnalysisEngine(backtests=backtests, bus=bus)
@@ -519,7 +526,7 @@ async def test_promotion_requires_the_gates(lab: SimpleNamespace) -> None:
         ),
         benchmark=BENCHMARK,
         rebalance=Rebalance.MONTHLY,
-        start=date.today() - timedelta(days=200),
+        start=_utc_today() - timedelta(days=200),
         oos_fraction=0.3,
     )
     short_record = await lab.backtests.run(tiny)
@@ -892,7 +899,7 @@ async def test_the_lab_serves_the_screener_backtest_queue(lab: SimpleNamespace) 
         screen_run_id="sr-001",
         benchmark=BENCHMARK,
         rebalance="monthly",
-        start=date.today() - timedelta(days=900),
+        start=_utc_today() - timedelta(days=900),
     )
     config = queue.build_config(request)
     assert config.symbols == list(WINNERS)

@@ -37,3 +37,27 @@ jobs:
       - run: npm run typecheck
       - run: npm test
       - run: npm run build
+
+  docker:
+    # Builds the image and starts it, so a broken Dockerfile or a server that
+    # cannot boot in a container fails CI.
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - name: Build image
+        run: docker build -t tradinglib:ci .
+      - name: Start container
+        run: docker run -d --name tradinglib -p 127.0.0.1:8200:8200 tradinglib:ci
+      - name: Smoke test
+        run: |
+          for i in $(seq 1 60); do
+            curl -sf http://127.0.0.1:8200/api/health && break
+            sleep 1
+          done
+          curl -sf http://127.0.0.1:8200/api/health | grep -q '"ok":true'
+          curl -sf -o /dev/null http://127.0.0.1:8200/          # vanilla-JS console
+          curl -sf -o /dev/null http://127.0.0.1:8200/app/      # React console
+          test "$(docker exec tradinglib id -u)" != "0"         # not running as root
+      - name: Container logs
+        if: always()
+        run: docker logs tradinglib

@@ -103,6 +103,27 @@ the repository root; environment variables win. Copy
 `tradinglib.toml.example` to start. Every key is documented in
 `tradinglib/config.py`.
 
+## Docker
+
+```bash
+docker compose up --build        # http://127.0.0.1:8200 and /app
+```
+
+The `Dockerfile` has three stages: Node builds the React console, `uv`
+installs the locked Python environment, and the runtime image gets only the
+virtual environment and the two consoles (no Node, no `uv`, no build cache).
+The server runs as an unprivileged user; only `/app/data` is writable, and
+Compose keeps it in a named volume. API keys go in a local `.env` file as
+`TRADINGLIB_*` variables (see Configuration); `.dockerignore` keeps `.env`,
+`tradinglib.toml` and `data/` out of the image. The API has no
+authentication, so the port is published on `127.0.0.1` only.
+
+LLM agent stages need `ANTHROPIC_API_KEY` (or `TRADINGLIB_ANTHROPIC_API_KEY`) inside a container,
+since there is no logged-in Claude Code CLI there.
+
+CI builds the image, starts it and checks the health endpoint, both consoles
+and that the process is not running as root.
+
 ## Layout
 
 ```

@@ -1,0 +1,19 @@
+# docker compose up --build    then open http://127.0.0.1:8200
+services:
+  tradinglib:
+    build: .
+    image: tradinglib:local
+    # The API has no authentication, so it is published on localhost only.
+    ports:
+      - "127.0.0.1:8200:8200"
+    # API keys (TRADINGLIB_ANTHROPIC_API_KEY, TRADINGLIB_ALPACA_API_KEY, ...) go
+    # in a local .env file, which is never copied into the image.
+    env_file:
+      - path: .env
+        required: false
+    volumes:
+      - tradinglib-data:/app/data
+    restart: unless-stopped
+
+volumes:
+  tradinglib-data:
